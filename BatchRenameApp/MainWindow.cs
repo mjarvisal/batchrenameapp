@@ -59,7 +59,11 @@ namespace BatchRenameApp
         private void AddFile(string filename)
         {
             FileInfo file = new FileInfo(filename);
-            if (!file.Exists)
+            if (file.Attributes == FileAttributes.Directory)
+            {
+                throw new Exception("item is directory");
+            }
+                if (!file.Exists)
             {
                 throw new Exception("file '"+file.Name+"' doesn't exists!");
             }
@@ -103,11 +107,26 @@ namespace BatchRenameApp
         {
             e.Effect = DragDropEffects.None;
             string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
-
+            int errors = 0;
+            Exception outException = null;
             foreach (string file in files)
             {
-                AddFile(file);
+                try
+                {
+                    AddFile(file);
+                }
+                catch (Exception ex)
+                {
+                    errors += 1;
+                    outException = ex;
+                }
             }
+
+            if (errors > 0)
+            {
+                MessageBox.Show(outException.Message, errors + " Errors", MessageBoxButtons.OK);
+            }
+
         }
 
         private void listBoxFilelist_DragEnter(object sender, DragEventArgs e)

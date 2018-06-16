@@ -124,6 +124,8 @@
             this.listBoxPreview.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
             this.listBoxPreview.Size = new System.Drawing.Size(197, 316);
             this.listBoxPreview.TabIndex = 7;
+            this.listBoxPreview.DragDrop += new System.Windows.Forms.DragEventHandler(this.listBoxFilelist_DragDrop);
+            this.listBoxPreview.DragEnter += new System.Windows.Forms.DragEventHandler(this.listBoxFilelist_DragEnter);
             // 
             // label1
             // 
