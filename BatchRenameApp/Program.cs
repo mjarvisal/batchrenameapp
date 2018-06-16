@@ -8,15 +8,15 @@ namespace BatchRenameApp
 {
     static class Program
     {
-        /// <summary>
-        /// The main entry point for the application.
-        /// </summary>
+        static MainWindow mainWindowForm;
         [STAThread]
         static void Main()
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+
+            mainWindowForm = new MainWindow();
+            Application.Run(mainWindowForm);
         }
     }
 }
