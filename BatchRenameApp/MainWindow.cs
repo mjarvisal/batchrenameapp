@@ -59,13 +59,14 @@ namespace BatchRenameApp
         private void AddFile(string filename)
         {
             FileInfo file = new FileInfo(filename);
+            if (!file.Exists)
+            {
+                throw new Exception("file '" + file.Name + "' doesn't exists!");
+            }
+
             if (file.Attributes.HasFlag(FileAttributes.Directory))
             {
                 throw new Exception("item is directory");
-            }
-            else if (!file.Exists)
-            {
-                throw new Exception("file '" + file.Name + "' doesn't exists!");
             }
 
             // check for duplicates
@@ -128,8 +129,6 @@ namespace BatchRenameApp
             }
 
             UpdatePreview();
-
-
         }
 
         private void listBoxFilelist_DragEnter(object sender, DragEventArgs e)
@@ -171,7 +170,7 @@ namespace BatchRenameApp
         {
             if (listBoxPreview.Items.Count == 0)
             {
-                MessageBox.Show("No files to rename ", "Error", MessageBoxButtons.OK);
+                MessageBox.Show("You must preview changes before renaming! ", "Error", MessageBoxButtons.OK);
                 return;
             }
 
@@ -182,8 +181,6 @@ namespace BatchRenameApp
             }
 
             // @todo - do actual renaming!
-
-
 
         }
 
@@ -207,18 +204,14 @@ namespace BatchRenameApp
 
                     StringFormat stringFormat = new StringFormat();
                     stringFormat.Alignment = StringAlignment.Near;
-                    CharacterRange[] characterRanges = { new CharacterRange(0, 5),  new CharacterRange(match.Index, match.Length) };
+                    CharacterRange[] characterRanges = { new CharacterRange(match.Index, match.Length) };
                     stringFormat.SetMeasurableCharacterRanges(characterRanges);
-                   
-                    Rectangle recti = new Rectangle(e.Bounds.X, e.Bounds.Y, e.Bounds.Width, e.Bounds.Height);
+
                     Region[] regions = e.Graphics.MeasureCharacterRanges(itemText, e.Font, e.Bounds, stringFormat);
 
-                    RectangleF rect = regions[1].GetBounds(e.Graphics);
-                   
+                    RectangleF rect = regions[0].GetBounds(e.Graphics);
 
                     e.Graphics.FillRectangle(Brushes.Yellow, Rectangle.Round(rect));
-
-
                 }
                 e.Graphics.DrawString(itemText, e.Font, brush, e.Bounds);
             }
