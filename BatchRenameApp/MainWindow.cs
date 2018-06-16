@@ -43,7 +43,7 @@ namespace BatchRenameApp
 
             if (errors > 0)
             {
-                MessageBox.Show(outException.Message, errors + "Errors", MessageBoxButtons.OK);
+                MessageBox.Show(outException.Message, errors + " Errors", MessageBoxButtons.OK);
             }
 
 
@@ -59,7 +59,11 @@ namespace BatchRenameApp
         private void AddFile(string filename)
         {
             FileInfo file = new FileInfo(filename);
-            
+            if (!file.Exists)
+            {
+                throw new Exception("file '"+file.Name+"' doesn't exists!");
+            }
+
             // check for duplicates
             foreach (FileInfo tmpFile in files)
             {
