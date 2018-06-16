@@ -18,7 +18,7 @@ namespace BatchRenameApp
 {
     public partial class MainWindow : Form
     {
-        string[] args; 
+        string[] args;
         HashSet<FileInfo> files = new HashSet<FileInfo>();
 
 
@@ -29,12 +29,13 @@ namespace BatchRenameApp
             int errors = 0;
             Exception outException = null;
 
-           foreach (string item in GetArgs())
+            foreach (string item in GetArgs())
             {
                 try
                 {
                     AddFile(item);
-                } catch (Exception e)
+                }
+                catch (Exception e)
                 {
                     errors += 1;
                     outException = e;
@@ -63,9 +64,9 @@ namespace BatchRenameApp
             {
                 throw new Exception("item is directory");
             }
-                if (!file.Exists)
+            if (!file.Exists)
             {
-                throw new Exception("file '"+file.Name+"' doesn't exists!");
+                throw new Exception("file '" + file.Name + "' doesn't exists!");
             }
 
             // check for duplicates
@@ -78,8 +79,8 @@ namespace BatchRenameApp
             }
             // if no duplicates, add file to list
 
-           files.Add(file);
-           listBoxFilelist.Items.Add(file);
+            files.Add(file);
+            listBoxFilelist.Items.Add(file);
         }
 
         private void RemoveFile(string filename)
@@ -99,7 +100,7 @@ namespace BatchRenameApp
         }
 
         private void listBoxFilelist_SelectedIndexChanged(object sender, EventArgs e)
-        { 
+        {
 
         }
 
@@ -143,14 +144,8 @@ namespace BatchRenameApp
                 RemoveFile(listbox.SelectedItem.ToString());
                 UpdatePreview();
             }
-          
-        }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            UpdatePreview();
         }
-
 
         private void UpdatePreview()
         {
@@ -172,9 +167,10 @@ namespace BatchRenameApp
 
         private void buttonRename_Click(object sender, EventArgs e)
         {
-            if ( listBoxPreview.Items.Count == 0) {
+            if (listBoxPreview.Items.Count == 0)
+            {
                 MessageBox.Show("You must preview changes before renaming! ", "Error", MessageBoxButtons.OK);
-                    return;
+                return;
             }
 
             if (listBoxPreview.Items.Count != listBoxFilelist.Items.Count)
@@ -188,5 +184,50 @@ namespace BatchRenameApp
 
 
         }
+
+        private void buttonPreview_Click(object sender, EventArgs e)
+        {
+            UpdatePreview();
+        }
+
+        private void listBoxFilelist_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            e.DrawBackground();
+
+            Brush brush = new SolidBrush(e.ForeColor);
+
+
+            if (e.Index > -1)
+            {
+                string itemText = listBoxFilelist.Items[e.Index].ToString();
+                Regex regex = new Regex(inputSearch.Text);
+
+                MatchCollection collection = regex.Matches(itemText);
+
+
+                foreach (Match match in collection)
+                {
+
+                    StringFormat stringFormat = new StringFormat();
+                    stringFormat.Alignment = StringAlignment.Near;
+                    CharacterRange[] characterRanges = { new CharacterRange(0, 5),  new CharacterRange(match.Index, match.Length) };
+                    stringFormat.SetMeasurableCharacterRanges(characterRanges);
+                   
+                    Rectangle recti = new Rectangle(e.Bounds.X, e.Bounds.Y, e.Bounds.Width, e.Bounds.Height);
+                    Region[] regions = e.Graphics.MeasureCharacterRanges(itemText, e.Font, e.Bounds, stringFormat);
+
+                    RectangleF rect = regions[1].GetBounds(e.Graphics);
+                   
+
+                    e.Graphics.FillRectangle(Brushes.Yellow, Rectangle.Round(rect));
+
+
+                }
+                e.Graphics.DrawString(itemText, e.Font, brush, e.Bounds);
+            }
+            e.DrawFocusRectangle();
+        }
+
+
     }
 }

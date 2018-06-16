@@ -39,6 +39,7 @@
             this.listBoxPreview = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
             this.buttonRename = new System.Windows.Forms.Button();
+            this.checkBoxUseRegex = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // listBoxFilelist
@@ -47,13 +48,15 @@
             this.listBoxFilelist.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.listBoxFilelist.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.listBoxFilelist.FormattingEnabled = true;
             this.listBoxFilelist.HorizontalScrollbar = true;
-            this.listBoxFilelist.Location = new System.Drawing.Point(12, 140);
+            this.listBoxFilelist.Location = new System.Drawing.Point(12, 202);
             this.listBoxFilelist.Name = "listBoxFilelist";
             this.listBoxFilelist.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.listBoxFilelist.Size = new System.Drawing.Size(197, 316);
+            this.listBoxFilelist.Size = new System.Drawing.Size(197, 238);
             this.listBoxFilelist.TabIndex = 0;
+            this.listBoxFilelist.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.listBoxFilelist_DrawItem);
             this.listBoxFilelist.SelectedIndexChanged += new System.EventHandler(this.listBoxFilelist_SelectedIndexChanged);
             this.listBoxFilelist.DragDrop += new System.Windows.Forms.DragEventHandler(this.listBoxFilelist_DragDrop);
             this.listBoxFilelist.DragEnter += new System.Windows.Forms.DragEventHandler(this.listBoxFilelist_DragEnter);
@@ -79,7 +82,7 @@
             // labelFileList
             // 
             this.labelFileList.AutoSize = true;
-            this.labelFileList.Location = new System.Drawing.Point(12, 124);
+            this.labelFileList.Location = new System.Drawing.Point(12, 182);
             this.labelFileList.Name = "labelFileList";
             this.labelFileList.Size = new System.Drawing.Size(89, 13);
             this.labelFileList.TabIndex = 3;
@@ -99,17 +102,17 @@
             this.inputReplace.Location = new System.Drawing.Point(12, 83);
             this.inputReplace.Name = "inputReplace";
             this.inputReplace.Size = new System.Drawing.Size(252, 20);
-            this.inputReplace.TabIndex = 4;
+            this.inputReplace.TabIndex = 2;
             // 
             // buttonPreview
             // 
             this.buttonPreview.Location = new System.Drawing.Point(286, 80);
             this.buttonPreview.Name = "buttonPreview";
             this.buttonPreview.Size = new System.Drawing.Size(75, 23);
-            this.buttonPreview.TabIndex = 6;
+            this.buttonPreview.TabIndex = 4;
             this.buttonPreview.Text = "Preview";
             this.buttonPreview.UseVisualStyleBackColor = true;
-            this.buttonPreview.Click += new System.EventHandler(this.button1_Click);
+            this.buttonPreview.Click += new System.EventHandler(this.buttonPreview_Click);
             // 
             // listBoxPreview
             // 
@@ -119,10 +122,10 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listBoxPreview.FormattingEnabled = true;
             this.listBoxPreview.HorizontalScrollbar = true;
-            this.listBoxPreview.Location = new System.Drawing.Point(267, 140);
+            this.listBoxPreview.Location = new System.Drawing.Point(267, 202);
             this.listBoxPreview.Name = "listBoxPreview";
             this.listBoxPreview.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.listBoxPreview.Size = new System.Drawing.Size(197, 316);
+            this.listBoxPreview.Size = new System.Drawing.Size(197, 238);
             this.listBoxPreview.TabIndex = 7;
             this.listBoxPreview.DragDrop += new System.Windows.Forms.DragEventHandler(this.listBoxFilelist_DragDrop);
             this.listBoxPreview.DragEnter += new System.Windows.Forms.DragEventHandler(this.listBoxFilelist_DragEnter);
@@ -130,7 +133,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(264, 124);
+            this.label1.Location = new System.Drawing.Point(264, 182);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(97, 13);
             this.label1.TabIndex = 8;
@@ -138,7 +141,7 @@
             // 
             // buttonRename
             // 
-            this.buttonRename.Location = new System.Drawing.Point(389, 462);
+            this.buttonRename.Location = new System.Drawing.Point(389, 457);
             this.buttonRename.Name = "buttonRename";
             this.buttonRename.Size = new System.Drawing.Size(75, 23);
             this.buttonRename.TabIndex = 9;
@@ -146,12 +149,23 @@
             this.buttonRename.UseVisualStyleBackColor = true;
             this.buttonRename.Click += new System.EventHandler(this.buttonRename_Click);
             // 
+            // checkBoxUseRegex
+            // 
+            this.checkBoxUseRegex.AutoSize = true;
+            this.checkBoxUseRegex.Location = new System.Drawing.Point(286, 41);
+            this.checkBoxUseRegex.Name = "checkBoxUseRegex";
+            this.checkBoxUseRegex.Size = new System.Drawing.Size(143, 17);
+            this.checkBoxUseRegex.TabIndex = 3;
+            this.checkBoxUseRegex.Text = "Use Regular expressions";
+            this.checkBoxUseRegex.UseVisualStyleBackColor = true;
+            // 
             // MainWindow
             // 
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(487, 516);
+            this.Controls.Add(this.checkBoxUseRegex);
             this.Controls.Add(this.buttonRename);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.listBoxPreview);
@@ -185,6 +199,7 @@
         private System.Windows.Forms.Label labelFileList;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button buttonRename;
+        private System.Windows.Forms.CheckBox checkBoxUseRegex;
     }
 }
 
