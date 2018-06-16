@@ -35,7 +35,6 @@
             this.labelFileList = new System.Windows.Forms.Label();
             this.labelReplace = new System.Windows.Forms.Label();
             this.inputReplace = new System.Windows.Forms.TextBox();
-            this.buttonPreview = new System.Windows.Forms.Button();
             this.listBoxPreview = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
             this.buttonRename = new System.Windows.Forms.Button();
@@ -104,16 +103,6 @@
             this.inputReplace.Size = new System.Drawing.Size(252, 20);
             this.inputReplace.TabIndex = 2;
             // 
-            // buttonPreview
-            // 
-            this.buttonPreview.Location = new System.Drawing.Point(286, 80);
-            this.buttonPreview.Name = "buttonPreview";
-            this.buttonPreview.Size = new System.Drawing.Size(75, 23);
-            this.buttonPreview.TabIndex = 4;
-            this.buttonPreview.Text = "Preview";
-            this.buttonPreview.UseVisualStyleBackColor = true;
-            this.buttonPreview.Click += new System.EventHandler(this.buttonPreview_Click);
-            // 
             // listBoxPreview
             // 
             this.listBoxPreview.AllowDrop = true;
@@ -169,7 +158,6 @@
             this.Controls.Add(this.buttonRename);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.listBoxPreview);
-            this.Controls.Add(this.buttonPreview);
             this.Controls.Add(this.labelReplace);
             this.Controls.Add(this.inputReplace);
             this.Controls.Add(this.labelFileList);
@@ -177,11 +165,13 @@
             this.Controls.Add(this.inputSearch);
             this.Controls.Add(this.listBoxFilelist);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.KeyPreview = true;
             this.MinimumSize = new System.Drawing.Size(495, 550);
             this.Name = "MainWindow";
             this.Text = "BatchRenameApp";
             this.DragDrop += new System.Windows.Forms.DragEventHandler(this.listBoxFilelist_DragDrop);
             this.DragEnter += new System.Windows.Forms.DragEventHandler(this.listBoxFilelist_DragEnter);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainWindow_KeyDown);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -194,7 +184,6 @@
         private System.Windows.Forms.Label labelRegExp;
         private System.Windows.Forms.Label labelReplace;
         private System.Windows.Forms.TextBox inputReplace;
-        private System.Windows.Forms.Button buttonPreview;
         public System.Windows.Forms.ListBox listBoxPreview;
         private System.Windows.Forms.Label labelFileList;
         private System.Windows.Forms.Label label1;

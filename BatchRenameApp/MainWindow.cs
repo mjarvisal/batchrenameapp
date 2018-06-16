@@ -21,7 +21,6 @@ namespace BatchRenameApp
         string[] args;
         HashSet<FileInfo> files = new HashSet<FileInfo>();
 
-
         public MainWindow()
         {
             InitializeComponent();
@@ -60,11 +59,11 @@ namespace BatchRenameApp
         private void AddFile(string filename)
         {
             FileInfo file = new FileInfo(filename);
-            if (file.Attributes == FileAttributes.Directory)
+            if (file.Attributes.HasFlag(FileAttributes.Directory))
             {
                 throw new Exception("item is directory");
             }
-            if (!file.Exists)
+            else if (!file.Exists)
             {
                 throw new Exception("file '" + file.Name + "' doesn't exists!");
             }
@@ -101,7 +100,7 @@ namespace BatchRenameApp
 
         private void listBoxFilelist_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            UpdatePreview();
         }
 
         private void listBoxFilelist_DragDrop(object sender, DragEventArgs e)
@@ -127,6 +126,9 @@ namespace BatchRenameApp
             {
                 MessageBox.Show(outException.Message, errors + " Errors", MessageBoxButtons.OK);
             }
+
+            UpdatePreview();
+
 
         }
 
@@ -169,7 +171,7 @@ namespace BatchRenameApp
         {
             if (listBoxPreview.Items.Count == 0)
             {
-                MessageBox.Show("You must preview changes before renaming! ", "Error", MessageBoxButtons.OK);
+                MessageBox.Show("No files to rename ", "Error", MessageBoxButtons.OK);
                 return;
             }
 
@@ -183,11 +185,6 @@ namespace BatchRenameApp
 
 
 
-        }
-
-        private void buttonPreview_Click(object sender, EventArgs e)
-        {
-            UpdatePreview();
         }
 
         private void listBoxFilelist_DrawItem(object sender, DrawItemEventArgs e)
@@ -228,6 +225,26 @@ namespace BatchRenameApp
             e.DrawFocusRectangle();
         }
 
-
+        private void MainWindow_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch(e.KeyCode)
+            {
+                case (Keys.Escape):
+                    Debug.Print("Escape");
+                    listBoxFilelist.ClearSelected();
+                    break;
+                case (Keys.Delete):
+                    Debug.Print("delete");
+                    Object[] SelectedItems = new Object[listBoxFilelist.SelectedItems.Count];
+                    listBoxFilelist.SelectedItems.CopyTo(SelectedItems, 0);
+                    foreach (object Item in SelectedItems)
+                    {
+                        RemoveFile(Item.ToString());
+                        listBoxFilelist.Items.Remove(Item);
+                    }
+                    UpdatePreview();
+                    break;
+            }
+        }
     }
 }
