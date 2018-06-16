@@ -124,7 +124,7 @@
             this.listBoxPreview.HorizontalScrollbar = true;
             this.listBoxPreview.Location = new System.Drawing.Point(267, 202);
             this.listBoxPreview.Name = "listBoxPreview";
-            this.listBoxPreview.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
+            this.listBoxPreview.SelectionMode = System.Windows.Forms.SelectionMode.None;
             this.listBoxPreview.Size = new System.Drawing.Size(197, 238);
             this.listBoxPreview.TabIndex = 7;
             this.listBoxPreview.DragDrop += new System.Windows.Forms.DragEventHandler(this.listBoxFilelist_DragDrop);
