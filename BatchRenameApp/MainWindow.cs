@@ -16,17 +16,19 @@ using System.Text.RegularExpressions;
 
 namespace BatchRenameApp
 {
+
     public partial class MainWindow : Form
     {
 
         string[] args;
-        HashSet<FileInfo> files = new HashSet<FileInfo>();
+
         bool bInputfilesChanged = false;
+        FilenameStorage filestorage = new FilenameStorage();
 
         public MainWindow()
         {
             InitializeComponent();
-            files.Clear();
+
             int errors = 0;
             Exception outException = null;
 
@@ -34,7 +36,7 @@ namespace BatchRenameApp
             {
                 try
                 {
-                    AddFile(item);
+                    filestorage.AddFile(item);
                 }
                 catch (Exception e)
                 {
@@ -58,50 +60,7 @@ namespace BatchRenameApp
             return args;
         }
 
-        private void AddFile(string filename)
-        {
-            FileInfo file = new FileInfo(filename);
-            if (!file.Exists)
-            {
-                throw new Exception("file '" + file.Name + "' doesn't exists!");
-            }
 
-            else if (file.Attributes.HasFlag(FileAttributes.Directory))
-            {
-                throw new Exception("item is directory");
-            }
-
-            // check for duplicates
-            foreach (FileInfo tmpFile in files)
-            {
-                if (tmpFile.FullName == file.FullName)
-                {
-                    return;
-                }
-            }
-            // if no duplicates, add file to list
-
-            files.Add(file);
-            listBoxFilelist.Items.Add(file);
-            bInputfilesChanged = true;
-        }
-
-        private void RemoveFile(string filename)
-        {
-            FileInfo file = new FileInfo(filename);
-            int x = 0;
-            foreach (FileInfo item in listBoxFilelist.Items)
-            {
-                if (file.FullName == item.FullName)
-                {
-                    listBoxFilelist.Items.Remove(item);
-                    files.Remove(item);
-                    bInputfilesChanged = true;
-                    return;
-                }
-                x += 1;
-            }
-        }
 
         private void listBoxFilelist_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -118,7 +77,7 @@ namespace BatchRenameApp
             {
                 try
                 {
-                    AddFile(file);
+                    filestorage.AddFile(file);
                 }
                 catch (Exception ex)
                 {
@@ -132,7 +91,7 @@ namespace BatchRenameApp
                 MessageBox.Show(outException.Message, errors + " Errors", MessageBoxButtons.OK);
             }
 
-            UpdatePreview();
+            UpdateFilelist();
         }
 
         private void listBoxFilelist_DragEnter(object sender, DragEventArgs e)
@@ -146,32 +105,45 @@ namespace BatchRenameApp
 
             if (listbox.SelectedItem != null)
             {
-                RemoveFile(listbox.SelectedItem.ToString());
-                UpdatePreview();
+                filestorage.RemoveFile(listbox.SelectedItem.ToString());
+                UpdateFilelist();
             }
+
+        }
+
+        public void UpdateFilelist()
+        {
+            listBoxFilelist.Items.Clear();
+            foreach (string file in filestorage.GetFiles())
+            {
+                listBoxFilelist.Items.Add(file);
+            }
+
+            UpdatePreview();
 
         }
 
         private void UpdatePreview()
         {
             listBoxPreview.Items.Clear();
-
             if (inputSearch.Text.Length > 0)
             {
-                foreach (FileInfo file in files)
+                foreach (string file in filestorage.GetFiles())
                 {
+
                     try
                     {
                         Regex regex = new Regex(inputSearch.Text);
-                        listBoxPreview.Items.Add(file.DirectoryName + "\\" + regex.Replace(file.Name, inputReplace.Text));
+                        listBoxPreview.Items.Add(regex.Replace(file, inputReplace.Text));
                     }
                     catch (ArgumentException)
                     {
-                        listBoxPreview.Items.Add(file.FullName);
+                        listBoxPreview.Items.Add(file);
                     }
                 }
             }
         }
+
 
         private void buttonRename_Click(object sender, EventArgs e)
         {
@@ -193,7 +165,7 @@ namespace BatchRenameApp
 
         private void listBoxFilelist_DrawItem(object sender, DrawItemEventArgs e)
         {
-            
+
             e.DrawBackground();
 
             Brush brush = new SolidBrush(e.ForeColor);
@@ -266,15 +238,14 @@ namespace BatchRenameApp
                     listBoxFilelist.ClearSelected();
                     break;
                 case (Keys.Delete):
-                     
-                    if(listBoxFilelist.ClientRectangle.Contains(listBoxFilelist.PointToClient(MousePosition)))
+
+                    if (listBoxFilelist.ClientRectangle.Contains(listBoxFilelist.PointToClient(MousePosition)))
                     {
                         Object[] SelectedItems = new Object[listBoxFilelist.SelectedItems.Count];
                         listBoxFilelist.SelectedItems.CopyTo(SelectedItems, 0);
                         foreach (object Item in SelectedItems)
                         {
-                            RemoveFile(Item.ToString());
-                            listBoxFilelist.Items.Remove(Item);
+                            filestorage.RemoveFile(Item.ToString());
                         }
                         UpdatePreview();
                     }
@@ -290,6 +261,35 @@ namespace BatchRenameApp
         private void inputReplace_TextChanged(object sender, EventArgs e)
         {
             UpdatePreview();
+        }
+
+        private void MainWindow_Load(object sender, EventArgs e)
+        {
+            UpdateFilelist();
+        }
+
+        private void ascendingToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            filestorage.SortAsc();
+            UpdateFilelist();
+        }
+
+        private void descendingToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            filestorage.SortDesc();
+            UpdateFilelist();
+        }
+
+        private void noSortToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            filestorage.ResetSort();
+            UpdateFilelist();
+        }
+
+        private void undoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            filestorage.Undo();
+            UpdateFilelist();
         }
     }
 }

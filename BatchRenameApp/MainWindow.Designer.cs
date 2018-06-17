@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
             this.listBoxFilelist = new System.Windows.Forms.ListBox();
             this.inputSearch = new System.Windows.Forms.TextBox();
@@ -39,11 +40,21 @@
             this.labelChanged = new System.Windows.Forms.Label();
             this.buttonRename = new System.Windows.Forms.Button();
             this.checkBoxUseRegex = new System.Windows.Forms.CheckBox();
+            this.contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.sortToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ascendingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.descendingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.noSortToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.regularExpressionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.undoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // listBoxFilelist
             // 
-            this.listBoxFilelist.AllowDrop = true;
             this.listBoxFilelist.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -57,8 +68,6 @@
             this.listBoxFilelist.TabIndex = 0;
             this.listBoxFilelist.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.listBoxFilelist_DrawItem);
             this.listBoxFilelist.SelectedIndexChanged += new System.EventHandler(this.listBoxFilelist_SelectedIndexChanged);
-            this.listBoxFilelist.DragDrop += new System.Windows.Forms.DragEventHandler(this.listBoxFilelist_DragDrop);
-            this.listBoxFilelist.DragEnter += new System.Windows.Forms.DragEventHandler(this.listBoxFilelist_DragEnter);
             this.listBoxFilelist.DoubleClick += new System.EventHandler(this.listBoxFilelist_DoubleClick);
             // 
             // inputSearch
@@ -107,7 +116,6 @@
             // 
             // listBoxPreview
             // 
-            this.listBoxPreview.AllowDrop = true;
             this.listBoxPreview.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -118,8 +126,6 @@
             this.listBoxPreview.SelectionMode = System.Windows.Forms.SelectionMode.None;
             this.listBoxPreview.Size = new System.Drawing.Size(197, 238);
             this.listBoxPreview.TabIndex = 7;
-            this.listBoxPreview.DragDrop += new System.Windows.Forms.DragEventHandler(this.listBoxFilelist_DragDrop);
-            this.listBoxPreview.DragEnter += new System.Windows.Forms.DragEventHandler(this.listBoxFilelist_DragEnter);
             // 
             // labelChanged
             // 
@@ -150,12 +156,86 @@
             this.checkBoxUseRegex.Text = "Use Regular expressions";
             this.checkBoxUseRegex.UseVisualStyleBackColor = true;
             // 
+            // contextMenu
+            // 
+            this.contextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.undoToolStripMenuItem,
+            this.sortToolStripMenuItem,
+            this.toolStripSeparator2,
+            this.helpToolStripMenuItem});
+            this.contextMenu.Name = "contextMenu";
+            this.contextMenu.Size = new System.Drawing.Size(104, 76);
+            // 
+            // sortToolStripMenuItem
+            // 
+            this.sortToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ascendingToolStripMenuItem,
+            this.descendingToolStripMenuItem,
+            this.toolStripSeparator1,
+            this.noSortToolStripMenuItem});
+            this.sortToolStripMenuItem.Name = "sortToolStripMenuItem";
+            this.sortToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.sortToolStripMenuItem.Text = "Sort";
+            // 
+            // ascendingToolStripMenuItem
+            // 
+            this.ascendingToolStripMenuItem.Name = "ascendingToolStripMenuItem";
+            this.ascendingToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.ascendingToolStripMenuItem.Text = "Ascending";
+            this.ascendingToolStripMenuItem.Click += new System.EventHandler(this.ascendingToolStripMenuItem_Click);
+            // 
+            // descendingToolStripMenuItem
+            // 
+            this.descendingToolStripMenuItem.Name = "descendingToolStripMenuItem";
+            this.descendingToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.descendingToolStripMenuItem.Text = "Descending";
+            this.descendingToolStripMenuItem.Click += new System.EventHandler(this.descendingToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
+            // 
+            // noSortToolStripMenuItem
+            // 
+            this.noSortToolStripMenuItem.Name = "noSortToolStripMenuItem";
+            this.noSortToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.noSortToolStripMenuItem.Text = "Reset";
+            this.noSortToolStripMenuItem.Click += new System.EventHandler(this.noSortToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(100, 6);
+            // 
+            // helpToolStripMenuItem
+            // 
+            this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.regularExpressionsToolStripMenuItem});
+            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.helpToolStripMenuItem.Text = "Help";
+            // 
+            // regularExpressionsToolStripMenuItem
+            // 
+            this.regularExpressionsToolStripMenuItem.Name = "regularExpressionsToolStripMenuItem";
+            this.regularExpressionsToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
+            this.regularExpressionsToolStripMenuItem.Text = "Regular expressions";
+            // 
+            // undoToolStripMenuItem
+            // 
+            this.undoToolStripMenuItem.Name = "undoToolStripMenuItem";
+            this.undoToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.undoToolStripMenuItem.Text = "Undo";
+            this.undoToolStripMenuItem.Click += new System.EventHandler(this.undoToolStripMenuItem_Click);
+            // 
             // MainWindow
             // 
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(487, 516);
+            this.ContextMenuStrip = this.contextMenu;
             this.Controls.Add(this.checkBoxUseRegex);
             this.Controls.Add(this.buttonRename);
             this.Controls.Add(this.labelChanged);
@@ -171,9 +251,11 @@
             this.MinimumSize = new System.Drawing.Size(495, 550);
             this.Name = "MainWindow";
             this.Text = "BatchRenameApp";
+            this.Load += new System.EventHandler(this.MainWindow_Load);
             this.DragDrop += new System.Windows.Forms.DragEventHandler(this.listBoxFilelist_DragDrop);
             this.DragEnter += new System.Windows.Forms.DragEventHandler(this.listBoxFilelist_DragEnter);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainWindow_KeyDown);
+            this.contextMenu.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -191,6 +273,16 @@
         private System.Windows.Forms.Label labelChanged;
         private System.Windows.Forms.Button buttonRename;
         private System.Windows.Forms.CheckBox checkBoxUseRegex;
+        private System.Windows.Forms.ContextMenuStrip contextMenu;
+        private System.Windows.Forms.ToolStripMenuItem sortToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem noSortToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem ascendingToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem descendingToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem regularExpressionsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem undoToolStripMenuItem;
     }
 }
 
