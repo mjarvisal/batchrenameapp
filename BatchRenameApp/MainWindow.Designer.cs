@@ -36,7 +36,7 @@
             this.labelReplace = new System.Windows.Forms.Label();
             this.inputReplace = new System.Windows.Forms.TextBox();
             this.listBoxPreview = new System.Windows.Forms.ListBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.labelChanged = new System.Windows.Forms.Label();
             this.buttonRename = new System.Windows.Forms.Button();
             this.checkBoxUseRegex = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
@@ -47,7 +47,7 @@
             this.listBoxFilelist.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.listBoxFilelist.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.listBoxFilelist.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
             this.listBoxFilelist.FormattingEnabled = true;
             this.listBoxFilelist.HorizontalScrollbar = true;
             this.listBoxFilelist.Location = new System.Drawing.Point(12, 202);
@@ -68,6 +68,7 @@
             this.inputSearch.Name = "inputSearch";
             this.inputSearch.Size = new System.Drawing.Size(252, 20);
             this.inputSearch.TabIndex = 1;
+            this.inputSearch.TextChanged += new System.EventHandler(this.inputSearch_TextChanged);
             // 
             // labelRegExp
             // 
@@ -102,6 +103,7 @@
             this.inputReplace.Name = "inputReplace";
             this.inputReplace.Size = new System.Drawing.Size(252, 20);
             this.inputReplace.TabIndex = 2;
+            this.inputReplace.TextChanged += new System.EventHandler(this.inputReplace_TextChanged);
             // 
             // listBoxPreview
             // 
@@ -119,14 +121,14 @@
             this.listBoxPreview.DragDrop += new System.Windows.Forms.DragEventHandler(this.listBoxFilelist_DragDrop);
             this.listBoxPreview.DragEnter += new System.Windows.Forms.DragEventHandler(this.listBoxFilelist_DragEnter);
             // 
-            // label1
+            // labelChanged
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(264, 182);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(97, 13);
-            this.label1.TabIndex = 8;
-            this.label1.Text = "Changed filenames";
+            this.labelChanged.AutoSize = true;
+            this.labelChanged.Location = new System.Drawing.Point(264, 182);
+            this.labelChanged.Name = "labelChanged";
+            this.labelChanged.Size = new System.Drawing.Size(97, 13);
+            this.labelChanged.TabIndex = 8;
+            this.labelChanged.Text = "Changed filenames";
             // 
             // buttonRename
             // 
@@ -156,7 +158,7 @@
             this.ClientSize = new System.Drawing.Size(487, 516);
             this.Controls.Add(this.checkBoxUseRegex);
             this.Controls.Add(this.buttonRename);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.labelChanged);
             this.Controls.Add(this.listBoxPreview);
             this.Controls.Add(this.labelReplace);
             this.Controls.Add(this.inputReplace);
@@ -186,7 +188,7 @@
         private System.Windows.Forms.TextBox inputReplace;
         public System.Windows.Forms.ListBox listBoxPreview;
         private System.Windows.Forms.Label labelFileList;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label labelChanged;
         private System.Windows.Forms.Button buttonRename;
         private System.Windows.Forms.CheckBox checkBoxUseRegex;
     }

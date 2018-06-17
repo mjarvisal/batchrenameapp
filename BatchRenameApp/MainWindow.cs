@@ -18,8 +18,10 @@ namespace BatchRenameApp
 {
     public partial class MainWindow : Form
     {
+
         string[] args;
         HashSet<FileInfo> files = new HashSet<FileInfo>();
+        bool bInputfilesChanged = false;
 
         public MainWindow()
         {
@@ -64,7 +66,7 @@ namespace BatchRenameApp
                 throw new Exception("file '" + file.Name + "' doesn't exists!");
             }
 
-            if (file.Attributes.HasFlag(FileAttributes.Directory))
+            else if (file.Attributes.HasFlag(FileAttributes.Directory))
             {
                 throw new Exception("item is directory");
             }
@@ -81,6 +83,7 @@ namespace BatchRenameApp
 
             files.Add(file);
             listBoxFilelist.Items.Add(file);
+            bInputfilesChanged = true;
         }
 
         private void RemoveFile(string filename)
@@ -93,6 +96,7 @@ namespace BatchRenameApp
                 {
                     listBoxFilelist.Items.Remove(item);
                     files.Remove(item);
+                    bInputfilesChanged = true;
                     return;
                 }
                 x += 1;
@@ -152,16 +156,19 @@ namespace BatchRenameApp
         {
             listBoxPreview.Items.Clear();
 
-            foreach (FileInfo file in files)
+            if (inputSearch.Text.Length > 0)
             {
-                try
+                foreach (FileInfo file in files)
                 {
-                    Regex regex = new Regex(inputSearch.Text);
-                    listBoxPreview.Items.Add(file.Directory + "\\" + regex.Replace(file.Name, inputReplace.Text));
-                }
-                catch (Exception ex)
-                {
-
+                    try
+                    {
+                        Regex regex = new Regex(inputSearch.Text);
+                        listBoxPreview.Items.Add(file.DirectoryName + "\\" + regex.Replace(file.Name, inputReplace.Text));
+                    }
+                    catch (ArgumentException)
+                    {
+                        listBoxPreview.Items.Add(file.FullName);
+                    }
                 }
             }
         }
@@ -186,58 +193,103 @@ namespace BatchRenameApp
 
         private void listBoxFilelist_DrawItem(object sender, DrawItemEventArgs e)
         {
+            
             e.DrawBackground();
 
             Brush brush = new SolidBrush(e.ForeColor);
 
+            bool bValidregex = false;
 
             if (e.Index > -1)
             {
                 string itemText = listBoxFilelist.Items[e.Index].ToString();
-                Regex regex = new Regex(inputSearch.Text);
 
-                MatchCollection collection = regex.Matches(itemText);
-
-
-                foreach (Match match in collection)
+                if (bInputfilesChanged)
                 {
+                    if (listBoxFilelist.HorizontalExtent < TextRenderer.MeasureText(itemText, e.Font).Width + 20)
+                    {
+                        listBoxFilelist.HorizontalExtent = TextRenderer.MeasureText(itemText, e.Font).Width + 20;
+                    }
+                    if (e.Index >= listBoxFilelist.Items.Count)
+                    {
+                        bInputfilesChanged = false;
+                    }
+                }
 
-                    StringFormat stringFormat = new StringFormat();
-                    stringFormat.Alignment = StringAlignment.Near;
-                    CharacterRange[] characterRanges = { new CharacterRange(match.Index, match.Length) };
-                    stringFormat.SetMeasurableCharacterRanges(characterRanges);
+                if (inputSearch.Text.Length > 0)
+                {
+                    Regex regex = new Regex("");
+                    try
+                    {
+                        regex = new Regex(inputSearch.Text);
+                        bValidregex = true;
+                    }
+                    catch (ArgumentException)
+                    {
 
-                    Region[] regions = e.Graphics.MeasureCharacterRanges(itemText, e.Font, e.Bounds, stringFormat);
+                    }
+                    if (bValidregex)
+                    {
+                        MatchCollection collection = regex.Matches(itemText);
 
-                    RectangleF rect = regions[0].GetBounds(e.Graphics);
 
-                    e.Graphics.FillRectangle(Brushes.Yellow, Rectangle.Round(rect));
+                        foreach (Match match in collection)
+                        {
+
+                            StringFormat stringFormat = new StringFormat();
+                            stringFormat.Alignment = StringAlignment.Near;
+                            CharacterRange[] characterRanges = { new CharacterRange(match.Index, match.Length) };
+                            stringFormat.SetMeasurableCharacterRanges(characterRanges);
+
+                            Region[] regions = e.Graphics.MeasureCharacterRanges(itemText, e.Font, e.Bounds, stringFormat);
+
+                            RectangleF rect = regions[0].GetBounds(e.Graphics);
+
+                            e.Graphics.FillRectangle(Brushes.BlueViolet, Rectangle.Round(rect));
+                        }
+                    }
                 }
                 e.Graphics.DrawString(itemText, e.Font, brush, e.Bounds);
+            }
+            else
+            {
+                listBoxFilelist.HorizontalExtent = 0;
             }
             e.DrawFocusRectangle();
         }
 
         private void MainWindow_KeyDown(object sender, KeyEventArgs e)
         {
-            switch(e.KeyCode)
+            switch (e.KeyCode)
             {
                 case (Keys.Escape):
-                    Debug.Print("Escape");
                     listBoxFilelist.ClearSelected();
                     break;
                 case (Keys.Delete):
-                    Debug.Print("delete");
-                    Object[] SelectedItems = new Object[listBoxFilelist.SelectedItems.Count];
-                    listBoxFilelist.SelectedItems.CopyTo(SelectedItems, 0);
-                    foreach (object Item in SelectedItems)
+                     
+                    if(listBoxFilelist.ClientRectangle.Contains(listBoxFilelist.PointToClient(MousePosition)))
                     {
-                        RemoveFile(Item.ToString());
-                        listBoxFilelist.Items.Remove(Item);
+                        Object[] SelectedItems = new Object[listBoxFilelist.SelectedItems.Count];
+                        listBoxFilelist.SelectedItems.CopyTo(SelectedItems, 0);
+                        foreach (object Item in SelectedItems)
+                        {
+                            RemoveFile(Item.ToString());
+                            listBoxFilelist.Items.Remove(Item);
+                        }
+                        UpdatePreview();
                     }
-                    UpdatePreview();
                     break;
             }
+        }
+
+        private void inputSearch_TextChanged(object sender, EventArgs e)
+        {
+            listBoxFilelist.Refresh();
+        }
+
+        private void inputReplace_TextChanged(object sender, EventArgs e)
+        {
+            UpdatePreview();
         }
     }
 }
