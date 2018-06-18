@@ -42,20 +42,20 @@
             this.checkBoxUseRegex = new System.Windows.Forms.CheckBox();
             this.contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.undoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparatorMain1 = new System.Windows.Forms.ToolStripSeparator();
             this.sortToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ascendingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.descendingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparatorSort = new System.Windows.Forms.ToolStripSeparator();
             this.noSortToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparatorMain2 = new System.Windows.Forms.ToolStripSeparator();
             this.invertSelectionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clearSelectionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.RemoveSelectiontoolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparatorMain3 = new System.Windows.Forms.ToolStripSeparator();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.regularExpressionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.usableTagsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.RemoveSelectiontoolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparatorMain1 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripSeparatorMain2 = new System.Windows.Forms.ToolStripSeparator();
             this.contextMenu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -153,7 +153,10 @@
             // 
             // checkBoxUseRegex
             // 
+            this.checkBoxUseRegex.AutoCheck = false;
             this.checkBoxUseRegex.AutoSize = true;
+            this.checkBoxUseRegex.Checked = true;
+            this.checkBoxUseRegex.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBoxUseRegex.Location = new System.Drawing.Point(286, 41);
             this.checkBoxUseRegex.Name = "checkBoxUseRegex";
             this.checkBoxUseRegex.Size = new System.Drawing.Size(143, 17);
@@ -174,7 +177,7 @@
             this.toolStripSeparatorMain3,
             this.helpToolStripMenuItem});
             this.contextMenu.Name = "contextMenu";
-            this.contextMenu.Size = new System.Drawing.Size(168, 176);
+            this.contextMenu.Size = new System.Drawing.Size(168, 154);
             // 
             // undoToolStripMenuItem
             // 
@@ -182,6 +185,11 @@
             this.undoToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
             this.undoToolStripMenuItem.Text = "Undo";
             this.undoToolStripMenuItem.Click += new System.EventHandler(this.undoToolStripMenuItem_Click);
+            // 
+            // toolStripSeparatorMain1
+            // 
+            this.toolStripSeparatorMain1.Name = "toolStripSeparatorMain1";
+            this.toolStripSeparatorMain1.Size = new System.Drawing.Size(164, 6);
             // 
             // sortToolStripMenuItem
             // 
@@ -197,28 +205,33 @@
             // ascendingToolStripMenuItem
             // 
             this.ascendingToolStripMenuItem.Name = "ascendingToolStripMenuItem";
-            this.ascendingToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.ascendingToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
             this.ascendingToolStripMenuItem.Text = "Ascending";
             this.ascendingToolStripMenuItem.Click += new System.EventHandler(this.ascendingToolStripMenuItem_Click);
             // 
             // descendingToolStripMenuItem
             // 
             this.descendingToolStripMenuItem.Name = "descendingToolStripMenuItem";
-            this.descendingToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.descendingToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
             this.descendingToolStripMenuItem.Text = "Descending";
             this.descendingToolStripMenuItem.Click += new System.EventHandler(this.descendingToolStripMenuItem_Click);
             // 
             // toolStripSeparatorSort
             // 
             this.toolStripSeparatorSort.Name = "toolStripSeparatorSort";
-            this.toolStripSeparatorSort.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparatorSort.Size = new System.Drawing.Size(133, 6);
             // 
             // noSortToolStripMenuItem
             // 
             this.noSortToolStripMenuItem.Name = "noSortToolStripMenuItem";
-            this.noSortToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.noSortToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
             this.noSortToolStripMenuItem.Text = "Reset";
             this.noSortToolStripMenuItem.Click += new System.EventHandler(this.noSortToolStripMenuItem_Click);
+            // 
+            // toolStripSeparatorMain2
+            // 
+            this.toolStripSeparatorMain2.Name = "toolStripSeparatorMain2";
+            this.toolStripSeparatorMain2.Size = new System.Drawing.Size(164, 6);
             // 
             // invertSelectionToolStripMenuItem
             // 
@@ -233,6 +246,13 @@
             this.clearSelectionToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
             this.clearSelectionToolStripMenuItem.Text = "Clear selection";
             this.clearSelectionToolStripMenuItem.Click += new System.EventHandler(this.clearSelectionToolStripMenuItem_Click);
+            // 
+            // RemoveSelectiontoolStripMenuItem
+            // 
+            this.RemoveSelectiontoolStripMenuItem.Name = "RemoveSelectiontoolStripMenuItem";
+            this.RemoveSelectiontoolStripMenuItem.Size = new System.Drawing.Size(167, 22);
+            this.RemoveSelectiontoolStripMenuItem.Text = "Remove selection";
+            this.RemoveSelectiontoolStripMenuItem.Click += new System.EventHandler(this.RemoveSelectiontoolStripMenuItem_Click);
             // 
             // toolStripSeparatorMain3
             // 
@@ -261,23 +281,6 @@
             this.usableTagsToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
             this.usableTagsToolStripMenuItem.Text = "Usable tags";
             this.usableTagsToolStripMenuItem.Click += new System.EventHandler(this.usableTagsToolStripMenuItem_Click);
-            // 
-            // RemoveSelectiontoolStripMenuItem
-            // 
-            this.RemoveSelectiontoolStripMenuItem.Name = "RemoveSelectiontoolStripMenuItem";
-            this.RemoveSelectiontoolStripMenuItem.Size = new System.Drawing.Size(167, 22);
-            this.RemoveSelectiontoolStripMenuItem.Text = "Remove selection";
-            this.RemoveSelectiontoolStripMenuItem.Click += new System.EventHandler(this.RemoveSelectiontoolStripMenuItem_Click);
-            // 
-            // toolStripSeparatorMain1
-            // 
-            this.toolStripSeparatorMain1.Name = "toolStripSeparatorMain1";
-            this.toolStripSeparatorMain1.Size = new System.Drawing.Size(164, 6);
-            // 
-            // toolStripSeparatorMain2
-            // 
-            this.toolStripSeparatorMain2.Name = "toolStripSeparatorMain2";
-            this.toolStripSeparatorMain2.Size = new System.Drawing.Size(164, 6);
             // 
             // MainWindow
             // 

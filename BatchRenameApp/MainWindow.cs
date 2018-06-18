@@ -111,37 +111,40 @@ namespace BatchRenameApp
                     }
                 }
 
+                string SearchText = "^";
+                Regex regex = new Regex(SearchText);
+
                 if (inputSearch.Text.Length > 0)
                 {
-                    Regex regex = new Regex("");
-                    try
+                    SearchText = inputSearch.Text;
+                }
+                try
+                {
+                    regex = new Regex(SearchText);
+                    bValidregex = true;
+                }
+                catch (ArgumentException)
+                {
+
+                }
+                if (bValidregex)
+                {
+                    MatchCollection collection = regex.Matches(itemText);
+
+
+                    foreach (Match match in collection)
                     {
-                        regex = new Regex(inputSearch.Text);
-                        bValidregex = true;
-                    }
-                    catch (ArgumentException)
-                    {
-                        
-                    }
-                    if (bValidregex)
-                    {
-                        MatchCollection collection = regex.Matches(itemText);
 
+                        StringFormat stringFormat = new StringFormat();
+                        stringFormat.Alignment = StringAlignment.Near;
+                        CharacterRange[] characterRanges = { new CharacterRange(match.Index, match.Length) };
+                        stringFormat.SetMeasurableCharacterRanges(characterRanges);
 
-                        foreach (Match match in collection)
-                        {
+                        Region[] regions = e.Graphics.MeasureCharacterRanges(itemText, e.Font, e.Bounds, stringFormat);
 
-                            StringFormat stringFormat = new StringFormat();
-                            stringFormat.Alignment = StringAlignment.Near;
-                            CharacterRange[] characterRanges = { new CharacterRange(match.Index, match.Length) };
-                            stringFormat.SetMeasurableCharacterRanges(characterRanges);
+                        RectangleF rect = regions[0].GetBounds(e.Graphics);
 
-                            Region[] regions = e.Graphics.MeasureCharacterRanges(itemText, e.Font, e.Bounds, stringFormat);
-
-                            RectangleF rect = regions[0].GetBounds(e.Graphics);
-
-                            e.Graphics.FillRectangle(Brushes.BlueViolet, Rectangle.Round(rect));
-                        }
+                        e.Graphics.FillRectangle(Brushes.BlueViolet, Rectangle.Round(rect));
                     }
                 }
                 e.Graphics.DrawString(itemText, e.Font, new SolidBrush(e.ForeColor), e.Bounds);
@@ -302,7 +305,7 @@ namespace BatchRenameApp
             foreach (object Item in SelectedItems)
             {
                 filestorage.RemoveFile(Item.ToString());
-                
+
             }
             UpdateFilelist();
         }
@@ -310,7 +313,7 @@ namespace BatchRenameApp
         {
             listBoxFilelist.Items.Clear();
 
-            foreach(FileInfo file in filestorage.GetFileInfos())
+            foreach (FileInfo file in filestorage.GetFileInfos())
             {
                 listBoxFilelist.Items.Add(file);
             }
@@ -322,27 +325,20 @@ namespace BatchRenameApp
         {
             listBoxPreview.Items.Clear();
 
+            string SearchText = "^";
+
             if (inputSearch.Text.Length > 0)
             {
-                int x = 0;
-                foreach (FileInfo file in filestorage.GetFileInfos())
-                {
+                SearchText = inputSearch.Text;
+            }
+            int x = 0;
+            foreach (FileInfo file in filestorage.GetFileInfos())
+            {
 
-                    string filename = filestorage.ProcessRegex(x, inputSearch.Text, inputReplace.Text, file);
-                    listBoxPreview.Items.Add(filename);
+                string filename = filestorage.ProcessRegex(x, SearchText, inputReplace.Text, file);
+                listBoxPreview.Items.Add(filename);
 
-                    /*try
-                    {                        
-                        Regex regex = new Regex(inputSearch.Text);
-                        listBoxPreview.Items.Add(file.DirectoryName + "\\" + regex.Replace(file.Name, inputReplace.Text));
-                    }
-                    catch (ArgumentException)
-                    {
-                        listBoxPreview.Items.Add(file.ToString());
-                    } */
-
-                    x++;
-                }
+                x++;
             }
         }
 
