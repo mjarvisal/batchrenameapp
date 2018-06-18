@@ -77,14 +77,7 @@ namespace BatchRenameApp
                 case (Keys.Delete):
                     if (listBoxFilelist.ClientRectangle.Contains(listBoxFilelist.PointToClient(MousePosition)))
                     {
-                        Object[] SelectedItems = new Object[listBoxFilelist.SelectedItems.Count];
-                        listBoxFilelist.SelectedItems.CopyTo(SelectedItems, 0);
-                        foreach (object Item in SelectedItems)
-                        {
-                            filestorage.RemoveFile(Item.ToString());
-                            bInputfilesChanged = true;
-                        }
-                        UpdateFilelist();
+                        RemoveSelection();
                     }
                     break;
             }
@@ -204,19 +197,6 @@ namespace BatchRenameApp
             e.Effect = DragDropEffects.Copy;
         }
 
-        private void listBoxFilelist_DoubleClick(object sender, EventArgs e)
-        {
-            ListBox listbox = (ListBox)sender;
-
-            if (listbox.SelectedItem != null)
-            {                
-                filestorage.RemoveFile(listbox.SelectedItem.ToString());
-                bInputfilesChanged = true;
-                UpdateFilelist();
-            }
-
-        }
-
         private void buttonRename_Click(object sender, EventArgs e)
         {
             if (listBoxPreview.Items.Count == 0)
@@ -275,6 +255,22 @@ namespace BatchRenameApp
             UpdateFilelist();
         }
 
+        private void invertSelectionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < listBoxFilelist.Items.Count; i++)
+                listBoxFilelist.SetSelected(i, !listBoxFilelist.GetSelected(i));
+        }
+
+        private void clearSelectionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            listBoxFilelist.ClearSelected();
+        }
+
+        private void RemoveSelectiontoolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            RemoveSelection();
+        }
+
         private void regularExpressionsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Process.Start("https://www.google.com/#sclient=psy-ab&q=regular+expression+cheat+sheet");
@@ -304,6 +300,18 @@ namespace BatchRenameApp
 
         // HELPERS
         #region Helper Functions
+
+        private void RemoveSelection()
+        {
+            Object[] SelectedItems = new Object[listBoxFilelist.SelectedItems.Count];
+            listBoxFilelist.SelectedItems.CopyTo(SelectedItems, 0);
+            foreach (object Item in SelectedItems)
+            {
+                filestorage.RemoveFile(Item.ToString());
+                bInputfilesChanged = true;
+            }
+            UpdateFilelist();
+        }
         public void UpdateFilelist()
         {
             listBoxFilelist.Items.Clear();
