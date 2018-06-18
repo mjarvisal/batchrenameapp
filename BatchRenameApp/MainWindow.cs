@@ -40,6 +40,7 @@ namespace BatchRenameApp
                 try
                 {
                     filestorage.AddFile(item);
+                    bInputfilesChanged = true;
                 }
                 catch (Exception e)
                 {
@@ -81,6 +82,7 @@ namespace BatchRenameApp
                         foreach (object Item in SelectedItems)
                         {
                             filestorage.RemoveFile(Item.ToString());
+                            bInputfilesChanged = true;
                         }
                         UpdateFilelist();
                     }
@@ -180,6 +182,7 @@ namespace BatchRenameApp
                 try
                 {
                     filestorage.AddFile(file);
+                    bInputfilesChanged = true;
                 }
                 catch (Exception ex)
                 {
@@ -208,6 +211,7 @@ namespace BatchRenameApp
             if (listbox.SelectedItem != null)
             {                
                 filestorage.RemoveFile(listbox.SelectedItem.ToString());
+                bInputfilesChanged = true;
                 UpdateFilelist();
             }
 
