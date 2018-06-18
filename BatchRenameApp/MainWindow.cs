@@ -275,6 +275,31 @@ namespace BatchRenameApp
             UpdateFilelist();
         }
 
+        private void regularExpressionsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start("https://www.google.com/#sclient=psy-ab&q=regular+expression+cheat+sheet");
+        }
+
+        private void usableTagsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string message = "Search Tags\n" +
+                 "------------\n" +
+                 "%end% -Concat replace string to end of filename(excl.extension)\n\n" +
+                 "Replace Tags\n" +
+                 "------------\n" +
+                 "%date% - Replace match with current date\n" +
+                 "%time% - Replace match with current time\n" +
+                 "%folder% - Replace match with file directory name\n" +
+                 "%file% - Replace match with file name\n" +
+                 "%fnc% - Replace match with math function result\n";
+            string caption = "Tags Legend";
+            MessageBoxButtons buttons = MessageBoxButtons.OK;
+            DialogResult result;
+
+            result = MessageBox.Show(message, caption, buttons);
+
+        }
+
         #endregion
 
         // HELPERS

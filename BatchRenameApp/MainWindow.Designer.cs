@@ -45,11 +45,12 @@
             this.sortToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ascendingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.descendingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripSeparatorSort = new System.Windows.Forms.ToolStripSeparator();
             this.noSortToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripSeparatorMain = new System.Windows.Forms.ToolStripSeparator();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.regularExpressionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.usableTagsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -161,15 +162,15 @@
             this.contextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.undoToolStripMenuItem,
             this.sortToolStripMenuItem,
-            this.toolStripSeparator2,
+            this.toolStripSeparatorMain,
             this.helpToolStripMenuItem});
             this.contextMenu.Name = "contextMenu";
-            this.contextMenu.Size = new System.Drawing.Size(104, 76);
+            this.contextMenu.Size = new System.Drawing.Size(153, 98);
             // 
             // undoToolStripMenuItem
             // 
             this.undoToolStripMenuItem.Name = "undoToolStripMenuItem";
-            this.undoToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.undoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.undoToolStripMenuItem.Text = "Undo";
             this.undoToolStripMenuItem.Click += new System.EventHandler(this.undoToolStripMenuItem_Click);
             // 
@@ -178,10 +179,10 @@
             this.sortToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ascendingToolStripMenuItem,
             this.descendingToolStripMenuItem,
-            this.toolStripSeparator1,
+            this.toolStripSeparatorSort,
             this.noSortToolStripMenuItem});
             this.sortToolStripMenuItem.Name = "sortToolStripMenuItem";
-            this.sortToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.sortToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.sortToolStripMenuItem.Text = "Sort";
             // 
             // ascendingToolStripMenuItem
@@ -198,10 +199,10 @@
             this.descendingToolStripMenuItem.Text = "Descending";
             this.descendingToolStripMenuItem.Click += new System.EventHandler(this.descendingToolStripMenuItem_Click);
             // 
-            // toolStripSeparator1
+            // toolStripSeparatorSort
             // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(133, 6);
+            this.toolStripSeparatorSort.Name = "toolStripSeparatorSort";
+            this.toolStripSeparatorSort.Size = new System.Drawing.Size(133, 6);
             // 
             // noSortToolStripMenuItem
             // 
@@ -210,17 +211,18 @@
             this.noSortToolStripMenuItem.Text = "Reset";
             this.noSortToolStripMenuItem.Click += new System.EventHandler(this.noSortToolStripMenuItem_Click);
             // 
-            // toolStripSeparator2
+            // toolStripSeparatorMain
             // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(100, 6);
+            this.toolStripSeparatorMain.Name = "toolStripSeparatorMain";
+            this.toolStripSeparatorMain.Size = new System.Drawing.Size(149, 6);
             // 
             // helpToolStripMenuItem
             // 
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.regularExpressionsToolStripMenuItem});
+            this.regularExpressionsToolStripMenuItem,
+            this.usableTagsToolStripMenuItem});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.helpToolStripMenuItem.Text = "Help";
             // 
             // regularExpressionsToolStripMenuItem
@@ -228,6 +230,14 @@
             this.regularExpressionsToolStripMenuItem.Name = "regularExpressionsToolStripMenuItem";
             this.regularExpressionsToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
             this.regularExpressionsToolStripMenuItem.Text = "Regular expressions";
+            this.regularExpressionsToolStripMenuItem.Click += new System.EventHandler(this.regularExpressionsToolStripMenuItem_Click);
+            // 
+            // usableTagsToolStripMenuItem
+            // 
+            this.usableTagsToolStripMenuItem.Name = "usableTagsToolStripMenuItem";
+            this.usableTagsToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
+            this.usableTagsToolStripMenuItem.Text = "Usable tags";
+            this.usableTagsToolStripMenuItem.Click += new System.EventHandler(this.usableTagsToolStripMenuItem_Click);
             // 
             // MainWindow
             // 
@@ -277,13 +287,14 @@
         private System.Windows.Forms.ContextMenuStrip contextMenu;
         private System.Windows.Forms.ToolStripMenuItem sortToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem noSortToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparatorSort;
         private System.Windows.Forms.ToolStripMenuItem ascendingToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem descendingToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparatorMain;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem regularExpressionsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem undoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem usableTagsToolStripMenuItem;
     }
 }
 
