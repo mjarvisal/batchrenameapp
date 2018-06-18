@@ -81,7 +81,7 @@ namespace BatchRenameApp
             {
                 files.Remove(filename);
                 originalOrderedFiles.Remove(filename);
-
+                AddStateToHistory();
             }
         }
 
@@ -131,10 +131,12 @@ namespace BatchRenameApp
 
         public void Undo()
         {
-            history.Pop();
-            UndoObject snapshot = history.Pop();
-            files = snapshot.files;
-            sortMode = snapshot.sortMode;
+            if (history.Count > 0)
+            {
+                UndoObject snapshot = history.Pop();
+                files = snapshot.files;
+                sortMode = snapshot.sortMode;
+            }
         }
 
         public void AddStateToHistory()
@@ -144,9 +146,9 @@ namespace BatchRenameApp
                 files = files,
                 sortMode = sortMode
             };
-            history.Push(snapshot);
+            history.Push(snapshot);           
         }
-
+       
         public ArrayList GetFiles()
         {
             return files;

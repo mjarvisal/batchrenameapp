@@ -247,7 +247,7 @@ namespace BatchRenameApp
                         {
                             filestorage.RemoveFile(Item.ToString());
                         }
-                        UpdatePreview();
+                        UpdateFilelist();
                     }
                     break;
             }
