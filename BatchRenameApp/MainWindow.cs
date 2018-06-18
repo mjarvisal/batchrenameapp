@@ -20,9 +20,6 @@ namespace BatchRenameApp
     public partial class MainWindow : Form
     {
 
-        // @todo: check if this is needed, it evaluates as false always atm.
-        bool bInputfilesChanged = false;
-
         FilenameStorage filestorage = new FilenameStorage();
 
         // MAIN WINDOW EVENTS
@@ -40,7 +37,6 @@ namespace BatchRenameApp
                 try
                 {
                     filestorage.AddFile(item);
-                    bInputfilesChanged = true;
                 }
                 catch (Exception e)
                 {
@@ -104,16 +100,14 @@ namespace BatchRenameApp
             {
                 FileInfo item = (FileInfo)listBoxFilelist.Items[e.Index];
                 string itemText = item.Name;
+                int ItemsCount = listBoxFilelist.Items.Count;
+                int ItemsCountPrev = 0;
 
-                if (bInputfilesChanged)
+                if (ItemsCount != ItemsCountPrev)
                 {
                     if (listBoxFilelist.HorizontalExtent < TextRenderer.MeasureText(itemText, e.Font).Width + 20)
                     {
                         listBoxFilelist.HorizontalExtent = TextRenderer.MeasureText(itemText, e.Font).Width + 20;
-                    }
-                    if (e.Index >= listBoxFilelist.Items.Count)
-                    {
-                        bInputfilesChanged = false;
                     }
                 }
 
@@ -151,6 +145,7 @@ namespace BatchRenameApp
                     }
                 }
                 e.Graphics.DrawString(itemText, e.Font, new SolidBrush(e.ForeColor), e.Bounds);
+                ItemsCountPrev = listBoxFilelist.Items.Count;
             }
             else
             {
@@ -175,7 +170,6 @@ namespace BatchRenameApp
                 try
                 {
                     filestorage.AddFile(file);
-                    bInputfilesChanged = true;
                 }
                 catch (Exception ex)
                 {
@@ -308,7 +302,7 @@ namespace BatchRenameApp
             foreach (object Item in SelectedItems)
             {
                 filestorage.RemoveFile(Item.ToString());
-                bInputfilesChanged = true;
+                
             }
             UpdateFilelist();
         }
