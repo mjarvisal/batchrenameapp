@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.IO;
 
@@ -22,12 +22,10 @@ namespace BatchRenameApp
 
         /** used for undoing operations */
         private Stack<UndoObject> history = new Stack<UndoObject>(100);
-        public SortMode sortMode;
+        private SortMode sortMode;
 
-        /**
-         * This is used to undo operations.
-         * */
-        private ArrayList originalOrderedFiles = new ArrayList();
+
+        private Hashtable filetable = new Hashtable();
 
         /**
          * ArrayList files, array of string holding the full filename with path.
@@ -51,36 +49,37 @@ namespace BatchRenameApp
                 throw new Exception("item is directory");
             }
 
-            if (!originalOrderedFiles.Contains(filename))
+            if (!filetable.ContainsKey(filename))
             {
-
-                originalOrderedFiles.Add(filename);
 
                 switch (sortMode)
                 {
                     case SortMode.Asc:
-                        files.Add(filename);
+                        files.Add(file);
+                        filetable.Add(filename, file);
                         this.SortAsc();
                         break;
                     case SortMode.Desc:
-                        files.Add(filename);
+                        files.Add(file);
+                        filetable.Add(filename, file);
                         this.SortDesc();
                         break;
                     default:
-                        files.Add(filename);
+                        files.Add(file);
+                        filetable.Add(filename, file);
                         AddStateToHistory();
                         break;
                 }
             }
-
         }
 
         public void RemoveFile(string filename)
         {
-            if (originalOrderedFiles.Contains(filename))
+
+            if (filetable.ContainsKey(filename))
             {
-                files.Remove(filename);
-                originalOrderedFiles.Remove(filename);
+                files.Remove(filetable[filename]);
+                filetable.Remove(filename);
                 AddStateToHistory();
             }
         }
@@ -88,9 +87,9 @@ namespace BatchRenameApp
         public void SortAsc()
         {
             sortMode = SortMode.Asc;
-            IEnumerable sortedfiles = files.ToArray().OrderBy(x => x);
+            IEnumerable sortedfiles = files.Cast<FileInfo>().ToArray().OrderBy(x => x.FullName);
             files.Clear();
-            foreach (string file in sortedfiles)
+            foreach (FileInfo file in sortedfiles)
             {
                 files.Add(file);
             }
@@ -101,9 +100,9 @@ namespace BatchRenameApp
         public void SortDesc()
         {
             sortMode = SortMode.Desc;
-            IEnumerable sortedfiles = files.ToArray().OrderByDescending(x => x);
+            IEnumerable sortedfiles = files.Cast<FileInfo>().ToArray().OrderByDescending(x => x.FullName);
             files.Clear();
-            foreach (string file in sortedfiles)
+            foreach (FileInfo file in sortedfiles)
             {
                 files.Add(file);
             }
@@ -114,9 +113,12 @@ namespace BatchRenameApp
         public void ResetSort()
         {
             sortMode = SortMode.None;
-            files = originalOrderedFiles;
+            files.Clear();
+            foreach (FileInfo fileinfo in filetable.Values)
+            {
+                files.Add(fileinfo);
+            }
             AddStateToHistory();
-
         }
 
 
@@ -143,16 +145,51 @@ namespace BatchRenameApp
         {
             UndoObject snapshot = new UndoObject
             {
-                files = files,
+                files = (ArrayList)files.Clone(),
                 sortMode = sortMode
             };
-            history.Push(snapshot);           
+            history.Push(snapshot);
         }
-       
+
         public ArrayList GetFiles()
+        {
+            ArrayList outList = new ArrayList();
+            foreach (FileInfo file in files)
+            {
+                outList.Add(file.FullName);
+            }
+
+            return outList;
+        }
+
+        public ArrayList GetFileInfos()
         {
             return files;
         }
 
+        public string ProcessRegex(int index, string find, string replace, FileInfo file)
+        {
+            try
+            {
+                Regex regex = new Regex(find);
+                return ProcessPatterns(index, regex.Replace(file.Name, replace), file);
+            }
+            catch (ArgumentException)
+            {
+                return file.Name;
+            }
+        }
+
+        public string ProcessPatterns(int index, string text, FileInfo file)
+        {
+
+            string output = text.Replace("%file%", file.Name);
+            output = output.Replace("%folder%", file.Directory.Name);
+            output = output.Replace("%date%", DateTime.Now.ToShortDateString());
+            output = output.Replace("%time%", DateTime.Now.ToLongTimeString());
+            output = output.Replace("%num%", ""+(index+1));
+
+            return output;
+        }
     }
 }
