@@ -56,6 +56,8 @@
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.regularExpressionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.usableTagsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.labelFunction = new System.Windows.Forms.Label();
+            this.textBoxFunction = new System.Windows.Forms.TextBox();
             this.contextMenu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -282,6 +284,25 @@
             this.usableTagsToolStripMenuItem.Text = "Usable tags";
             this.usableTagsToolStripMenuItem.Click += new System.EventHandler(this.usableTagsToolStripMenuItem_Click);
             // 
+            // labelFunction
+            // 
+            this.labelFunction.AutoSize = true;
+            this.labelFunction.Location = new System.Drawing.Point(12, 114);
+            this.labelFunction.Name = "labelFunction";
+            this.labelFunction.Size = new System.Drawing.Size(48, 13);
+            this.labelFunction.TabIndex = 11;
+            this.labelFunction.Text = "Function";
+            this.labelFunction.Visible = false;
+            // 
+            // textBoxFunction
+            // 
+            this.textBoxFunction.Location = new System.Drawing.Point(12, 130);
+            this.textBoxFunction.Name = "textBoxFunction";
+            this.textBoxFunction.Size = new System.Drawing.Size(252, 20);
+            this.textBoxFunction.TabIndex = 10;
+            this.textBoxFunction.Visible = false;
+            this.textBoxFunction.TextChanged += new System.EventHandler(this.textBoxFunction_TextChanged);
+            // 
             // MainWindow
             // 
             this.AllowDrop = true;
@@ -289,6 +310,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(487, 516);
             this.ContextMenuStrip = this.contextMenu;
+            this.Controls.Add(this.labelFunction);
+            this.Controls.Add(this.textBoxFunction);
             this.Controls.Add(this.checkBoxUseRegex);
             this.Controls.Add(this.buttonRename);
             this.Controls.Add(this.labelChanged);
@@ -343,6 +366,8 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparatorMain1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparatorMain2;
         private System.Windows.Forms.ToolStripMenuItem RemoveSelectiontoolStripMenuItem;
+        private System.Windows.Forms.Label labelFunction;
+        private System.Windows.Forms.TextBox textBoxFunction;
     }
 }
 

@@ -220,6 +220,21 @@ namespace BatchRenameApp
 
         private void inputReplace_TextChanged(object sender, EventArgs e)
         {
+            if (inputReplace.Text.Contains("%fnc%"))
+            {
+                labelFunction.Visible = true;
+                textBoxFunction.Visible = true;
+            }
+            else
+            {
+                labelFunction.Visible = false;
+                textBoxFunction.Visible = false;
+            }
+            UpdatePreview();
+        }
+
+        private void textBoxFunction_TextChanged(object sender, EventArgs e)
+        {
             UpdatePreview();
         }
 
@@ -335,7 +350,7 @@ namespace BatchRenameApp
             foreach (FileInfo file in filestorage.GetFileInfos())
             {
 
-                string filename = filestorage.ProcessRegex(x, SearchText, inputReplace.Text, file);
+                string filename = filestorage.ProcessRegex(x, SearchText, inputReplace.Text, textBoxFunction.Text, file);
                 listBoxPreview.Items.Add(filename);
 
                 x++;
