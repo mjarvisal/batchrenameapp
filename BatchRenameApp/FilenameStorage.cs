@@ -20,10 +20,9 @@ namespace BatchRenameApp
     class FilenameStorage
     {
 
-        /** used for undoing operations */
+        /** For undoing operations */
         private Stack<UndoObject> history = new Stack<UndoObject>(100);
         private SortMode sortMode;
-
 
         private Hashtable filetable = new Hashtable();
 
@@ -165,56 +164,6 @@ namespace BatchRenameApp
         public ArrayList GetFileInfos()
         {
             return files;
-        }
-
-        public string ProcessRegex(int index, string find, string replace, string function, FileInfo file)
-        {
-            try
-            {
-                Regex regex = new Regex(find);
-                return ProcessPatterns(index, regex.Replace(file.Name, replace), function, file);
-            }
-            catch (ArgumentException)
-            {
-                return file.Name;
-            }
-        }
-
-        public string ProcessPatterns(int index, string text, string function, FileInfo file)
-        {
-
-            string output = text.Replace("%file%", file.Name);
-            output = output.Replace("%folder%", file.Directory.Name);
-            output = output.Replace("%date%", DateTime.Now.ToShortDateString());
-            output = output.Replace("%time%", DateTime.Now.ToLongTimeString());
-            output = output.Replace("%fnc%", EvaluateFunctionString(function, index));
-
-            return output;
-        }
-        private string EvaluateFunctionString(string sFunction, int index)
-        {
-            string expression = "x";
-            MSScriptControl.ScriptControl sc = new MSScriptControl.ScriptControl{Language = "VBScript"};
-            if (sFunction.Length > 0)
-            {
-                expression = sFunction.Replace("x", index.ToString());
-            }
-            else
-            {
-                expression = expression.Replace("x", index.ToString());
-            }
-
-            object result = null;
-
-            try
-            {
-                result = sc.Eval(expression);
-            }
-            catch (Exception)
-            {
-                result = sc.Eval("0");
-            }
-            return result.ToString();
         }
     }
 }

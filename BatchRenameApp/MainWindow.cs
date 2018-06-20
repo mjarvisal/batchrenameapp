@@ -22,6 +22,9 @@ namespace BatchRenameApp
 
         FilenameStorage filestorage = new FilenameStorage();
 
+        /** For evaluating math functions */
+        private static string lastvalidFunction = "x";
+
         // MAIN WINDOW EVENTS
         #region Main Window events
 
@@ -220,16 +223,6 @@ namespace BatchRenameApp
 
         private void inputReplace_TextChanged(object sender, EventArgs e)
         {
-            if (inputReplace.Text.Contains("%fnc%"))
-            {
-                labelFunction.Visible = true;
-                textBoxFunction.Visible = true;
-            }
-            else
-            {
-                labelFunction.Visible = false;
-                textBoxFunction.Visible = false;
-            }
             UpdatePreview();
         }
 
@@ -350,11 +343,90 @@ namespace BatchRenameApp
             foreach (FileInfo file in filestorage.GetFileInfos())
             {
 
-                string filename = filestorage.ProcessRegex(x, SearchText, inputReplace.Text, textBoxFunction.Text, file);
+                string filename = ProcessRegex(x, SearchText, inputReplace.Text, textBoxFunction.Text, file);
                 listBoxPreview.Items.Add(filename);
 
                 x++;
             }
+        }
+
+        #endregion
+
+        // Process strings
+        #region
+        private string ProcessPatterns(int index, string text, string function, FileInfo file)
+        {
+
+            string output = text.Replace("%file%", file.Name);
+            output = output.Replace("%folder%", file.Directory.Name);
+            output = output.Replace("%date%", DateTime.Now.ToShortDateString());
+            output = output.Replace("%time%", DateTime.Now.ToLongTimeString());
+            output = output.Replace("%fnc%", EvaluateFunctionString(function, index));
+
+            return output;
+        }
+
+        private string ProcessRegex(int index, string find, string replace, string function, FileInfo file)
+        {
+            try
+            {
+                Regex regex = new Regex(find);
+                return ProcessPatterns(index, regex.Replace(file.Name, replace), function, file);
+            }
+            catch (ArgumentException)
+            {
+                return file.Name;
+            }
+        }
+
+        private string EvaluateFunctionString(string sFunction, int index)
+        {
+            string expression = "x";
+            string lastvalidexpression = "x";
+            Regex allowedRegex = new Regex("[^x0-9()*/+-\\^]");
+
+            MSScriptControl.ScriptControl sc = new MSScriptControl.ScriptControl { Language = "VBScript" };
+            if (sFunction.Length > 0)
+            {
+                if (allowedRegex.IsMatch(sFunction))
+                {
+                    lastvalidexpression = lastvalidFunction.Replace("x", index.ToString());
+                }
+                else
+                {
+                    expression = sFunction.Replace("x", index.ToString());
+                    lastvalidexpression = lastvalidFunction.Replace("x", index.ToString());
+                }
+            }
+            else
+            {
+                sFunction = "x";
+                expression = sFunction.Replace("x", index.ToString());
+            }
+
+            object result = null;
+
+            try
+            {
+                if (allowedRegex.IsMatch(sFunction))
+                {
+                    result = sc.Eval(lastvalidexpression);
+
+                }
+                else
+                {
+                    result = sc.Eval(expression);
+                    lastvalidFunction = sFunction;
+                }
+            }
+            catch (Exception)
+            {
+                result = sc.Eval(lastvalidexpression);
+            }
+            if (result != null)
+                return result.ToString();
+            else
+                return "0";
         }
 
         #endregion
