@@ -19,11 +19,12 @@ namespace BatchRenameApp
 
     public partial class MainWindow : Form
     {
-
         FilenameStorage filestorage = new FilenameStorage();
 
         /** For evaluating math functions */
         private static string lastvalidFunction = "x";
+
+        private static string replaceString;
 
         // MAIN WINDOW EVENTS
         #region Main Window events
@@ -50,7 +51,7 @@ namespace BatchRenameApp
 
             if (errors > 0)
             {
-                MessageBox.Show(outException.Message, errors + " Errors", MessageBoxButtons.OK);
+                CenteredMessageBox.Show(this, outException.Message, errors + " Errors", MessageBoxButtons.OK);
             }
 
 
@@ -133,8 +134,8 @@ namespace BatchRenameApp
                 if (bValidregex)
                 {
                     MatchCollection collection = regex.Matches(itemText);
-
-
+                    Brush brush = Brushes.DeepSkyBlue;
+                    int matchindx = 0;
                     foreach (Match match in collection)
                     {
 
@@ -146,8 +147,21 @@ namespace BatchRenameApp
                         Region[] regions = e.Graphics.MeasureCharacterRanges(itemText, e.Font, e.Bounds, stringFormat);
 
                         RectangleF rect = regions[0].GetBounds(e.Graphics);
-
-                        e.Graphics.FillRectangle(Brushes.BlueViolet, Rectangle.Round(rect));
+                        switch(matchindx)
+                        {
+                            case 0:
+                                brush = Brushes.DeepSkyBlue;
+                                matchindx++;
+                                break;
+                            case 1:
+                                brush = Brushes.DodgerBlue;
+                                matchindx = 0;
+                                break;
+                            default:
+                                matchindx = 0;
+                                break;
+                        }
+                        e.Graphics.FillRectangle(brush, Rectangle.Round(rect));
                     }
                 }
                 e.Graphics.DrawString(itemText, e.Font, new SolidBrush(e.ForeColor), e.Bounds);
@@ -158,11 +172,6 @@ namespace BatchRenameApp
                 listBoxFilelist.HorizontalExtent = 0;
             }
             e.DrawFocusRectangle();
-        }
-
-        private void listBoxFilelist_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            UpdatePreview();
         }
 
         private void listBoxFilelist_DragDrop(object sender, DragEventArgs e)
@@ -186,7 +195,7 @@ namespace BatchRenameApp
 
             if (errors > 0)
             {
-                MessageBox.Show(outException.Message, errors + " Errors", MessageBoxButtons.OK);
+                CenteredMessageBox.Show(this, outException.Message, errors + " Errors", MessageBoxButtons.OK);
             }
 
             UpdateFilelist();
@@ -199,17 +208,35 @@ namespace BatchRenameApp
 
         private void buttonRename_Click(object sender, EventArgs e)
         {
+            if (listBoxFilelist.Items.Count == 0)
+            {
+                CenteredMessageBox.Show(this, "Drag&drop some files first", "Error", MessageBoxButtons.OK);
+                return;
+            }
+
             if (listBoxPreview.Items.Count == 0)
             {
-                MessageBox.Show("You must preview changes before renaming! ", "Error", MessageBoxButtons.OK);
+                CenteredMessageBox.Show(this, "Search and replace something", "Error", MessageBoxButtons.OK);
                 return;
             }
 
             if (listBoxPreview.Items.Count != listBoxFilelist.Items.Count)
             {
-                MessageBox.Show("File counts differ, might be regex error", "Error", MessageBoxButtons.OK);
+                CenteredMessageBox.Show(this, "File counts differ, might be regex error", "Error", MessageBoxButtons.OK);
                 return;
             }
+
+            DialogResult result = CenteredMessageBox.Show(this, "Are you sure?", "Confirm", MessageBoxButtons.YesNo);
+
+            if (result == DialogResult.Yes)
+            {
+                int Count = RenameFiles();
+                String message = String.Format("Renamed {0} files", Count);
+                CenteredMessageBox.Show(this, message, "Result", MessageBoxButtons.OK);
+            }
+
+            else
+                return;
 
             // @todo - do actual renaming!
 
@@ -297,7 +324,7 @@ namespace BatchRenameApp
             MessageBoxButtons buttons = MessageBoxButtons.OK;
             DialogResult result;
 
-            result = MessageBox.Show(message, caption, buttons);
+            result = CenteredMessageBox.Show(this, message, caption, buttons);
 
         }
 
@@ -332,19 +359,17 @@ namespace BatchRenameApp
         private void UpdatePreview()
         {
             listBoxPreview.Items.Clear();
-
-            string SearchText = "^";
-
-            if (inputSearch.Text.Length > 0)
-            {
-                SearchText = inputSearch.Text;
-            }
+            String[] inputs = { inputSearch.Text, inputReplace.Text, inputFunction.Text };
+            bool bmode = checkBoxUseRegex.Checked;
             int x = 0;
             foreach (FileInfo file in filestorage.GetFileInfos())
             {
 
-                string filename = ProcessRegex(x, SearchText, inputReplace.Text, textBoxFunction.Text, file);
-                listBoxPreview.Items.Add(filename);
+                string fileName = ProcessRegex(x, bmode, inputs, file);
+                if (fileName != null)
+                {
+                    listBoxPreview.Items.Add(fileName);
+                }
 
                 x++;
             }
@@ -352,8 +377,21 @@ namespace BatchRenameApp
 
         #endregion
 
-        // Process strings
+        // PROCESS STRINGS
         #region
+
+        private static string Replacement
+        {
+            get
+            {
+                return replaceString;
+            }
+            set
+            {
+                replaceString = value;
+            }
+        }
+
         private string ProcessPatterns(int index, string text, string function, FileInfo file)
         {
 
@@ -366,24 +404,58 @@ namespace BatchRenameApp
             return output;
         }
 
-        private string ProcessRegex(int index, string find, string replace, string function, FileInfo file)
+        private string ConvertToRegex(string normalsearch)
         {
+            Regex test = new Regex(".*");
+            return "test";
+        }
+
+        private string ProcessRegex(int index, bool mode, String[] inputs, FileInfo file)
+        {
+            string find = inputs[0];
+            string replace = inputs[1];
+            string function = inputs[2];
+            string result;
+            Replacement = replace;
+            if (!mode)
+            {
+                find = ConvertToRegex(find);
+            }
+
             try
             {
                 Regex regex = new Regex(find);
-                return ProcessPatterns(index, regex.Replace(file.Name, replace), function, file);
+                MatchEvaluator myEvaluator = new MatchEvaluator(EvaluateMatch);
+                result = ProcessPatterns(index, regex.Replace(file.Name, myEvaluator), function, file);
+                if (result == file.Name)
+                {
+                    return null;
+                }
+                else
+                {
+                    return result;
+                }
             }
             catch (ArgumentException)
             {
-                return file.Name;
+                return null;
             }
+        }
+
+        public string EvaluateMatch(Match match)
+        {
+            string replace = Replacement;
+            if (match.Length > 0)
+              return replace;
+            else
+                return "";
         }
 
         private string EvaluateFunctionString(string sFunction, int index)
         {
             string expression = "x";
             string lastvalidexpression = "x";
-            Regex allowedRegex = new Regex("[^x0-9()*/+-\\^]");
+            Regex allowedRegex = new Regex(@"[^x0-9()*/+-\^]");
 
             MSScriptControl.ScriptControl sc = new MSScriptControl.ScriptControl { Language = "VBScript" };
             if (sFunction.Length > 0)
@@ -431,5 +503,17 @@ namespace BatchRenameApp
 
         #endregion
 
+        // RENAME FILES
+        #region
+        private int RenameFiles()
+        {
+            return 0;
+        }
+        #endregion
+
+        private void checkBoxUseRegex_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdatePreview();
+        }
     }
 }

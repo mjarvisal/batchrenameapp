@@ -57,7 +57,7 @@
             this.regularExpressionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.usableTagsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.labelFunction = new System.Windows.Forms.Label();
-            this.textBoxFunction = new System.Windows.Forms.TextBox();
+            this.inputFunction = new System.Windows.Forms.TextBox();
             this.collabsibleGroupBoxFiles = new Indigo.CollapsibleGroupBox();
             this.collapsibleGroupBoxFunction = new Indigo.CollapsibleGroupBox();
             this.panelSearchandReplace = new System.Windows.Forms.Panel();
@@ -78,7 +78,6 @@
             this.listBoxFilelist.Size = new System.Drawing.Size(198, 264);
             this.listBoxFilelist.TabIndex = 0;
             this.listBoxFilelist.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.listBoxFilelist_DrawItem);
-            this.listBoxFilelist.SelectedIndexChanged += new System.EventHandler(this.listBoxFilelist_SelectedIndexChanged);
             // 
             // inputSearch
             // 
@@ -155,8 +154,9 @@
             // 
             // checkBoxUseRegex
             // 
-            this.checkBoxUseRegex.AutoCheck = false;
             this.checkBoxUseRegex.AutoSize = true;
+            this.checkBoxUseRegex.BackColor = System.Drawing.Color.Transparent;
+            this.checkBoxUseRegex.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.checkBoxUseRegex.Checked = true;
             this.checkBoxUseRegex.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBoxUseRegex.Location = new System.Drawing.Point(310, 28);
@@ -164,7 +164,8 @@
             this.checkBoxUseRegex.Size = new System.Drawing.Size(143, 17);
             this.checkBoxUseRegex.TabIndex = 3;
             this.checkBoxUseRegex.Text = "Use Regular expressions";
-            this.checkBoxUseRegex.UseVisualStyleBackColor = true;
+            this.checkBoxUseRegex.UseVisualStyleBackColor = false;
+            this.checkBoxUseRegex.CheckedChanged += new System.EventHandler(this.checkBoxUseRegex_CheckedChanged);
             // 
             // contextMenu
             // 
@@ -293,13 +294,13 @@
             this.labelFunction.TabIndex = 11;
             this.labelFunction.Text = "Function";
             // 
-            // textBoxFunction
+            // inputFunction
             // 
-            this.textBoxFunction.Location = new System.Drawing.Point(16, 32);
-            this.textBoxFunction.Name = "textBoxFunction";
-            this.textBoxFunction.Size = new System.Drawing.Size(252, 20);
-            this.textBoxFunction.TabIndex = 10;
-            this.textBoxFunction.TextChanged += new System.EventHandler(this.textBoxFunction_TextChanged);
+            this.inputFunction.Location = new System.Drawing.Point(16, 32);
+            this.inputFunction.Name = "inputFunction";
+            this.inputFunction.Size = new System.Drawing.Size(252, 20);
+            this.inputFunction.TabIndex = 10;
+            this.inputFunction.TextChanged += new System.EventHandler(this.textBoxFunction_TextChanged);
             // 
             // collabsibleGroupBoxFiles
             // 
@@ -318,7 +319,7 @@
             // collapsibleGroupBoxFunction
             // 
             this.collapsibleGroupBoxFunction.Controls.Add(this.labelFunction);
-            this.collapsibleGroupBoxFunction.Controls.Add(this.textBoxFunction);
+            this.collapsibleGroupBoxFunction.Controls.Add(this.inputFunction);
             this.collapsibleGroupBoxFunction.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.collapsibleGroupBoxFunction.Location = new System.Drawing.Point(0, 108);
             this.collapsibleGroupBoxFunction.Name = "collapsibleGroupBoxFunction";
@@ -329,8 +330,8 @@
             // 
             // panelSearchandReplace
             // 
-            this.panelSearchandReplace.Controls.Add(this.inputSearch);
             this.panelSearchandReplace.Controls.Add(this.checkBoxUseRegex);
+            this.panelSearchandReplace.Controls.Add(this.inputSearch);
             this.panelSearchandReplace.Controls.Add(this.labelRegExp);
             this.panelSearchandReplace.Controls.Add(this.buttonRename);
             this.panelSearchandReplace.Controls.Add(this.labelReplace);
@@ -404,7 +405,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparatorMain2;
         private System.Windows.Forms.ToolStripMenuItem RemoveSelectiontoolStripMenuItem;
         private System.Windows.Forms.Label labelFunction;
-        private System.Windows.Forms.TextBox textBoxFunction;
+        private System.Windows.Forms.TextBox inputFunction;
         private Indigo.CollapsibleGroupBox collabsibleGroupBoxFiles;
         private Indigo.CollapsibleGroupBox collapsibleGroupBoxFunction;
         private System.Windows.Forms.Panel panelSearchandReplace;

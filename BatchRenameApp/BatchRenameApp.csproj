@@ -48,6 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CenteredMessageBox.cs" />
     <Compile Include="FilenameStorage.cs" />
     <Compile Include="MainWindow.cs">
       <SubType>Form</SubType>
