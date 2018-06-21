@@ -20,6 +20,7 @@ namespace BatchRenameApp
     public partial class MainWindow : Form
     {
         FilenameStorage filestorage = new FilenameStorage();
+        ArrayList selectedItems = new ArrayList();
 
         /** For evaluating math functions */
         private static string lastvalidFunction = "x";
@@ -94,6 +95,11 @@ namespace BatchRenameApp
         // UI ELEMENT CALLBACKS
         #region UI element callbacks
 
+        private void checkBoxUseRegex_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdatePreview();
+        }
+
         private void listBoxFilelist_DrawItem(object sender, DrawItemEventArgs e)
         {
 
@@ -147,7 +153,7 @@ namespace BatchRenameApp
                         Region[] regions = e.Graphics.MeasureCharacterRanges(itemText, e.Font, e.Bounds, stringFormat);
 
                         RectangleF rect = regions[0].GetBounds(e.Graphics);
-                        switch(matchindx)
+                        switch (matchindx)
                         {
                             case 0:
                                 brush = Brushes.DeepSkyBlue;
@@ -204,6 +210,11 @@ namespace BatchRenameApp
         private void listBoxFilelist_DragEnter(object sender, DragEventArgs e)
         {
             e.Effect = DragDropEffects.Copy;
+        }
+
+        private void listBoxFilelist_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
 
         private void buttonRename_Click(object sender, EventArgs e)
@@ -337,7 +348,16 @@ namespace BatchRenameApp
 
         // HELPERS
         #region Helper Functions
+        private void SyncSelectedList()
+        {
+            selectedItems.Clear();
 
+            foreach (int i in listBoxFilelist.SelectedIndices)
+            {
+                selectedItems.Add(i);
+            }
+
+        }
         private void RemoveSelection()
         {
             Object[] SelectedItems = new Object[listBoxFilelist.SelectedItems.Count];
@@ -349,13 +369,16 @@ namespace BatchRenameApp
             }
             UpdateFilelist();
         }
+
         public void UpdateFilelist()
         {
             listBoxFilelist.Items.Clear();
-
+            int x = 0;
             foreach (FileInfo file in filestorage.GetFileInfos())
             {
                 listBoxFilelist.Items.Add(file);
+                listBoxFilelist.SetSelected(x, selectedItems.Contains(x));
+                x++;
             }
 
             UpdatePreview();
@@ -451,7 +474,7 @@ namespace BatchRenameApp
         {
             string replace = Replacement;
             if (match.Length > 0)
-              return replace;
+                return replace;
             else
                 return "";
         }
@@ -514,11 +537,23 @@ namespace BatchRenameApp
         {
             return 0;
         }
+
+
         #endregion
 
-        private void checkBoxUseRegex_CheckedChanged(object sender, EventArgs e)
+        private void listBoxFilelist_Click(object sender, EventArgs e)
         {
-            UpdatePreview();
+
+            MouseEventArgs me = (MouseEventArgs)e;
+            int clickedIndex = listBoxFilelist.IndexFromPoint(me.Location);
+            if (clickedIndex > -1)
+            {
+                if (selectedItems.Contains(clickedIndex))
+                {
+                    listBoxFilelist.SetSelected(clickedIndex, false);
+                }
+            }
+            SyncSelectedList();
         }
     }
 }
