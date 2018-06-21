@@ -183,28 +183,32 @@ namespace BatchRenameApp
         private void listBoxFilelist_DragDrop(object sender, DragEventArgs e)
         {
             e.Effect = DragDropEffects.None;
-            string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
-            int errors = 0;
-            Exception outException = null;
-            foreach (string file in files)
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
-                try
+                e.Effect = DragDropEffects.None;
+                string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+                int errors = 0;
+                Exception outException = null;
+                foreach (string file in files)
                 {
-                    filestorage.AddFile(file);
+                    try
+                    {
+                        filestorage.AddFile(file);
+                    }
+                    catch (Exception ex)
+                    {
+                        errors += 1;
+                        outException = ex;
+                    }
                 }
-                catch (Exception ex)
+
+                if (errors > 0)
                 {
-                    errors += 1;
-                    outException = ex;
+                    CenteredMessageBox.Show(this, outException.Message, errors + " Errors", MessageBoxButtons.OK);
                 }
-            }
 
-            if (errors > 0)
-            {
-                CenteredMessageBox.Show(this, outException.Message, errors + " Errors", MessageBoxButtons.OK);
+                UpdateFilelist();
             }
-
-            UpdateFilelist();
         }
 
         private void listBoxFilelist_DragEnter(object sender, DragEventArgs e)

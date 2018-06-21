@@ -59,7 +59,7 @@
             this.collabsibleGroupBoxFiles = new Indigo.CollapsibleGroupBox();
             this.labelFileList = new System.Windows.Forms.Label();
             this.listBoxFilelist = new Oli.Controls.DragDropListBox();
-            this.listBoxPreview = new Oli.Controls.DragDropListBox();
+            this.listBoxPreview = new System.Windows.Forms.ListBox();
             this.labelChanged = new System.Windows.Forms.Label();
             this.contextMenu.SuspendLayout();
             this.panelSearchandReplace.SuspendLayout();
@@ -411,7 +411,6 @@
         private Indigo.CollapsibleGroupBox collabsibleGroupBoxFiles;
         private Indigo.CollapsibleGroupBox collapsibleGroupBoxFunction;
         private System.Windows.Forms.Panel panelSearchandReplace;
-        private Oli.Controls.DragDropListBox dragDropListBox1;
     }
 }
 
