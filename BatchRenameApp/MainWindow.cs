@@ -258,6 +258,11 @@ namespace BatchRenameApp
             UpdatePreview();
         }
 
+        private void collabsibleGroupBoxFiles_Click(object sender, EventArgs e)
+        {
+            listBoxFilelist.ClearSelected();
+        }
+
         #endregion
 
         // MENU EVENTS

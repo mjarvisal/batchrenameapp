@@ -30,14 +30,10 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
-            this.listBoxFilelist = new System.Windows.Forms.ListBox();
             this.inputSearch = new System.Windows.Forms.TextBox();
             this.labelRegExp = new System.Windows.Forms.Label();
-            this.labelFileList = new System.Windows.Forms.Label();
             this.labelReplace = new System.Windows.Forms.Label();
             this.inputReplace = new System.Windows.Forms.TextBox();
-            this.listBoxPreview = new System.Windows.Forms.ListBox();
-            this.labelChanged = new System.Windows.Forms.Label();
             this.buttonRename = new System.Windows.Forms.Button();
             this.checkBoxUseRegex = new System.Windows.Forms.CheckBox();
             this.contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -56,28 +52,20 @@
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.regularExpressionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.usableTagsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.panelSearchandReplace = new System.Windows.Forms.Panel();
+            this.collapsibleGroupBoxFunction = new Indigo.CollapsibleGroupBox();
             this.labelFunction = new System.Windows.Forms.Label();
             this.inputFunction = new System.Windows.Forms.TextBox();
             this.collabsibleGroupBoxFiles = new Indigo.CollapsibleGroupBox();
-            this.collapsibleGroupBoxFunction = new Indigo.CollapsibleGroupBox();
-            this.panelSearchandReplace = new System.Windows.Forms.Panel();
+            this.labelFileList = new System.Windows.Forms.Label();
+            this.listBoxFilelist = new System.Windows.Forms.ListBox();
+            this.listBoxPreview = new System.Windows.Forms.ListBox();
+            this.labelChanged = new System.Windows.Forms.Label();
             this.contextMenu.SuspendLayout();
-            this.collabsibleGroupBoxFiles.SuspendLayout();
-            this.collapsibleGroupBoxFunction.SuspendLayout();
             this.panelSearchandReplace.SuspendLayout();
+            this.collapsibleGroupBoxFunction.SuspendLayout();
+            this.collabsibleGroupBoxFiles.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // listBoxFilelist
-            // 
-            this.listBoxFilelist.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.listBoxFilelist.FormattingEnabled = true;
-            this.listBoxFilelist.HorizontalScrollbar = true;
-            this.listBoxFilelist.Location = new System.Drawing.Point(13, 36);
-            this.listBoxFilelist.Name = "listBoxFilelist";
-            this.listBoxFilelist.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.listBoxFilelist.Size = new System.Drawing.Size(198, 264);
-            this.listBoxFilelist.TabIndex = 0;
-            this.listBoxFilelist.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.listBoxFilelist_DrawItem);
             // 
             // inputSearch
             // 
@@ -97,15 +85,6 @@
             this.labelRegExp.TabIndex = 2;
             this.labelRegExp.Text = "Search";
             // 
-            // labelFileList
-            // 
-            this.labelFileList.AutoSize = true;
-            this.labelFileList.Location = new System.Drawing.Point(10, 16);
-            this.labelFileList.Name = "labelFileList";
-            this.labelFileList.Size = new System.Drawing.Size(89, 13);
-            this.labelFileList.TabIndex = 3;
-            this.labelFileList.Text = "Original filenames";
-            // 
             // labelReplace
             // 
             this.labelReplace.AutoSize = true;
@@ -122,25 +101,6 @@
             this.inputReplace.Size = new System.Drawing.Size(252, 20);
             this.inputReplace.TabIndex = 2;
             this.inputReplace.TextChanged += new System.EventHandler(this.inputReplace_TextChanged);
-            // 
-            // listBoxPreview
-            // 
-            this.listBoxPreview.FormattingEnabled = true;
-            this.listBoxPreview.HorizontalScrollbar = true;
-            this.listBoxPreview.Location = new System.Drawing.Point(256, 36);
-            this.listBoxPreview.Name = "listBoxPreview";
-            this.listBoxPreview.SelectionMode = System.Windows.Forms.SelectionMode.None;
-            this.listBoxPreview.Size = new System.Drawing.Size(197, 264);
-            this.listBoxPreview.TabIndex = 7;
-            // 
-            // labelChanged
-            // 
-            this.labelChanged.AutoSize = true;
-            this.labelChanged.Location = new System.Drawing.Point(253, 16);
-            this.labelChanged.Name = "labelChanged";
-            this.labelChanged.Size = new System.Drawing.Size(97, 13);
-            this.labelChanged.TabIndex = 8;
-            this.labelChanged.Text = "Changed filenames";
             // 
             // buttonRename
             // 
@@ -285,6 +245,32 @@
             this.usableTagsToolStripMenuItem.Text = "Usable tags";
             this.usableTagsToolStripMenuItem.Click += new System.EventHandler(this.usableTagsToolStripMenuItem_Click);
             // 
+            // panelSearchandReplace
+            // 
+            this.panelSearchandReplace.Controls.Add(this.checkBoxUseRegex);
+            this.panelSearchandReplace.Controls.Add(this.inputSearch);
+            this.panelSearchandReplace.Controls.Add(this.labelRegExp);
+            this.panelSearchandReplace.Controls.Add(this.buttonRename);
+            this.panelSearchandReplace.Controls.Add(this.labelReplace);
+            this.panelSearchandReplace.Controls.Add(this.inputReplace);
+            this.panelSearchandReplace.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelSearchandReplace.Location = new System.Drawing.Point(0, 0);
+            this.panelSearchandReplace.Name = "panelSearchandReplace";
+            this.panelSearchandReplace.Size = new System.Drawing.Size(487, 100);
+            this.panelSearchandReplace.TabIndex = 10;
+            // 
+            // collapsibleGroupBoxFunction
+            // 
+            this.collapsibleGroupBoxFunction.Controls.Add(this.labelFunction);
+            this.collapsibleGroupBoxFunction.Controls.Add(this.inputFunction);
+            this.collapsibleGroupBoxFunction.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.collapsibleGroupBoxFunction.Location = new System.Drawing.Point(0, 108);
+            this.collapsibleGroupBoxFunction.Name = "collapsibleGroupBoxFunction";
+            this.collapsibleGroupBoxFunction.Size = new System.Drawing.Size(487, 65);
+            this.collapsibleGroupBoxFunction.TabIndex = 13;
+            this.collapsibleGroupBoxFunction.TabStop = false;
+            this.collapsibleGroupBoxFunction.Text = "Function";
+            // 
             // labelFunction
             // 
             this.labelFunction.AutoSize = true;
@@ -316,31 +302,45 @@
             this.collabsibleGroupBoxFiles.TabStop = false;
             this.collabsibleGroupBoxFiles.Text = "Files";
             // 
-            // collapsibleGroupBoxFunction
+            // labelFileList
             // 
-            this.collapsibleGroupBoxFunction.Controls.Add(this.labelFunction);
-            this.collapsibleGroupBoxFunction.Controls.Add(this.inputFunction);
-            this.collapsibleGroupBoxFunction.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.collapsibleGroupBoxFunction.Location = new System.Drawing.Point(0, 108);
-            this.collapsibleGroupBoxFunction.Name = "collapsibleGroupBoxFunction";
-            this.collapsibleGroupBoxFunction.Size = new System.Drawing.Size(487, 65);
-            this.collapsibleGroupBoxFunction.TabIndex = 13;
-            this.collapsibleGroupBoxFunction.TabStop = false;
-            this.collapsibleGroupBoxFunction.Text = "Function";
+            this.labelFileList.AutoSize = true;
+            this.labelFileList.Location = new System.Drawing.Point(10, 16);
+            this.labelFileList.Name = "labelFileList";
+            this.labelFileList.Size = new System.Drawing.Size(89, 13);
+            this.labelFileList.TabIndex = 3;
+            this.labelFileList.Text = "Original filenames";
             // 
-            // panelSearchandReplace
+            // listBoxFilelist
             // 
-            this.panelSearchandReplace.Controls.Add(this.checkBoxUseRegex);
-            this.panelSearchandReplace.Controls.Add(this.inputSearch);
-            this.panelSearchandReplace.Controls.Add(this.labelRegExp);
-            this.panelSearchandReplace.Controls.Add(this.buttonRename);
-            this.panelSearchandReplace.Controls.Add(this.labelReplace);
-            this.panelSearchandReplace.Controls.Add(this.inputReplace);
-            this.panelSearchandReplace.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelSearchandReplace.Location = new System.Drawing.Point(0, 0);
-            this.panelSearchandReplace.Name = "panelSearchandReplace";
-            this.panelSearchandReplace.Size = new System.Drawing.Size(487, 100);
-            this.panelSearchandReplace.TabIndex = 10;
+            this.listBoxFilelist.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.listBoxFilelist.FormattingEnabled = true;
+            this.listBoxFilelist.HorizontalScrollbar = true;
+            this.listBoxFilelist.Location = new System.Drawing.Point(13, 36);
+            this.listBoxFilelist.Name = "listBoxFilelist";
+            this.listBoxFilelist.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
+            this.listBoxFilelist.Size = new System.Drawing.Size(198, 264);
+            this.listBoxFilelist.TabIndex = 0;
+            this.listBoxFilelist.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.listBoxFilelist_DrawItem);
+            // 
+            // listBoxPreview
+            // 
+            this.listBoxPreview.FormattingEnabled = true;
+            this.listBoxPreview.HorizontalScrollbar = true;
+            this.listBoxPreview.Location = new System.Drawing.Point(256, 36);
+            this.listBoxPreview.Name = "listBoxPreview";
+            this.listBoxPreview.SelectionMode = System.Windows.Forms.SelectionMode.None;
+            this.listBoxPreview.Size = new System.Drawing.Size(197, 264);
+            this.listBoxPreview.TabIndex = 7;
+            // 
+            // labelChanged
+            // 
+            this.labelChanged.AutoSize = true;
+            this.labelChanged.Location = new System.Drawing.Point(253, 16);
+            this.labelChanged.Name = "labelChanged";
+            this.labelChanged.Size = new System.Drawing.Size(97, 13);
+            this.labelChanged.TabIndex = 8;
+            this.labelChanged.Text = "Changed filenames";
             // 
             // MainWindow
             // 
@@ -366,12 +366,12 @@
             this.DragEnter += new System.Windows.Forms.DragEventHandler(this.listBoxFilelist_DragEnter);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainWindow_KeyDown);
             this.contextMenu.ResumeLayout(false);
-            this.collabsibleGroupBoxFiles.ResumeLayout(false);
-            this.collabsibleGroupBoxFiles.PerformLayout();
-            this.collapsibleGroupBoxFunction.ResumeLayout(false);
-            this.collapsibleGroupBoxFunction.PerformLayout();
             this.panelSearchandReplace.ResumeLayout(false);
             this.panelSearchandReplace.PerformLayout();
+            this.collapsibleGroupBoxFunction.ResumeLayout(false);
+            this.collapsibleGroupBoxFunction.PerformLayout();
+            this.collabsibleGroupBoxFiles.ResumeLayout(false);
+            this.collabsibleGroupBoxFiles.PerformLayout();
             this.ResumeLayout(false);
 
         }
