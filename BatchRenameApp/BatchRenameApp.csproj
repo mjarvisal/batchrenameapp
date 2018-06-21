@@ -35,6 +35,9 @@
     <Reference Include="CollapsibleGroupBox">
       <HintPath>Resources\CollapsibleGroupBox.dll</HintPath>
     </Reference>
+    <Reference Include="Oli.Controls">
+      <HintPath>Resources\Oli.Controls.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />

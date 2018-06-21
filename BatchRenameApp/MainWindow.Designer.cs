@@ -58,29 +58,14 @@
             this.inputFunction = new System.Windows.Forms.TextBox();
             this.collabsibleGroupBoxFiles = new Indigo.CollapsibleGroupBox();
             this.labelFileList = new System.Windows.Forms.Label();
-            this.listBoxFilelist = new System.Windows.Forms.ListBox();
-            this.listBoxPreview = new System.Windows.Forms.ListBox();
+            this.listBoxFilelist = new Oli.Controls.DragDropListBox();
+            this.listBoxPreview = new Oli.Controls.DragDropListBox();
             this.labelChanged = new System.Windows.Forms.Label();
             this.contextMenu.SuspendLayout();
             this.panelSearchandReplace.SuspendLayout();
             this.collapsibleGroupBoxFunction.SuspendLayout();
             this.collabsibleGroupBoxFiles.SuspendLayout();
             this.SuspendLayout();
-            // 
-
-            // listBoxFilelist
-            // 
-            this.listBoxFilelist.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.listBoxFilelist.FormattingEnabled = true;
-            this.listBoxFilelist.HorizontalScrollbar = true;
-            this.listBoxFilelist.Location = new System.Drawing.Point(13, 36);
-            this.listBoxFilelist.Name = "listBoxFilelist";
-            this.listBoxFilelist.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.listBoxFilelist.Size = new System.Drawing.Size(198, 264);
-            this.listBoxFilelist.TabIndex = 0;
-            this.listBoxFilelist.Click += new System.EventHandler(this.listBoxFilelist_Click);
-            this.listBoxFilelist.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.listBoxFilelist_DrawItem);
-            this.listBoxFilelist.SelectedIndexChanged += new System.EventHandler(this.listBoxFilelist_SelectedIndexChanged);
             // 
             // inputSearch
             // 
@@ -336,7 +321,9 @@
             this.listBoxFilelist.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
             this.listBoxFilelist.Size = new System.Drawing.Size(198, 264);
             this.listBoxFilelist.TabIndex = 0;
+            this.listBoxFilelist.Click += new System.EventHandler(this.listBoxFilelist_Click);
             this.listBoxFilelist.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.listBoxFilelist_DrawItem);
+            this.listBoxFilelist.SelectedIndexChanged += new System.EventHandler(this.listBoxFilelist_SelectedIndexChanged);
             // 
             // listBoxPreview
             // 
@@ -424,6 +411,7 @@
         private Indigo.CollapsibleGroupBox collabsibleGroupBoxFiles;
         private Indigo.CollapsibleGroupBox collapsibleGroupBoxFunction;
         private System.Windows.Forms.Panel panelSearchandReplace;
+        private Oli.Controls.DragDropListBox dragDropListBox1;
     }
 }
 
