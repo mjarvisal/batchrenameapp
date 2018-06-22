@@ -180,15 +180,11 @@ namespace BatchRenameApp
 
         public bool Contains(string filename)
         {
-            FileInfo file = new FileInfo(filename);
             if (filetable.ContainsKey(filename))
             {
                 return true;
             }
-            else
-            {
-                return false;
-            }
+            return false;
         }
     }
 }
