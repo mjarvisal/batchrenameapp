@@ -216,11 +216,6 @@ namespace BatchRenameApp
             e.Effect = DragDropEffects.Copy;
         }
 
-        private void listBoxFilelist_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void buttonRename_Click(object sender, EventArgs e)
         {
             if (listBoxFilelist.Items.Count == 0)
@@ -388,7 +383,7 @@ namespace BatchRenameApp
             UpdatePreview();
         }
 
-        private void UpdatePreview()
+        public void UpdatePreview()
         {
             listBoxPreview.Items.Clear();
             string Search = inputSearch.Text;
@@ -548,7 +543,13 @@ namespace BatchRenameApp
         #region
         private int RenameFiles()
         {
-            return 0;
+            int renamed = 0;
+            string[] renameditems = listBoxPreview.Items.OfType<string>().ToArray();
+            foreach(string renamedfilename in renameditems)
+            {
+                renamed++;
+            }
+            return renamed;
         }
 
 
