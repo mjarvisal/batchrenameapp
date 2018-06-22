@@ -165,5 +165,17 @@ namespace BatchRenameApp
         {
             return files;
         }
+
+        public FileInfo GetFileInfo(string file)
+        {
+            try
+            {
+                return (FileInfo)filetable[file];
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
     }
 }
