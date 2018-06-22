@@ -391,7 +391,12 @@ namespace BatchRenameApp
         private void UpdatePreview()
         {
             listBoxPreview.Items.Clear();
-            String[] inputs = { inputSearch.Text, inputReplace.Text, inputFunction.Text };
+            string Search = inputSearch.Text;
+            if (Search.Length == 0)
+            {
+                Search = "^";
+            }
+            String[] inputs = { Search, inputReplace.Text, inputFunction.Text };
             bool bmode = checkBoxUseRegex.Checked;
             int x = 0;
             foreach (FileInfo file in filestorage.GetFileInfos())
@@ -424,14 +429,14 @@ namespace BatchRenameApp
             }
         }
 
-        private string ProcessPatterns(int index, string text, string function, FileInfo file)
+        private string ProcessPatterns(int number, string text, string function, FileInfo file)
         {
 
             string output = text.Replace("%file%", file.Name);
             output = output.Replace("%folder%", file.Directory.Name);
             output = output.Replace("%date%", DateTime.Now.ToShortDateString());
             output = output.Replace("%time%", DateTime.Now.ToLongTimeString());
-            output = output.Replace("%fnc%", EvaluateFunctionString(function, index));
+            output = output.Replace("%fnc%", EvaluateFunctionString(function, number));
 
             return output;
         }
@@ -442,12 +447,12 @@ namespace BatchRenameApp
             return "test";
         }
 
-        private string ProcessRegex(int index, bool mode, String[] inputs, FileInfo file)
+        private string ProcessRegex(int number, bool mode, String[] inputs, FileInfo file)
         {
             string find = inputs[0];
             string replace = inputs[1];
             string function = inputs[2];
-            string result;
+            string result = "";
             Replacement = replace;
             if (!mode)
             {
@@ -458,15 +463,16 @@ namespace BatchRenameApp
             {
                 Regex regex = new Regex(find);
                 MatchEvaluator myEvaluator = new MatchEvaluator(EvaluateMatch);
-                result = ProcessPatterns(index, regex.Replace(file.Name, myEvaluator), function, file);
+                if(regex.IsMatch(file.Name))
+                {
+                    string renamed = regex.Replace(file.Name, myEvaluator);
+                    result = ProcessPatterns(number, renamed, function, file);
+                }
                 if (result == file.Name)
-                {
-                    return null;
-                }
+                    return "";
                 else
-                {
                     return result;
-                }
+
             }
             catch (ArgumentException)
             {
@@ -477,13 +483,16 @@ namespace BatchRenameApp
         public string EvaluateMatch(Match match)
         {
             string replace = Replacement;
+            return replace;
+            /*
             if (match.Length > 0)
                 return replace;
             else
                 return "";
+                */
         }
 
-        private string EvaluateFunctionString(string sFunction, int index)
+        private string EvaluateFunctionString(string sFunction, int number)
         {
             string expression = "x";
             string lastvalidexpression = "x";
@@ -494,18 +503,18 @@ namespace BatchRenameApp
             {
                 if (allowedRegex.IsMatch(sFunction))
                 {
-                    lastvalidexpression = lastvalidFunction.Replace("x", index.ToString());
+                    lastvalidexpression = lastvalidFunction.Replace("x", number.ToString());
                 }
                 else
                 {
-                    expression = sFunction.Replace("x", index.ToString());
-                    lastvalidexpression = lastvalidFunction.Replace("x", index.ToString());
+                    expression = sFunction.Replace("x", number.ToString());
+                    lastvalidexpression = lastvalidFunction.Replace("x", number.ToString());
                 }
             }
             else
             {
                 sFunction = "x";
-                expression = sFunction.Replace("x", index.ToString());
+                expression = sFunction.Replace("x", number.ToString());
             }
 
             object result = null;
