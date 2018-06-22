@@ -364,8 +364,8 @@
             this.Name = "MainWindow";
             this.Text = "BatchRenameApp";
             this.Load += new System.EventHandler(this.MainWindow_Load);
-            this.DragDrop += new System.Windows.Forms.DragEventHandler(this.listBoxFilelist_DragDrop);
-            this.DragEnter += new System.Windows.Forms.DragEventHandler(this.listBoxFilelist_DragEnter);
+            this.DragDrop += new System.Windows.Forms.DragEventHandler(this.MainWindow_DragDrop);
+            this.DragEnter += new System.Windows.Forms.DragEventHandler(this.Mainwindow_DragEnter);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainWindow_KeyDown);
             this.contextMenu.ResumeLayout(false);
             this.panelSearchandReplace.ResumeLayout(false);

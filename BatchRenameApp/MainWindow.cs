@@ -19,7 +19,7 @@ namespace BatchRenameApp
 
     public partial class MainWindow : Form
     {
-        FilenameStorage filestorage = new FilenameStorage();
+        public FilenameStorage filestorage = new FilenameStorage();
         ArrayList selectedItems = new ArrayList();
 
         /** For evaluating math functions */
@@ -180,7 +180,7 @@ namespace BatchRenameApp
             e.DrawFocusRectangle();
         }
 
-        private void listBoxFilelist_DragDrop(object sender, DragEventArgs e)
+        private void MainWindow_DragDrop(object sender, DragEventArgs e)
         {
             e.Effect = DragDropEffects.None;
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
@@ -211,7 +211,7 @@ namespace BatchRenameApp
             }
         }
 
-        private void listBoxFilelist_DragEnter(object sender, DragEventArgs e)
+        private void Mainwindow_DragEnter(object sender, DragEventArgs e)
         {
             e.Effect = DragDropEffects.Copy;
         }

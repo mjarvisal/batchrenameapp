@@ -8,7 +8,7 @@ namespace BatchRenameApp
 {
     static class Program
     {
-        static MainWindow mainWindowForm;
+        public static MainWindow mainWindowForm;
         [STAThread]
         static void Main()
         {

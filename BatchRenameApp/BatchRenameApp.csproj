@@ -35,9 +35,6 @@
     <Reference Include="CollapsibleGroupBox">
       <HintPath>Resources\CollapsibleGroupBox.dll</HintPath>
     </Reference>
-    <Reference Include="Oli.Controls">
-      <HintPath>Resources\Oli.Controls.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -52,7 +49,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CenteredMessageBox.cs" />
+    <Compile Include="DragDropListBox\DragDropListBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DragDropListBox\DroppedEventArgs.cs" />
     <Compile Include="FilenameStorage.cs" />
+    <Compile Include="DragDropListBox\IDragDropSource.cs" />
     <Compile Include="MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -61,6 +63,8 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="DragDropListBox\VisualCue.cs" />
+    <Compile Include="DragDropListBox\Win32.cs" />
     <EmbeddedResource Include="MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>
     </EmbeddedResource>

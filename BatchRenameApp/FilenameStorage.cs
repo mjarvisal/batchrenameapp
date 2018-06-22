@@ -17,7 +17,7 @@ namespace BatchRenameApp
         public SortMode sortMode;
     }
 
-    class FilenameStorage
+    public class FilenameStorage
     {
 
         /** For undoing operations */
