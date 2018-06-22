@@ -175,20 +175,19 @@ namespace Oli.Controls
 
                 foreach (string filename in files)
                 {
-
-                    if (Items.Contains(BatchRenameApp.Program.mainWindowForm.filestorage.GetFileInfo(filename)) == false)
-                    {
-                        try
+                        if (BatchRenameApp.Program.mainWindowForm.filestorage.Contains(filename) == false)
                         {
-                            BatchRenameApp.Program.mainWindowForm.filestorage.AddFile(filename);
-                            filetransferhack.Items.Add(BatchRenameApp.Program.mainWindowForm.filestorage.GetFileInfo(filename));
+                            try
+                            {
+                                BatchRenameApp.Program.mainWindowForm.filestorage.AddFile(filename);
+                                filetransferhack.Items.Add(BatchRenameApp.Program.mainWindowForm.filestorage.GetFileInfo(filename));
+                            }
+                            catch (Exception ex)
+                            {
+                                errors += 1;
+                                outException = ex;
+                            }
                         }
-                        catch (Exception ex)
-                        {
-                            errors += 1;
-                            outException = ex;
-                        }
-                    }
                 }
                 if (errors > 0)
                 {
