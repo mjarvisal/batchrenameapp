@@ -253,6 +253,8 @@ namespace Oli.Controls
 			// Now that we've selected the inserted items, restore the "Sorted" property.
 			Sorted = sortedSave;
 
+            BatchRenameApp.Program.mainWindowForm.UpdatePreview();
+
 			// Notify the target (this control).
 			DroppedEventArgs e = new DroppedEventArgs()
 			{

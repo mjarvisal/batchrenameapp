@@ -323,7 +323,6 @@
             this.listBoxFilelist.TabIndex = 0;
             this.listBoxFilelist.Click += new System.EventHandler(this.listBoxFilelist_Click);
             this.listBoxFilelist.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.listBoxFilelist_DrawItem);
-            this.listBoxFilelist.SelectedIndexChanged += new System.EventHandler(this.listBoxFilelist_SelectedIndexChanged);
             // 
             // listBoxPreview
             // 
