@@ -20,7 +20,6 @@ namespace BatchRenameApp
     public partial class MainWindow : Form
     {
         public FilenameStorage filestorage = new FilenameStorage();
-        ArrayList selectedItems = new ArrayList();
 
         /** For evaluating math functions */
         private static string lastvalidFunction = "x";
@@ -72,22 +71,19 @@ namespace BatchRenameApp
             switch (e.KeyCode)
             {
                 case (Keys.Escape):
+                    History.Push(listBoxFilelist);
                     listBoxFilelist.ClearSelected();
                     break;
 
                 case (Keys.Delete):
                     if (listBoxFilelist.ClientRectangle.Contains(listBoxFilelist.PointToClient(MousePosition)))
                     {
+                        History.Push(listBoxFilelist);
                         RemoveSelection();
+                        UpdatePreview();
                     }
                     break;
             }
-        }
-
-
-        private void MainWindow_Load(object sender, EventArgs e)
-        {
-            UpdateFilelist();
         }
 
         #endregion
@@ -180,8 +176,30 @@ namespace BatchRenameApp
             e.DrawFocusRectangle();
         }
 
+        private void listBoxFilelist_Click(object sender, EventArgs e)
+        {
+            MouseEventArgs me = (MouseEventArgs)e;
+            int clickedIndex = listBoxFilelist.IndexFromPoint(me.Location);
+            if (clickedIndex > -1)
+            {
+                if(listBoxFilelist.SelectedIndices.Count > 1)
+                    {
+                    if (listBoxFilelist.SelectedIndices.Contains(clickedIndex))
+                    {
+                        listBoxFilelist.SetSelected(clickedIndex, !listBoxFilelist.GetSelected(clickedIndex));
+                    }
+                }
+                else if (clickedIndex == listBoxFilelist.SelectedIndex)
+                {
+
+                }
+                
+            }
+        }
+
         private void MainWindow_DragDrop(object sender, DragEventArgs e)
         {
+            History.Push(listBoxFilelist);
             e.Effect = DragDropEffects.None;
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
@@ -189,16 +207,20 @@ namespace BatchRenameApp
                 string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
                 int errors = 0;
                 Exception outException = null;
-                foreach (string file in files)
+                foreach (string filename in files)
                 {
-                    try
+                    if (Program.mainWindowForm.filestorage.Contains(filename) == false)
                     {
-                        filestorage.AddFile(file);
-                    }
-                    catch (Exception ex)
-                    {
-                        errors += 1;
-                        outException = ex;
+                        try
+                        {
+                            filestorage.AddFile(filename);
+                            listBoxFilelist.Items.Add(filestorage.GetFileInfo(filename));
+                        }
+                        catch (Exception ex)
+                        {
+                            errors += 1;
+                            outException = ex;
+                        }
                     }
                 }
 
@@ -206,9 +228,8 @@ namespace BatchRenameApp
                 {
                     CenteredMessageBox.Show(this, outException.Message, errors + " Errors", MessageBoxButtons.OK);
                 }
-
-                UpdateFilelist();
             }
+            UpdatePreview();
         }
 
         private void Mainwindow_DragEnter(object sender, DragEventArgs e)
@@ -280,47 +301,53 @@ namespace BatchRenameApp
 
         private void ascendingToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            filestorage.SortAsc();
-            UpdateFilelist();
+            History.Push(listBoxFilelist.Items);
+            ListBoxSort.SortAsc(listBoxFilelist);
+            UpdatePreview();
         }
 
         private void descendingToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            filestorage.SortDesc();
-            UpdateFilelist();
-        }
-
-        private void noSortToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            filestorage.ResetSort();
-            UpdateFilelist();
+            History.Push(listBoxFilelist.Items);
+            ListBoxSort.SortDesc(listBoxFilelist);
+            UpdatePreview();
         }
 
         private void undoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            filestorage.Undo();
-            UpdateFilelist();
+            History.Undo(listBoxFilelist);
+            UpdatePreview();
         }
 
         private void invertSelectionToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            History.Push(listBoxFilelist.SelectedItems);
             for (int i = 0; i < listBoxFilelist.Items.Count; i++)
                 listBoxFilelist.SetSelected(i, !listBoxFilelist.GetSelected(i));
         }
 
         private void clearSelectionToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            History.Push(listBoxFilelist.SelectedItems);
             listBoxFilelist.ClearSelected();
         }
 
         private void RemoveSelectiontoolStripMenuItem_Click(object sender, EventArgs e)
         {
+            History.Push(listBoxFilelist);
             RemoveSelection();
+            UpdatePreview();
         }
 
         private void regularExpressionsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Process.Start("https://www.google.com/#sclient=psy-ab&q=regular+expression+cheat+sheet");
+        }
+
+        private void redotoolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            History.Redo(listBoxFilelist);
+            UpdatePreview();
         }
 
         private void usableTagsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -347,40 +374,24 @@ namespace BatchRenameApp
 
         // HELPERS
         #region Helper Functions
-        private void SyncSelectedList()
-        {
-            selectedItems.Clear();
 
-            foreach (int i in listBoxFilelist.SelectedIndices)
-            {
-                selectedItems.Add(i);
-            }
-
-        }
         private void RemoveSelection()
         {
-            Object[] SelectedItems = new Object[listBoxFilelist.SelectedItems.Count];
-            listBoxFilelist.SelectedItems.CopyTo(SelectedItems, 0);
-            foreach (object Item in SelectedItems)
+            foreach (object Item in listBoxFilelist.SelectedItems)
             {
                 filestorage.RemoveFile(Item.ToString());
-
             }
-            UpdateFilelist();
-        }
-
-        public void UpdateFilelist()
-        {
-            listBoxFilelist.Items.Clear();
-            int x = 0;
-            foreach (FileInfo file in filestorage.GetFileInfos())
+            int index = listBoxFilelist.SelectedIndex;
+            listBoxFilelist.RemoveSelectedItems(ref index);
+            if(index > (listBoxFilelist.Items.Count -1))
             {
-                listBoxFilelist.Items.Add(file);
-                listBoxFilelist.SetSelected(x, selectedItems.Contains(x));
-                x++;
+                index--;
             }
-
-            UpdatePreview();
+            if(listBoxFilelist.Items.Count == 0)
+            {
+                index = -1;
+            }
+            listBoxFilelist.SelectedIndex = index;
         }
 
         public void UpdatePreview()
@@ -396,13 +407,11 @@ namespace BatchRenameApp
             int x = 0;
             foreach (FileInfo file in filestorage.GetFileInfos())
             {
-
                 string fileName = ProcessRegex(x, bmode, inputs, file);
                 if (fileName != null)
                 {
                     listBoxPreview.Items.Add(fileName);
                 }
-
                 x++;
             }
         }
@@ -554,20 +563,5 @@ namespace BatchRenameApp
 
 
         #endregion
-
-        private void listBoxFilelist_Click(object sender, EventArgs e)
-        {
-
-            MouseEventArgs me = (MouseEventArgs)e;
-            int clickedIndex = listBoxFilelist.IndexFromPoint(me.Location);
-            if (clickedIndex > -1)
-            {
-                if (selectedItems.Contains(clickedIndex))
-                {
-                    listBoxFilelist.SetSelected(clickedIndex, false);
-                }
-            }
-            SyncSelectedList();
-        }
     }
 }

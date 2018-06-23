@@ -1,37 +1,21 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.IO;
 
 namespace BatchRenameApp
 {
 
-    enum SortMode { None, Asc, Desc };
-
-    class UndoObject
-    {
-        public ArrayList files;
-        public SortMode sortMode;
-    }
-
     public class FilenameStorage
     {
 
-        /** For undoing operations */
-        private Stack<UndoObject> history = new Stack<UndoObject>(100);
-        private SortMode sortMode;
-
-        private Hashtable filetable = new Hashtable();
+        private static Hashtable filetable = new Hashtable();
 
         /**
          * ArrayList files, array of string holding the full filename with path.
          * we use this mainly
          * 
          */
-        private ArrayList files = new ArrayList();
+        private static ArrayList files = new ArrayList();
 
 
         public void AddFile(string filename)
@@ -50,25 +34,8 @@ namespace BatchRenameApp
 
             if (!filetable.ContainsKey(filename))
             {
-
-                switch (sortMode)
-                {
-                    case SortMode.Asc:
-                        files.Add(file);
-                        filetable.Add(filename, file);
-                        this.SortAsc();
-                        break;
-                    case SortMode.Desc:
-                        files.Add(file);
-                        filetable.Add(filename, file);
-                        this.SortDesc();
-                        break;
-                    default:
-                        files.Add(file);
-                        filetable.Add(filename, file);
-                        AddStateToHistory();
-                        break;
-                }
+                files.Add(file);
+                filetable.Add(filename, file);
             }
         }
 
@@ -79,75 +46,13 @@ namespace BatchRenameApp
             {
                 files.Remove(filetable[filename]);
                 filetable.Remove(filename);
-                AddStateToHistory();
             }
         }
 
-        public void SortAsc()
+        public void Clear()
         {
-            sortMode = SortMode.Asc;
-            IEnumerable sortedfiles = files.Cast<FileInfo>().ToArray().OrderBy(x => x.FullName);
             files.Clear();
-            foreach (FileInfo file in sortedfiles)
-            {
-                files.Add(file);
-            }
-            AddStateToHistory();
-
-        }
-
-        public void SortDesc()
-        {
-            sortMode = SortMode.Desc;
-            IEnumerable sortedfiles = files.Cast<FileInfo>().ToArray().OrderByDescending(x => x.FullName);
-            files.Clear();
-            foreach (FileInfo file in sortedfiles)
-            {
-                files.Add(file);
-            }
-            AddStateToHistory();
-        }
-
-
-        public void ResetSort()
-        {
-            sortMode = SortMode.None;
-            files.Clear();
-            foreach (FileInfo fileinfo in filetable.Values)
-            {
-                files.Add(fileinfo);
-            }
-            AddStateToHistory();
-        }
-
-
-        public void Swap(int from, int to)
-        {
-            sortMode = SortMode.None;
-            Object tmp = files[from];
-            files[from] = files[to];
-            files[to] = tmp;
-            AddStateToHistory();
-        }
-
-        public void Undo()
-        {
-            if (history.Count > 0)
-            {
-                UndoObject snapshot = history.Pop();
-                files = snapshot.files;
-                sortMode = snapshot.sortMode;
-            }
-        }
-
-        public void AddStateToHistory()
-        {
-            UndoObject snapshot = new UndoObject
-            {
-                files = (ArrayList)files.Clone(),
-                sortMode = sortMode
-            };
-            history.Push(snapshot);
+            filetable.Clear();
         }
 
         public ArrayList GetFiles()
@@ -172,7 +77,7 @@ namespace BatchRenameApp
             {
                 return (FileInfo)filetable[file];
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return null;
             }

@@ -42,25 +42,23 @@
             this.sortToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ascendingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.descendingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparatorSort = new System.Windows.Forms.ToolStripSeparator();
-            this.noSortToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparatorMain2 = new System.Windows.Forms.ToolStripSeparator();
             this.invertSelectionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clearSelectionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.RemoveSelectiontoolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.removeSelectiontoolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparatorMain3 = new System.Windows.Forms.ToolStripSeparator();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.regularExpressionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.usableTagsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panelSearchandReplace = new System.Windows.Forms.Panel();
             this.collapsibleGroupBoxFunction = new Indigo.CollapsibleGroupBox();
-            this.labelFunction = new System.Windows.Forms.Label();
             this.inputFunction = new System.Windows.Forms.TextBox();
             this.collabsibleGroupBoxFiles = new Indigo.CollapsibleGroupBox();
             this.labelFileList = new System.Windows.Forms.Label();
             this.listBoxFilelist = new Oli.Controls.DragDropListBox();
             this.listBoxPreview = new System.Windows.Forms.ListBox();
             this.labelChanged = new System.Windows.Forms.Label();
+            this.redotoolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenu.SuspendLayout();
             this.panelSearchandReplace.SuspendLayout();
             this.collapsibleGroupBoxFunction.SuspendLayout();
@@ -69,7 +67,7 @@
             // 
             // inputSearch
             // 
-            this.inputSearch.Location = new System.Drawing.Point(19, 26);
+            this.inputSearch.Location = new System.Drawing.Point(22, 29);
             this.inputSearch.Multiline = true;
             this.inputSearch.Name = "inputSearch";
             this.inputSearch.Size = new System.Drawing.Size(252, 20);
@@ -79,7 +77,7 @@
             // labelRegExp
             // 
             this.labelRegExp.AutoSize = true;
-            this.labelRegExp.Location = new System.Drawing.Point(19, 10);
+            this.labelRegExp.Location = new System.Drawing.Point(22, 13);
             this.labelRegExp.Name = "labelRegExp";
             this.labelRegExp.Size = new System.Drawing.Size(41, 13);
             this.labelRegExp.TabIndex = 2;
@@ -88,7 +86,7 @@
             // labelReplace
             // 
             this.labelReplace.AutoSize = true;
-            this.labelReplace.Location = new System.Drawing.Point(19, 55);
+            this.labelReplace.Location = new System.Drawing.Point(22, 58);
             this.labelReplace.Name = "labelReplace";
             this.labelReplace.Size = new System.Drawing.Size(47, 13);
             this.labelReplace.TabIndex = 5;
@@ -96,7 +94,7 @@
             // 
             // inputReplace
             // 
-            this.inputReplace.Location = new System.Drawing.Point(19, 71);
+            this.inputReplace.Location = new System.Drawing.Point(22, 74);
             this.inputReplace.Name = "inputReplace";
             this.inputReplace.Size = new System.Drawing.Size(252, 20);
             this.inputReplace.TabIndex = 2;
@@ -131,38 +129,39 @@
             // 
             this.contextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.undoToolStripMenuItem,
+            this.redotoolStripMenuItem,
             this.toolStripSeparatorMain1,
             this.sortToolStripMenuItem,
             this.toolStripSeparatorMain2,
             this.invertSelectionToolStripMenuItem,
             this.clearSelectionToolStripMenuItem,
-            this.RemoveSelectiontoolStripMenuItem,
+            this.removeSelectiontoolStripMenuItem,
             this.toolStripSeparatorMain3,
             this.helpToolStripMenuItem});
             this.contextMenu.Name = "contextMenu";
-            this.contextMenu.Size = new System.Drawing.Size(168, 154);
+            this.contextMenu.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
+            this.contextMenu.ShowImageMargin = false;
+            this.contextMenu.Size = new System.Drawing.Size(171, 176);
             // 
             // undoToolStripMenuItem
             // 
             this.undoToolStripMenuItem.Name = "undoToolStripMenuItem";
-            this.undoToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
+            this.undoToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
             this.undoToolStripMenuItem.Text = "Undo";
             this.undoToolStripMenuItem.Click += new System.EventHandler(this.undoToolStripMenuItem_Click);
             // 
             // toolStripSeparatorMain1
             // 
             this.toolStripSeparatorMain1.Name = "toolStripSeparatorMain1";
-            this.toolStripSeparatorMain1.Size = new System.Drawing.Size(164, 6);
+            this.toolStripSeparatorMain1.Size = new System.Drawing.Size(167, 6);
             // 
             // sortToolStripMenuItem
             // 
             this.sortToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ascendingToolStripMenuItem,
-            this.descendingToolStripMenuItem,
-            this.toolStripSeparatorSort,
-            this.noSortToolStripMenuItem});
+            this.descendingToolStripMenuItem});
             this.sortToolStripMenuItem.Name = "sortToolStripMenuItem";
-            this.sortToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
+            this.sortToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
             this.sortToolStripMenuItem.Text = "Sort";
             // 
             // ascendingToolStripMenuItem
@@ -179,48 +178,36 @@
             this.descendingToolStripMenuItem.Text = "Descending";
             this.descendingToolStripMenuItem.Click += new System.EventHandler(this.descendingToolStripMenuItem_Click);
             // 
-            // toolStripSeparatorSort
-            // 
-            this.toolStripSeparatorSort.Name = "toolStripSeparatorSort";
-            this.toolStripSeparatorSort.Size = new System.Drawing.Size(133, 6);
-            // 
-            // noSortToolStripMenuItem
-            // 
-            this.noSortToolStripMenuItem.Name = "noSortToolStripMenuItem";
-            this.noSortToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
-            this.noSortToolStripMenuItem.Text = "Reset";
-            this.noSortToolStripMenuItem.Click += new System.EventHandler(this.noSortToolStripMenuItem_Click);
-            // 
             // toolStripSeparatorMain2
             // 
             this.toolStripSeparatorMain2.Name = "toolStripSeparatorMain2";
-            this.toolStripSeparatorMain2.Size = new System.Drawing.Size(164, 6);
+            this.toolStripSeparatorMain2.Size = new System.Drawing.Size(167, 6);
             // 
             // invertSelectionToolStripMenuItem
             // 
             this.invertSelectionToolStripMenuItem.Name = "invertSelectionToolStripMenuItem";
-            this.invertSelectionToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
+            this.invertSelectionToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
             this.invertSelectionToolStripMenuItem.Text = "Invert selection";
             this.invertSelectionToolStripMenuItem.Click += new System.EventHandler(this.invertSelectionToolStripMenuItem_Click);
             // 
             // clearSelectionToolStripMenuItem
             // 
             this.clearSelectionToolStripMenuItem.Name = "clearSelectionToolStripMenuItem";
-            this.clearSelectionToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
+            this.clearSelectionToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
             this.clearSelectionToolStripMenuItem.Text = "Clear selection";
             this.clearSelectionToolStripMenuItem.Click += new System.EventHandler(this.clearSelectionToolStripMenuItem_Click);
             // 
-            // RemoveSelectiontoolStripMenuItem
+            // removeSelectiontoolStripMenuItem
             // 
-            this.RemoveSelectiontoolStripMenuItem.Name = "RemoveSelectiontoolStripMenuItem";
-            this.RemoveSelectiontoolStripMenuItem.Size = new System.Drawing.Size(167, 22);
-            this.RemoveSelectiontoolStripMenuItem.Text = "Remove selection";
-            this.RemoveSelectiontoolStripMenuItem.Click += new System.EventHandler(this.RemoveSelectiontoolStripMenuItem_Click);
+            this.removeSelectiontoolStripMenuItem.Name = "removeSelectiontoolStripMenuItem";
+            this.removeSelectiontoolStripMenuItem.Size = new System.Drawing.Size(170, 22);
+            this.removeSelectiontoolStripMenuItem.Text = "Remove selected items";
+            this.removeSelectiontoolStripMenuItem.Click += new System.EventHandler(this.RemoveSelectiontoolStripMenuItem_Click);
             // 
             // toolStripSeparatorMain3
             // 
             this.toolStripSeparatorMain3.Name = "toolStripSeparatorMain3";
-            this.toolStripSeparatorMain3.Size = new System.Drawing.Size(164, 6);
+            this.toolStripSeparatorMain3.Size = new System.Drawing.Size(167, 6);
             // 
             // helpToolStripMenuItem
             // 
@@ -228,7 +215,7 @@
             this.regularExpressionsToolStripMenuItem,
             this.usableTagsToolStripMenuItem});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
             this.helpToolStripMenuItem.Text = "Help";
             // 
             // regularExpressionsToolStripMenuItem
@@ -256,33 +243,23 @@
             this.panelSearchandReplace.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelSearchandReplace.Location = new System.Drawing.Point(0, 0);
             this.panelSearchandReplace.Name = "panelSearchandReplace";
-            this.panelSearchandReplace.Size = new System.Drawing.Size(487, 100);
+            this.panelSearchandReplace.Size = new System.Drawing.Size(467, 100);
             this.panelSearchandReplace.TabIndex = 10;
             // 
             // collapsibleGroupBoxFunction
             // 
-            this.collapsibleGroupBoxFunction.Controls.Add(this.labelFunction);
             this.collapsibleGroupBoxFunction.Controls.Add(this.inputFunction);
-            this.collapsibleGroupBoxFunction.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.collapsibleGroupBoxFunction.Location = new System.Drawing.Point(0, 108);
+            this.collapsibleGroupBoxFunction.Dock = System.Windows.Forms.DockStyle.Top;
+            this.collapsibleGroupBoxFunction.Location = new System.Drawing.Point(0, 100);
             this.collapsibleGroupBoxFunction.Name = "collapsibleGroupBoxFunction";
-            this.collapsibleGroupBoxFunction.Size = new System.Drawing.Size(487, 65);
+            this.collapsibleGroupBoxFunction.Size = new System.Drawing.Size(467, 53);
             this.collapsibleGroupBoxFunction.TabIndex = 13;
             this.collapsibleGroupBoxFunction.TabStop = false;
             this.collapsibleGroupBoxFunction.Text = "Function";
             // 
-            // labelFunction
-            // 
-            this.labelFunction.AutoSize = true;
-            this.labelFunction.Location = new System.Drawing.Point(16, 16);
-            this.labelFunction.Name = "labelFunction";
-            this.labelFunction.Size = new System.Drawing.Size(48, 13);
-            this.labelFunction.TabIndex = 11;
-            this.labelFunction.Text = "Function";
-            // 
             // inputFunction
             // 
-            this.inputFunction.Location = new System.Drawing.Point(16, 32);
+            this.inputFunction.Location = new System.Drawing.Point(22, 19);
             this.inputFunction.Name = "inputFunction";
             this.inputFunction.Size = new System.Drawing.Size(252, 20);
             this.inputFunction.TabIndex = 10;
@@ -294,10 +271,10 @@
             this.collabsibleGroupBoxFiles.Controls.Add(this.listBoxFilelist);
             this.collabsibleGroupBoxFiles.Controls.Add(this.listBoxPreview);
             this.collabsibleGroupBoxFiles.Controls.Add(this.labelChanged);
-            this.collabsibleGroupBoxFiles.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.collabsibleGroupBoxFiles.Location = new System.Drawing.Point(0, 173);
+            this.collabsibleGroupBoxFiles.Dock = System.Windows.Forms.DockStyle.Top;
+            this.collabsibleGroupBoxFiles.Location = new System.Drawing.Point(0, 153);
             this.collabsibleGroupBoxFiles.Name = "collabsibleGroupBoxFiles";
-            this.collabsibleGroupBoxFiles.Size = new System.Drawing.Size(487, 313);
+            this.collabsibleGroupBoxFiles.Size = new System.Drawing.Size(467, 321);
             this.collabsibleGroupBoxFiles.TabIndex = 12;
             this.collabsibleGroupBoxFiles.TabStop = false;
             this.collabsibleGroupBoxFiles.Text = "Files";
@@ -313,6 +290,7 @@
             // 
             // listBoxFilelist
             // 
+            this.listBoxFilelist.AllowDrop = true;
             this.listBoxFilelist.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.listBoxFilelist.FormattingEnabled = true;
             this.listBoxFilelist.HorizontalScrollbar = true;
@@ -343,6 +321,13 @@
             this.labelChanged.TabIndex = 8;
             this.labelChanged.Text = "Changed filenames";
             // 
+            // redotoolStripMenuItem
+            // 
+            this.redotoolStripMenuItem.Name = "redotoolStripMenuItem";
+            this.redotoolStripMenuItem.Size = new System.Drawing.Size(170, 22);
+            this.redotoolStripMenuItem.Text = "Redo";
+            this.redotoolStripMenuItem.Click += new System.EventHandler(this.redotoolStripMenuItem_Click);
+            // 
             // MainWindow
             // 
             this.AllowDrop = true;
@@ -350,19 +335,18 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(487, 486);
+            this.ClientSize = new System.Drawing.Size(467, 463);
             this.ContextMenuStrip = this.contextMenu;
-            this.Controls.Add(this.panelSearchandReplace);
-            this.Controls.Add(this.collapsibleGroupBoxFunction);
             this.Controls.Add(this.collabsibleGroupBoxFiles);
+            this.Controls.Add(this.collapsibleGroupBoxFunction);
+            this.Controls.Add(this.panelSearchandReplace);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
-            this.MaximumSize = new System.Drawing.Size(503, 525);
-            this.MinimumSize = new System.Drawing.Size(503, 140);
+            this.MaximumSize = new System.Drawing.Size(483, 502);
+            this.MinimumSize = new System.Drawing.Size(483, 140);
             this.Name = "MainWindow";
             this.Text = "BatchRenameApp";
-            this.Load += new System.EventHandler(this.MainWindow_Load);
             this.DragDrop += new System.Windows.Forms.DragEventHandler(this.MainWindow_DragDrop);
             this.DragEnter += new System.Windows.Forms.DragEventHandler(this.Mainwindow_DragEnter);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainWindow_KeyDown);
@@ -378,8 +362,6 @@
         }
 
         #endregion
-
-        public System.Windows.Forms.ListBox listBoxFilelist;
         private System.Windows.Forms.TextBox inputSearch;
         private System.Windows.Forms.Label labelRegExp;
         private System.Windows.Forms.Label labelReplace;
@@ -391,8 +373,6 @@
         private System.Windows.Forms.CheckBox checkBoxUseRegex;
         private System.Windows.Forms.ContextMenuStrip contextMenu;
         private System.Windows.Forms.ToolStripMenuItem sortToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem noSortToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparatorSort;
         private System.Windows.Forms.ToolStripMenuItem ascendingToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem descendingToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparatorMain3;
@@ -404,12 +384,13 @@
         private System.Windows.Forms.ToolStripMenuItem clearSelectionToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparatorMain1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparatorMain2;
-        private System.Windows.Forms.ToolStripMenuItem RemoveSelectiontoolStripMenuItem;
-        private System.Windows.Forms.Label labelFunction;
+        private System.Windows.Forms.ToolStripMenuItem removeSelectiontoolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem redotoolStripMenuItem;
         private System.Windows.Forms.TextBox inputFunction;
         private Indigo.CollapsibleGroupBox collabsibleGroupBoxFiles;
         private Indigo.CollapsibleGroupBox collapsibleGroupBoxFunction;
         private System.Windows.Forms.Panel panelSearchandReplace;
+        public Oli.Controls.DragDropListBox listBoxFilelist;
     }
 }
 

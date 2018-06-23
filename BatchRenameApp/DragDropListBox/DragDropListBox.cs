@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 using System.IO;
+using BatchRenameApp;
 
 namespace Oli.Controls
 {
@@ -157,17 +158,17 @@ namespace Oli.Controls
 
 		protected override void OnDragDrop(DragEventArgs drgevent)
 		{
-			base.OnDragDrop(drgevent);
+            base.OnDragDrop(drgevent);
 
-			_visualCue.Clear();
+            _visualCue.Clear();
 
             // Retrieve the drag item data. 
             IDragDropSource src = null;
             if (drgevent.Data.GetDataPresent(DataFormats.FileDrop))
             {
-
-                DragDropListBox filetransferhack = new DragDropListBox{ DragDropGroup = "files" };
-                filetransferhack.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
+                History.Push(Items, SelectedItems);
+                DragDropListBox tempdragDropListBox = new DragDropListBox{ DragDropGroup = "files" };
+                tempdragDropListBox.SelectionMode = SelectionMode.MultiSimple;
                 string[] files = (string[])drgevent.Data.GetData(DataFormats.FileDrop);
 
                 int errors = 0;
@@ -175,12 +176,12 @@ namespace Oli.Controls
 
                 foreach (string filename in files)
                 {
-                        if (BatchRenameApp.Program.mainWindowForm.filestorage.Contains(filename) == false)
+                        if (Program.mainWindowForm.filestorage.Contains(filename) == false)
                         {
                             try
                             {
-                                BatchRenameApp.Program.mainWindowForm.filestorage.AddFile(filename);
-                                filetransferhack.Items.Add(BatchRenameApp.Program.mainWindowForm.filestorage.GetFileInfo(filename));
+                                Program.mainWindowForm.filestorage.AddFile(filename);
+                                tempdragDropListBox.Items.Add(Program.mainWindowForm.filestorage.GetFileInfo(filename));
                             }
                             catch (Exception ex)
                             {
@@ -193,14 +194,15 @@ namespace Oli.Controls
                 {
                     CenteredMessageBox.Show(this, outException.Message, errors + " Errors", MessageBoxButtons.OK);
                 }
-                for (int index = 0; index < filetransferhack.Items.Count; index++)
+                for (int index = 0; index < tempdragDropListBox.Items.Count; index++)
                 {
-                    filetransferhack.SetSelected(index, true);
+                    tempdragDropListBox.SetSelected(index, true);
                 }
-                src = filetransferhack as IDragDropSource;
+                src = tempdragDropListBox as IDragDropSource;
             }
             else
             {
+                History.Push(Items, SelectedItems);
                 src = drgevent.Data.GetData("IDragDropSource") as IDragDropSource;
             }
             if (src == null)
@@ -252,8 +254,7 @@ namespace Oli.Controls
 
 			// Now that we've selected the inserted items, restore the "Sorted" property.
 			Sorted = sortedSave;
-
-            BatchRenameApp.Program.mainWindowForm.UpdatePreview();
+            Program.mainWindowForm.UpdatePreview();
 
 			// Notify the target (this control).
 			DroppedEventArgs e = new DroppedEventArgs()
@@ -365,10 +366,10 @@ namespace Oli.Controls
 				foreach (int i in _selectionSave) {
 					SetSelected(i, true);
 				}
-				// Select the item that was clicked, in order to make it the current item. This also fixes a bug, where the listbox
-				// selects too many items, if the list is clicked after items have been selected programmatically.
-				SetSelected(clickedItemIndex, true);
-				_restoringSelection = false;
+                // Select the item that was clicked, in order to make it the current item. This also fixes a bug, where the listbox
+                // selects too many items, if the list is clicked after items have been selected programmatically.
+                SetSelected(clickedItemIndex, true);
+                _restoringSelection = false;
 			}
 		}
 
