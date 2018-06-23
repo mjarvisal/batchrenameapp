@@ -26,6 +26,8 @@ namespace BatchRenameApp
 
         private static string replaceString;
 
+        private static bool bControlPressed = false;
+
         // MAIN WINDOW EVENTS
         #region Main Window events
 
@@ -75,12 +77,30 @@ namespace BatchRenameApp
                     listBoxFilelist.ClearSelected();
                     break;
 
+                case (Keys.ControlKey):
+                    {
+                        bControlPressed = true;
+                    }
+                    break;
+
                 case (Keys.Delete):
                     if (listBoxFilelist.ClientRectangle.Contains(listBoxFilelist.PointToClient(MousePosition)))
                     {
                         History.Push(listBoxFilelist);
                         RemoveSelection();
                         UpdatePreview();
+                    }
+                    break;
+            }
+        }
+
+        private void MainWindow_KeyUp(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case (Keys.ControlKey):
+                    {
+                        bControlPressed = false;
                     }
                     break;
             }
@@ -179,21 +199,23 @@ namespace BatchRenameApp
         private void listBoxFilelist_Click(object sender, EventArgs e)
         {
             MouseEventArgs me = (MouseEventArgs)e;
-            int clickedIndex = listBoxFilelist.IndexFromPoint(me.Location);
-            if (clickedIndex > -1)
+            if (!bControlPressed)
             {
-                if(listBoxFilelist.SelectedIndices.Count > 1)
+                int clickedIndex = listBoxFilelist.IndexFromPoint(me.Location);
+                if (clickedIndex > -1)
+                {
+                    if (listBoxFilelist.SelectedIndices.Count > 1)
                     {
-                    if (listBoxFilelist.SelectedIndices.Contains(clickedIndex))
+                        if (listBoxFilelist.SelectedIndices.Contains(clickedIndex))
+                        {
+                            listBoxFilelist.SetSelected(clickedIndex, !listBoxFilelist.GetSelected(clickedIndex));
+                        }
+                    }
+                    else if (clickedIndex == listBoxFilelist.SelectedIndex)
                     {
-                        listBoxFilelist.SetSelected(clickedIndex, !listBoxFilelist.GetSelected(clickedIndex));
+
                     }
                 }
-                else if (clickedIndex == listBoxFilelist.SelectedIndex)
-                {
-
-                }
-                
             }
         }
 

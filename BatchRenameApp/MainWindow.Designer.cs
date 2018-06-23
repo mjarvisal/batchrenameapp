@@ -351,6 +351,7 @@
             this.DragDrop += new System.Windows.Forms.DragEventHandler(this.MainWindow_DragDrop);
             this.DragEnter += new System.Windows.Forms.DragEventHandler(this.Mainwindow_DragEnter);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainWindow_KeyDown);
+            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.MainWindow_KeyUp);
             this.contextMenu.ResumeLayout(false);
             this.panelSearchandReplace.ResumeLayout(false);
             this.panelSearchandReplace.PerformLayout();
