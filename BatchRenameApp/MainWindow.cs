@@ -563,5 +563,20 @@ namespace BatchRenameApp
 
 
         #endregion
+
+        private void MainWindow_Load(object sender, EventArgs e)
+        {
+            listBoxFilelist.Items.Clear();
+            History.Push(listBoxFilelist);
+            int x = 0;
+            foreach (FileInfo file in filestorage.GetFileInfos())
+            {
+                listBoxFilelist.Items.Add(file);
+                listBoxFilelist.SetSelected(x, true);
+                x++;
+            }
+
+            UpdatePreview();
+        }
     }
 }

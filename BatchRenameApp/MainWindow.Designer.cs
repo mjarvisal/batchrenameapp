@@ -38,6 +38,7 @@
             this.checkBoxUseRegex = new System.Windows.Forms.CheckBox();
             this.contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.undoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.redotoolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparatorMain1 = new System.Windows.Forms.ToolStripSeparator();
             this.sortToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ascendingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -58,7 +59,6 @@
             this.listBoxFilelist = new Oli.Controls.DragDropListBox();
             this.listBoxPreview = new System.Windows.Forms.ListBox();
             this.labelChanged = new System.Windows.Forms.Label();
-            this.redotoolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenu.SuspendLayout();
             this.panelSearchandReplace.SuspendLayout();
             this.collapsibleGroupBoxFunction.SuspendLayout();
@@ -149,6 +149,13 @@
             this.undoToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
             this.undoToolStripMenuItem.Text = "Undo";
             this.undoToolStripMenuItem.Click += new System.EventHandler(this.undoToolStripMenuItem_Click);
+            // 
+            // redotoolStripMenuItem
+            // 
+            this.redotoolStripMenuItem.Name = "redotoolStripMenuItem";
+            this.redotoolStripMenuItem.Size = new System.Drawing.Size(170, 22);
+            this.redotoolStripMenuItem.Text = "Redo";
+            this.redotoolStripMenuItem.Click += new System.EventHandler(this.redotoolStripMenuItem_Click);
             // 
             // toolStripSeparatorMain1
             // 
@@ -321,13 +328,6 @@
             this.labelChanged.TabIndex = 8;
             this.labelChanged.Text = "Changed filenames";
             // 
-            // redotoolStripMenuItem
-            // 
-            this.redotoolStripMenuItem.Name = "redotoolStripMenuItem";
-            this.redotoolStripMenuItem.Size = new System.Drawing.Size(170, 22);
-            this.redotoolStripMenuItem.Text = "Redo";
-            this.redotoolStripMenuItem.Click += new System.EventHandler(this.redotoolStripMenuItem_Click);
-            // 
             // MainWindow
             // 
             this.AllowDrop = true;
@@ -347,6 +347,7 @@
             this.MinimumSize = new System.Drawing.Size(483, 140);
             this.Name = "MainWindow";
             this.Text = "BatchRenameApp";
+            this.Load += new System.EventHandler(this.MainWindow_Load);
             this.DragDrop += new System.Windows.Forms.DragEventHandler(this.MainWindow_DragDrop);
             this.DragEnter += new System.Windows.Forms.DragEventHandler(this.Mainwindow_DragEnter);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainWindow_KeyDown);
