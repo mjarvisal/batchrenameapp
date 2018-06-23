@@ -20,6 +20,12 @@ namespace BatchRenameApp
         private static Stack<UndoObject> history = new Stack<UndoObject>(100);
         private static Stack<UndoObject> redo = new Stack<UndoObject>(100);
 
+        public static void Clear()
+        {
+            history.Clear();
+            redo.Clear();
+        }
+
         public static void Redo(ListBox itemsListBox)
         {
             if (redo.Count > 0)

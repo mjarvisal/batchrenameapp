@@ -263,6 +263,15 @@ namespace BatchRenameApp
             {
                 int Count = RenameFiles();
                 String message = String.Format("Renamed {0} files", Count);
+                if (Count > 0)
+                {
+                    listBoxFilelist.ClearSelected();
+                    for (int i = 0; i < listBoxFilelist.Items.Count; i++)
+                        listBoxFilelist.SetSelected(i, !listBoxFilelist.GetSelected(i));
+                    RemoveSelection();
+                    History.Clear();
+                }
+                UpdatePreview();
                 CenteredMessageBox.Show(this, message, "Result", MessageBoxButtons.OK);
             }
 
@@ -405,7 +414,7 @@ namespace BatchRenameApp
             String[] inputs = { Search, inputReplace.Text, inputFunction.Text };
             bool bmode = checkBoxUseRegex.Checked;
             int x = 0;
-            foreach (FileInfo file in filestorage.GetFileInfos())
+            foreach (FileInfo file in listBoxFilelist.Items)
             {
                 string fileName = ProcessRegex(x, bmode, inputs, file);
                 if (fileName != null)
@@ -553,10 +562,18 @@ namespace BatchRenameApp
         private int RenameFiles()
         {
             int renamed = 0;
-            string[] renameditems = listBoxPreview.Items.OfType<string>().ToArray();
-            foreach(string renamedfilename in renameditems)
+            int index = 0;
+            foreach(string renameditem in listBoxPreview.Items)
             {
-                renamed++;
+                if (renameditem != "")
+                {
+                    FileInfo originalfileInfo = (FileInfo)listBoxFilelist.Items[index];
+                    string directory = originalfileInfo.DirectoryName;
+                    string renamedFullname = directory + @"\" + renameditem;
+                    originalfileInfo.MoveTo(renamedFullname);
+                    renamed++;
+                }
+                index++;
             }
             return renamed;
         }
