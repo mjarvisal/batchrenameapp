@@ -32,9 +32,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CollapsibleGroupBox">
-      <HintPath>Resources\CollapsibleGroupBox.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -49,6 +46,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CenteredMessageBox.cs" />
+    <Compile Include="CollapsibleGroupBox\CollapsibleGroupBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CollapsibleGroupBox\CollapsibleGroupBox.Designer.cs">
+      <DependentUpon>CollapsibleGroupBox.cs</DependentUpon>
+    </Compile>
     <Compile Include="DragDropListBox\DragDropListBox.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -67,6 +70,9 @@
     <Compile Include="DragDropListBox\VisualCue.cs" />
     <Compile Include="DragDropListBox\Win32.cs" />
     <Compile Include="ListBoxSort.cs" />
+    <EmbeddedResource Include="CollapsibleGroupBox\CollapsibleGroupBox.resx">
+      <DependentUpon>CollapsibleGroupBox.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>
     </EmbeddedResource>
@@ -106,6 +112,11 @@
       <Isolated>False</Isolated>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="CollapsibleGroupBox\CollapsibleGroupBox.bmp" />
+    <Content Include="CollapsibleGroupBox\Resources\minus.bmp" />
+    <Content Include="CollapsibleGroupBox\Resources\plus.bmp" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
