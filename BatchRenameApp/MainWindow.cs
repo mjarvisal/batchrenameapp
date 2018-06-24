@@ -331,79 +331,68 @@ namespace BatchRenameApp
         // MENU EVENTS
         #region Menu Events 
 
-        private void ascendingToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ascendingContextMenuItem_Click(object sender, EventArgs e)
         {
             History.Push(listBoxFilelist.Items);
             ListBoxSort.SortAsc(listBoxFilelist);
             UpdatePreview();
         }
 
-        private void descendingToolStripMenuItem_Click(object sender, EventArgs e)
+        private void descendingContextMenuItem_Click(object sender, EventArgs e)
         {
             History.Push(listBoxFilelist.Items);
             ListBoxSort.SortDesc(listBoxFilelist);
             UpdatePreview();
         }
 
-        private void undoToolStripMenuItem_Click(object sender, EventArgs e)
+        private void undoContextMenuItem_Click(object sender, EventArgs e)
         {
             History.Undo(listBoxFilelist);
             UpdatePreview();
         }
 
-        private void invertSelectionToolStripMenuItem_Click(object sender, EventArgs e)
+        private void invertSelectionContextMenuItem_Click(object sender, EventArgs e)
         {
             History.Push(listBoxFilelist.SelectedItems);
             for (int i = 0; i < listBoxFilelist.Items.Count; i++)
                 listBoxFilelist.SetSelected(i, !listBoxFilelist.GetSelected(i));
         }
 
-        private void clearSelectionToolStripMenuItem_Click(object sender, EventArgs e)
+        private void clearSelectionContextMenuItem_Click(object sender, EventArgs e)
         {
             History.Push(listBoxFilelist.SelectedItems);
             listBoxFilelist.ClearSelected();
         }
 
-        private void RemoveSelectionToolStripMenuItem_Click(object sender, EventArgs e)
+        private void RemoveSelectionContextMenuItem_Click(object sender, EventArgs e)
         {
             History.Push(listBoxFilelist);
             RemoveSelection();
             UpdatePreview();
         }
 
-        private void regularExpressionsToolStripMenuItem_Click(object sender, EventArgs e)
+        private void regularExpressionsContextMenuItem_Click(object sender, EventArgs e)
         {
             Process.Start("https://www.google.com/#sclient=psy-ab&q=regular+expression+cheat+sheet");
         }
 
-        private void redoToolStripMenuItem_Click(object sender, EventArgs e)
+        private void redoContextMenuItem_Click(object sender, EventArgs e)
         {
             History.Redo(listBoxFilelist);
             UpdatePreview();
         }
 
-        private void usableTagsToolStripMenuItem_Click(object sender, EventArgs e)
+        private void TagsContextMenuItem_Click(object sender, EventArgs e)
         {
-            string message = 
-                 "Replace Tags\n" +
-                 "------------\n" +
-                 "%datenow% - Current date\n" +
-                 "%timenow% - Current time\n" +
-                 "%datecreated% - date the file was created\n" +
-                 "%timecreated% - time the file was created\n" +
-                 "%datetaken% - date the picture was taken\n" +
-                 "%timetake% - time the picture was taken\n\n" +
-                 "%folder% - Folder name\n" +
-                 "%file% - File name\n\n" +
-                 "%fnc% - Function result\n";
-            string caption = "Tags Legend";
-            MessageBoxButtons buttons = MessageBoxButtons.OK;
-            DialogResult result;
-
-            result = CenteredMessageBox.Show(this, message, caption, buttons);
-
+            TagsLegend legend = new TagsLegend();
+            legend.StartPosition = FormStartPosition.Manual;
+            Point startinglocation = Location;
+            startinglocation.X = Location.X + Bounds.Width + 3;
+            startinglocation.Y = Location.Y + 30;
+            legend.Location = startinglocation;
+            legend.Show();
         }
-        private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
+        private void settingsContextMenuItem_Click(object sender, EventArgs e)
         {
             settingsForm.StartPosition = FormStartPosition.CenterParent;
             settingsForm.ShowDialog(this);
