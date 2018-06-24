@@ -70,6 +70,12 @@
     <Compile Include="DragDropListBox\VisualCue.cs" />
     <Compile Include="DragDropListBox\Win32.cs" />
     <Compile Include="ListBoxSort.cs" />
+    <Compile Include="Settings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Settings.Designer.cs">
+      <DependentUpon>Settings.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="CollapsibleGroupBox\CollapsibleGroupBox.resx">
       <DependentUpon>CollapsibleGroupBox.cs</DependentUpon>
     </EmbeddedResource>
@@ -86,6 +92,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Settings.resx">
+      <DependentUpon>Settings.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

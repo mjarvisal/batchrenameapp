@@ -19,6 +19,8 @@ namespace BatchRenameApp
 
     public partial class MainWindow : Form
     {
+        public Settings settingsForm = new Settings();
+
         public FilenameStorage filestorage = new FilenameStorage();
 
         /** For evaluating math functions */
@@ -34,7 +36,6 @@ namespace BatchRenameApp
         public MainWindow()
         {
             InitializeComponent();
-
             int errors = 0;
             Exception outException = null;
 
@@ -363,7 +364,7 @@ namespace BatchRenameApp
             listBoxFilelist.ClearSelected();
         }
 
-        private void RemoveSelectiontoolStripMenuItem_Click(object sender, EventArgs e)
+        private void RemoveSelectionToolStripMenuItem_Click(object sender, EventArgs e)
         {
             History.Push(listBoxFilelist);
             RemoveSelection();
@@ -375,7 +376,7 @@ namespace BatchRenameApp
             Process.Start("https://www.google.com/#sclient=psy-ab&q=regular+expression+cheat+sheet");
         }
 
-        private void redotoolStripMenuItem_Click(object sender, EventArgs e)
+        private void redoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             History.Redo(listBoxFilelist);
             UpdatePreview();
@@ -383,22 +384,29 @@ namespace BatchRenameApp
 
         private void usableTagsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            string message = "Search Tags\n" +
-                 "------------\n" +
-                 "%end% -Concat replace string to end of filename(excl.extension)\n\n" +
+            string message = 
                  "Replace Tags\n" +
                  "------------\n" +
-                 "%date% - Replace match with current date\n" +
-                 "%time% - Replace match with current time\n" +
-                 "%folder% - Replace match with file directory name\n" +
-                 "%file% - Replace match with file name\n" +
-                 "%fnc% - Replace match with math function result\n";
+                 "%datenow% - Current date\n" +
+                 "%timenow% - Current time\n" +
+                 "%datecreated% - date the file was created\n" +
+                 "%timecreated% - time the file was created\n" +
+                 "%datetaken% - date the picture was taken\n" +
+                 "%timetake% - time the picture was taken\n\n" +
+                 "%folder% - Folder name\n" +
+                 "%file% - File name\n\n" +
+                 "%fnc% - Function result\n";
             string caption = "Tags Legend";
             MessageBoxButtons buttons = MessageBoxButtons.OK;
             DialogResult result;
 
             result = CenteredMessageBox.Show(this, message, caption, buttons);
 
+        }
+        private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            settingsForm.StartPosition = FormStartPosition.CenterParent;
+            settingsForm.ShowDialog(this);
         }
 
         #endregion
@@ -464,14 +472,50 @@ namespace BatchRenameApp
             }
         }
 
-        private string ProcessPatterns(int number, string text, string function, FileInfo file)
-        {
+        private static Regex r = new Regex(":");
+        private static FileInfo notImage;
 
-            string output = text.Replace("%file%", file.Name);
+        //retrieves the datetime WITHOUT loading the whole image
+        public static DateTime GetDateTakenFromImage(string path)
+        {
+            using (FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read))
+                try
+                {
+                    using (Image myImage = Image.FromStream(fs, false, false))
+                    {
+                        System.Drawing.Imaging.PropertyItem propItem = myImage.GetPropertyItem(36867);
+                        string dateTaken = r.Replace(Encoding.UTF8.GetString(propItem.Value), "-", 2);
+                        return DateTime.Parse(dateTaken);
+                    }
+                }
+                catch (Exception)
+                {
+                    return DateTime.Now;
+                }
+        }
+
+        private string ProcessPatterns(int number, string replacetext, string function, FileInfo file)
+        {
+            string dateformat = settingsForm.dateformat;
+            string timeformat = settingsForm.timeformat;
+            string date = file.CreationTime.ToString(dateformat);
+            string time = file.CreationTime.ToString(timeformat);
+            String[] imagedatetime = { "%datetaken", "%timetaken" };
+
+            string output = replacetext.Replace("%file%", file.Name);
             output = output.Replace("%folder%", file.Directory.Name);
-            output = output.Replace("%date%", DateTime.Now.ToShortDateString());
-            output = output.Replace("%time%", DateTime.Now.ToLongTimeString());
+            output = output.Replace("%datecreated%", date);
+            output = output.Replace("%timecreated%", time);
+            output = output.Replace("%datenow%", DateTime.Now.ToString(dateformat));
+            output = output.Replace("%timenow%", DateTime.Now.ToString(timeformat));
             output = output.Replace("%fnc%", EvaluateFunctionString(function, number));
+
+            if (imagedatetime.Any(replacetext.Contains))
+            {
+                DateTime dateTime = GetDateTakenFromImage(file.FullName);
+                output = output.Replace("%datetaken%", dateTime.ToString(dateformat));
+                output = output.Replace("%timetaken%", dateTime.ToString(timeformat));
+            }
 
             return output;
         }
