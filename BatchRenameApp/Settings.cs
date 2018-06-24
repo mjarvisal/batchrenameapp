@@ -15,14 +15,36 @@ namespace BatchRenameApp
             InitializeComponent();
         }
 
-        private void textBoxDateFormat_TextChanged(object sender, EventArgs e)
+        private void Settings_FormClosed(object sender, FormClosedEventArgs e)
         {
-            dateformat = textBoxDateFormat.Text;
+            Program.mainWindowForm.UpdatePreview();
         }
 
-        private void textBoxtimeFormat_TextChanged(object sender, EventArgs e)
+        private void buttonOK_Click(object sender, EventArgs e)
         {
-            timeformat = textBoxDateFormat.Text;
+            dateformat = textBoxDateFormat.Text;
+            timeformat = textBoxtimeFormat.Text;
+            this.Close();
+        }
+
+        private void buttonCancel_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void Settings_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case (Keys.Enter):
+                    dateformat = textBoxDateFormat.Text;
+                    timeformat = textBoxtimeFormat.Text;
+                    this.Close();
+                    break;
+                case (Keys.Escape):
+                    this.Close();
+                    break;
+            }
         }
     }
 }

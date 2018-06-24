@@ -490,7 +490,7 @@ namespace BatchRenameApp
                 }
                 catch (Exception)
                 {
-                    return DateTime.Now;
+                    return DateTime.MaxValue;
                 }
         }
 
@@ -513,8 +513,22 @@ namespace BatchRenameApp
             if (imagedatetime.Any(replacetext.Contains))
             {
                 DateTime dateTime = GetDateTakenFromImage(file.FullName);
-                output = output.Replace("%datetaken%", dateTime.ToString(dateformat));
-                output = output.Replace("%timetaken%", dateTime.ToString(timeformat));
+                if (dateTime == DateTime.MaxValue)
+                {
+                    output = output.Replace("%datetaken%", "%datetaken%");
+                    output = output.Replace("%timetaken%", "%timetaken%");
+                }
+                else
+                {
+                    output = output.Replace("%datetaken%", dateTime.ToString(dateformat));
+                    output = output.Replace("%timetaken%", dateTime.ToString(timeformat));
+                }
+                
+            }
+            else
+            {
+                output = output.Replace("%datetaken%", "%datetaken%");
+                output = output.Replace("%timetaken%", "%timetaken%");
             }
 
             return output;
