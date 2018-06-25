@@ -13,6 +13,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Collections;
 using System.Text.RegularExpressions;
+using System.Drawing.Imaging;
 
 namespace BatchRenameApp
 {
@@ -112,12 +113,12 @@ namespace BatchRenameApp
         // UI ELEMENT CALLBACKS
         #region UI element callbacks
 
-        private void checkBoxUseRegex_CheckedChanged(object sender, EventArgs e)
+        private void CheckBoxUseRegex_CheckedChanged(object sender, EventArgs e)
         {
             UpdatePreview();
         }
 
-        private void listBoxFilelist_DrawItem(object sender, DrawItemEventArgs e)
+        private void ListBoxFilelist_DrawItem(object sender, DrawItemEventArgs e)
         {
 
             bool bValidregex = false;
@@ -162,8 +163,10 @@ namespace BatchRenameApp
                     foreach (Match match in collection)
                     {
 
-                        StringFormat stringFormat = new StringFormat();
-                        stringFormat.Alignment = StringAlignment.Near;
+                        StringFormat stringFormat = new StringFormat
+                        {
+                            Alignment = StringAlignment.Near
+                        };
                         CharacterRange[] characterRanges = { new CharacterRange(match.Index, match.Length) };
                         stringFormat.SetMeasurableCharacterRanges(characterRanges);
 
@@ -197,7 +200,7 @@ namespace BatchRenameApp
             e.DrawFocusRectangle();
         }
 
-        private void listBoxFilelist_Click(object sender, EventArgs e)
+        private void ListBoxFilelist_Click(object sender, EventArgs e)
         {
             MouseEventArgs me = (MouseEventArgs)e;
             if (!bControlPressed)
@@ -260,7 +263,7 @@ namespace BatchRenameApp
             e.Effect = DragDropEffects.Copy;
         }
 
-        private void buttonRename_Click(object sender, EventArgs e)
+        private void ButtonRename_Click(object sender, EventArgs e)
         {
             if (listBoxFilelist.Items.Count == 0)
             {
@@ -305,23 +308,23 @@ namespace BatchRenameApp
 
         }
 
-        private void inputSearch_TextChanged(object sender, EventArgs e)
+        private void InputSearch_TextChanged(object sender, EventArgs e)
         {
             listBoxFilelist.Refresh();
             UpdatePreview();
         }
 
-        private void inputReplace_TextChanged(object sender, EventArgs e)
+        private void InputReplace_TextChanged(object sender, EventArgs e)
         {
             UpdatePreview();
         }
 
-        private void textBoxFunction_TextChanged(object sender, EventArgs e)
+        private void TextBoxFunction_TextChanged(object sender, EventArgs e)
         {
             UpdatePreview();
         }
 
-        private void collabsibleGroupBoxFiles_Click(object sender, EventArgs e)
+        private void CollabsibleGroupBoxFiles_Click(object sender, EventArgs e)
         {
             listBoxFilelist.ClearSelected();
         }
@@ -331,34 +334,34 @@ namespace BatchRenameApp
         // MENU EVENTS
         #region Menu Events 
 
-        private void ascendingContextMenuItem_Click(object sender, EventArgs e)
+        private void AscendingContextMenuItem_Click(object sender, EventArgs e)
         {
             History.Push(listBoxFilelist.Items);
             ListBoxSort.SortAsc(listBoxFilelist);
             UpdatePreview();
         }
 
-        private void descendingContextMenuItem_Click(object sender, EventArgs e)
+        private void DescendingContextMenuItem_Click(object sender, EventArgs e)
         {
             History.Push(listBoxFilelist.Items);
             ListBoxSort.SortDesc(listBoxFilelist);
             UpdatePreview();
         }
 
-        private void undoContextMenuItem_Click(object sender, EventArgs e)
+        private void UndoContextMenuItem_Click(object sender, EventArgs e)
         {
             History.Undo(listBoxFilelist);
             UpdatePreview();
         }
 
-        private void invertSelectionContextMenuItem_Click(object sender, EventArgs e)
+        private void InvertSelectionContextMenuItem_Click(object sender, EventArgs e)
         {
             History.Push(listBoxFilelist.SelectedItems);
             for (int i = 0; i < listBoxFilelist.Items.Count; i++)
                 listBoxFilelist.SetSelected(i, !listBoxFilelist.GetSelected(i));
         }
 
-        private void clearSelectionContextMenuItem_Click(object sender, EventArgs e)
+        private void ClearSelectionContextMenuItem_Click(object sender, EventArgs e)
         {
             History.Push(listBoxFilelist.SelectedItems);
             listBoxFilelist.ClearSelected();
@@ -371,12 +374,12 @@ namespace BatchRenameApp
             UpdatePreview();
         }
 
-        private void regularExpressionsContextMenuItem_Click(object sender, EventArgs e)
+        private void RegularExpressionsContextMenuItem_Click(object sender, EventArgs e)
         {
             Process.Start("https://www.google.com/#sclient=psy-ab&q=regular+expression+cheat+sheet");
         }
 
-        private void redoContextMenuItem_Click(object sender, EventArgs e)
+        private void RedoContextMenuItem_Click(object sender, EventArgs e)
         {
             History.Redo(listBoxFilelist);
             UpdatePreview();
@@ -384,15 +387,18 @@ namespace BatchRenameApp
 
         private void TagsContextMenuItem_Click(object sender, EventArgs e)
         {
-            TagsLegend legend = new TagsLegend();
-            legend.StartPosition = FormStartPosition.Manual;
+            TagsLegend legend = new TagsLegend
+            {
+                StartPosition = FormStartPosition.Manual
+            };
+
             Point startinglocation = Location;
             startinglocation.X = Location.X + Bounds.Width + 3;
             startinglocation.Y = Location.Y + 30;
             legend.Location = startinglocation;
             legend.Show();
         }
-        private void settingsContextMenuItem_Click(object sender, EventArgs e)
+        private void SettingsContextMenuItem_Click(object sender, EventArgs e)
         {
             settingsForm.StartPosition = FormStartPosition.CenterParent;
             settingsForm.ShowDialog(this);
@@ -411,11 +417,11 @@ namespace BatchRenameApp
             }
             int index = listBoxFilelist.SelectedIndex;
             listBoxFilelist.RemoveSelectedItems(ref index);
-            if(index > (listBoxFilelist.Items.Count -1))
+            if (index > (listBoxFilelist.Items.Count - 1))
             {
                 index--;
             }
-            if(listBoxFilelist.Items.Count == 0)
+            if (listBoxFilelist.Items.Count == 0)
             {
                 index = -1;
             }
@@ -472,7 +478,7 @@ namespace BatchRenameApp
                 {
                     using (Image myImage = Image.FromStream(fs, false, false))
                     {
-                        System.Drawing.Imaging.PropertyItem propItem = myImage.GetPropertyItem(36867);
+                        PropertyItem propItem = myImage.GetPropertyItem(36867);
                         string dateTaken = r.Replace(Encoding.UTF8.GetString(propItem.Value), "-", 2);
                         return DateTime.Parse(dateTaken);
                     }
@@ -481,6 +487,53 @@ namespace BatchRenameApp
                 {
                     return DateTime.MaxValue;
                 }
+        }
+
+        public Double[] GetGPSLocationFromImage(string path)
+        {
+            using (FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read))
+                try
+                {
+                    using (Image myImage = Image.FromStream(fs, false, false))
+                    {
+                        if (myImage.PropertyIdList.Contains(1) && myImage.PropertyIdList.Contains(2) && myImage.PropertyIdList.Contains(3) && myImage.PropertyIdList.Contains(4))
+                        {
+                            Double[] output = new Double[1];
+                            output[0] = ExifGpsToDouble(myImage.GetPropertyItem(1), myImage.GetPropertyItem(2));
+                            output[1] = ExifGpsToDouble(myImage.GetPropertyItem(3), myImage.GetPropertyItem(4));
+                            return output;
+                        }                        
+                        return new Double[1];                        
+                    }
+                }
+                catch (Exception)
+                {            
+
+                }
+
+            return new Double[1];
+        }
+
+        private double ExifGpsToDouble(PropertyItem propItemRef, PropertyItem propItem)
+        {
+            double degreesNumerator = BitConverter.ToUInt32(propItem.Value, 0);
+            double degreesDenominator = BitConverter.ToUInt32(propItem.Value, 4);
+            double degrees = degreesNumerator / (double)degreesDenominator;
+
+            double minutesNumerator = BitConverter.ToUInt32(propItem.Value, 8);
+            double minutesDenominator = BitConverter.ToUInt32(propItem.Value, 12);
+            double minutes = minutesNumerator / (double)minutesDenominator;
+
+            double secondsNumerator = BitConverter.ToUInt32(propItem.Value, 16);
+            double secondsDenominator = BitConverter.ToUInt32(propItem.Value, 20);
+            double seconds = secondsNumerator / (double)secondsDenominator;
+
+
+            double coorditate = degrees + (minutes / 60d) + (seconds / 3600d);
+            string gpsRef = Encoding.ASCII.GetString(new byte[1] { propItemRef.Value[0] }); //N, S, E, or W
+            if (gpsRef == "S" || gpsRef == "W")
+                coorditate = coorditate * -1;
+            return coorditate;
         }
 
         private string ProcessPatterns(int number, string replacetext, string function, FileInfo file)
@@ -512,7 +565,7 @@ namespace BatchRenameApp
                     output = output.Replace("%datetaken%", dateTime.ToString(dateformat));
                     output = output.Replace("%timetaken%", dateTime.ToString(timeformat));
                 }
-                
+
             }
             else
             {
@@ -526,6 +579,7 @@ namespace BatchRenameApp
         private string ConvertToRegex(string normalsearch)
         {
             Regex test = new Regex(".*");
+            // @todo implement this feature
             return "test";
         }
 
@@ -545,7 +599,7 @@ namespace BatchRenameApp
             {
                 Regex regex = new Regex(find);
                 MatchEvaluator myEvaluator = new MatchEvaluator(EvaluateMatch);
-                if(regex.IsMatch(file.Name))
+                if (regex.IsMatch(file.Name))
                 {
                     string renamed = regex.Replace(file.Name, myEvaluator);
                     result = ProcessPatterns(number, renamed, function, file);
@@ -632,7 +686,7 @@ namespace BatchRenameApp
         {
             int renamed = 0;
             int index = 0;
-            foreach(string renameditem in listBoxPreview.Items)
+            foreach (string renameditem in listBoxPreview.Items)
             {
                 if (renameditem != "")
                 {

@@ -74,7 +74,7 @@
             this.inputSearch.Name = "inputSearch";
             this.inputSearch.Size = new System.Drawing.Size(252, 20);
             this.inputSearch.TabIndex = 1;
-            this.inputSearch.TextChanged += new System.EventHandler(this.inputSearch_TextChanged);
+            this.inputSearch.TextChanged += new System.EventHandler(this.InputSearch_TextChanged);
             // 
             // labelRegExp
             // 
@@ -100,7 +100,7 @@
             this.inputReplace.Name = "inputReplace";
             this.inputReplace.Size = new System.Drawing.Size(252, 20);
             this.inputReplace.TabIndex = 2;
-            this.inputReplace.TextChanged += new System.EventHandler(this.inputReplace_TextChanged);
+            this.inputReplace.TextChanged += new System.EventHandler(this.InputReplace_TextChanged);
             // 
             // buttonRename
             // 
@@ -110,7 +110,7 @@
             this.buttonRename.TabIndex = 9;
             this.buttonRename.Text = "Rename!";
             this.buttonRename.UseVisualStyleBackColor = true;
-            this.buttonRename.Click += new System.EventHandler(this.buttonRename_Click);
+            this.buttonRename.Click += new System.EventHandler(this.ButtonRename_Click);
             // 
             // checkBoxUseRegex
             // 
@@ -125,7 +125,7 @@
             this.checkBoxUseRegex.TabIndex = 3;
             this.checkBoxUseRegex.Text = "Use Regular expressions";
             this.checkBoxUseRegex.UseVisualStyleBackColor = false;
-            this.checkBoxUseRegex.CheckedChanged += new System.EventHandler(this.checkBoxUseRegex_CheckedChanged);
+            this.checkBoxUseRegex.CheckedChanged += new System.EventHandler(this.CheckBoxUseRegex_CheckedChanged);
             // 
             // contextMenu
             // 
@@ -153,14 +153,14 @@
             this.undoContextMenuItem.Name = "undoContextMenuItem";
             this.undoContextMenuItem.Size = new System.Drawing.Size(170, 22);
             this.undoContextMenuItem.Text = "Undo";
-            this.undoContextMenuItem.Click += new System.EventHandler(this.undoContextMenuItem_Click);
+            this.undoContextMenuItem.Click += new System.EventHandler(this.UndoContextMenuItem_Click);
             // 
             // redoContextMenuItem
             // 
             this.redoContextMenuItem.Name = "redoContextMenuItem";
             this.redoContextMenuItem.Size = new System.Drawing.Size(170, 22);
             this.redoContextMenuItem.Text = "Redo";
-            this.redoContextMenuItem.Click += new System.EventHandler(this.redoContextMenuItem_Click);
+            this.redoContextMenuItem.Click += new System.EventHandler(this.RedoContextMenuItem_Click);
             // 
             // toolStripSeparatorMain1
             // 
@@ -181,14 +181,14 @@
             this.ascendingContextMenuItem.Name = "ascendingContextMenuItem";
             this.ascendingContextMenuItem.Size = new System.Drawing.Size(136, 22);
             this.ascendingContextMenuItem.Text = "Ascending";
-            this.ascendingContextMenuItem.Click += new System.EventHandler(this.ascendingContextMenuItem_Click);
+            this.ascendingContextMenuItem.Click += new System.EventHandler(this.AscendingContextMenuItem_Click);
             // 
             // descendingContextMenuItem
             // 
             this.descendingContextMenuItem.Name = "descendingContextMenuItem";
             this.descendingContextMenuItem.Size = new System.Drawing.Size(136, 22);
             this.descendingContextMenuItem.Text = "Descending";
-            this.descendingContextMenuItem.Click += new System.EventHandler(this.descendingContextMenuItem_Click);
+            this.descendingContextMenuItem.Click += new System.EventHandler(this.DescendingContextMenuItem_Click);
             // 
             // toolStripSeparatorMain2
             // 
@@ -200,14 +200,14 @@
             this.invertSelectionContextMenuItem.Name = "invertSelectionContextMenuItem";
             this.invertSelectionContextMenuItem.Size = new System.Drawing.Size(170, 22);
             this.invertSelectionContextMenuItem.Text = "Invert selection";
-            this.invertSelectionContextMenuItem.Click += new System.EventHandler(this.invertSelectionContextMenuItem_Click);
+            this.invertSelectionContextMenuItem.Click += new System.EventHandler(this.InvertSelectionContextMenuItem_Click);
             // 
             // clearSelectionContextMenuItem
             // 
             this.clearSelectionContextMenuItem.Name = "clearSelectionContextMenuItem";
             this.clearSelectionContextMenuItem.Size = new System.Drawing.Size(170, 22);
             this.clearSelectionContextMenuItem.Text = "Clear selection";
-            this.clearSelectionContextMenuItem.Click += new System.EventHandler(this.clearSelectionContextMenuItem_Click);
+            this.clearSelectionContextMenuItem.Click += new System.EventHandler(this.ClearSelectionContextMenuItem_Click);
             // 
             // removeSelectionContextMenuItem
             // 
@@ -226,7 +226,7 @@
             this.settingsContextMenuItem.Name = "settingsContextMenuItem";
             this.settingsContextMenuItem.Size = new System.Drawing.Size(170, 22);
             this.settingsContextMenuItem.Text = "Settings";
-            this.settingsContextMenuItem.Click += new System.EventHandler(this.settingsContextMenuItem_Click);
+            this.settingsContextMenuItem.Click += new System.EventHandler(this.SettingsContextMenuItem_Click);
             // 
             // helpContextMenuItem
             // 
@@ -241,7 +241,7 @@
             this.regularExpressionsContextMenuItem.Name = "regularExpressionsContextMenuItem";
             this.regularExpressionsContextMenuItem.Size = new System.Drawing.Size(177, 22);
             this.regularExpressionsContextMenuItem.Text = "Regular expressions";
-            this.regularExpressionsContextMenuItem.Click += new System.EventHandler(this.regularExpressionsContextMenuItem_Click);
+            this.regularExpressionsContextMenuItem.Click += new System.EventHandler(this.RegularExpressionsContextMenuItem_Click);
             // 
             // panelSearchandReplace
             // 
@@ -291,8 +291,8 @@
             this.listBoxFilelist.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
             this.listBoxFilelist.Size = new System.Drawing.Size(198, 264);
             this.listBoxFilelist.TabIndex = 0;
-            this.listBoxFilelist.Click += new System.EventHandler(this.listBoxFilelist_Click);
-            this.listBoxFilelist.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.listBoxFilelist_DrawItem);
+            this.listBoxFilelist.Click += new System.EventHandler(this.ListBoxFilelist_Click);
+            this.listBoxFilelist.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.ListBoxFilelist_DrawItem);
             // 
             // listBoxPreview
             // 
@@ -330,7 +330,7 @@
             this.inputFunction.Name = "inputFunction";
             this.inputFunction.Size = new System.Drawing.Size(252, 20);
             this.inputFunction.TabIndex = 10;
-            this.inputFunction.TextChanged += new System.EventHandler(this.textBoxFunction_TextChanged);
+            this.inputFunction.TextChanged += new System.EventHandler(this.TextBoxFunction_TextChanged);
             // 
             // toolStripSeparator1
             // 

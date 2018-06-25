@@ -20,14 +20,14 @@ namespace BatchRenameApp
             Program.mainWindowForm.UpdatePreview();
         }
 
-        private void buttonOK_Click(object sender, EventArgs e)
+        private void ButtonOK_Click(object sender, EventArgs e)
         {
             dateformat = textBoxDateFormat.Text;
             timeformat = textBoxtimeFormat.Text;
             this.Close();
         }
 
-        private void buttonCancel_Click(object sender, EventArgs e)
+        private void ButtonCancel_Click(object sender, EventArgs e)
         {
             this.Close();
         }
