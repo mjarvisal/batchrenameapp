@@ -491,6 +491,8 @@ namespace BatchRenameApp
 
         public Double[] GetGPSLocationFromImage(string path)
         {
+            Double[] output = new Double[2] { -1.0d, -1.0d };
+
             using (FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read))
                 try
                 {
@@ -498,20 +500,20 @@ namespace BatchRenameApp
                     {
                         if (myImage.PropertyIdList.Contains(1) && myImage.PropertyIdList.Contains(2) && myImage.PropertyIdList.Contains(3) && myImage.PropertyIdList.Contains(4))
                         {
-                            Double[] output = new Double[1];
+
                             output[0] = ExifGpsToDouble(myImage.GetPropertyItem(1), myImage.GetPropertyItem(2));
                             output[1] = ExifGpsToDouble(myImage.GetPropertyItem(3), myImage.GetPropertyItem(4));
                             return output;
-                        }                        
-                        return new Double[1];                        
+                        }
+                        return output;
                     }
                 }
-                catch (Exception)
-                {            
+                catch (Exception ex)
+                {
 
                 }
 
-            return new Double[1];
+            return output;
         }
 
         private double ExifGpsToDouble(PropertyItem propItemRef, PropertyItem propItem)
@@ -551,6 +553,16 @@ namespace BatchRenameApp
             output = output.Replace("%datenow%", DateTime.Now.ToString(dateformat));
             output = output.Replace("%timenow%", DateTime.Now.ToString(timeformat));
             output = output.Replace("%fnc%", EvaluateFunctionString(function, number));
+
+            double[] location = GetGPSLocationFromImage(file.FullName);
+            if (location[0] > -1.0 && location[1] > -1.0)
+            {
+                output = output.Replace("%loc%", location[0] + " x " + location[1]);
+            }
+            else
+            {
+                output = output.Replace("%loc%", "");
+            }
 
             if (imagedatetime.Any(replacetext.Contains))
             {
