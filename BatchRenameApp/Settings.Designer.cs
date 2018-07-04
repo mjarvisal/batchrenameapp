@@ -35,6 +35,9 @@
             this.textBoxtimeFormat = new System.Windows.Forms.TextBox();
             this.buttonOK = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
+            this.labelNumberFormat = new System.Windows.Forms.Label();
+            this.textBoxNumberformat = new System.Windows.Forms.TextBox();
+            this.labelNumberHelp = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // textBoxDateFormat
@@ -91,11 +94,46 @@
             this.buttonCancel.UseVisualStyleBackColor = true;
             this.buttonCancel.Click += new System.EventHandler(this.ButtonCancel_Click);
             // 
+            // labelNumberFormat
+            // 
+            this.labelNumberFormat.AutoSize = true;
+            this.labelNumberFormat.Location = new System.Drawing.Point(13, 111);
+            this.labelNumberFormat.Name = "labelNumberFormat";
+            this.labelNumberFormat.Size = new System.Drawing.Size(76, 13);
+            this.labelNumberFormat.TabIndex = 7;
+            this.labelNumberFormat.Text = "Number format";
+            // 
+            // textBoxNumberformat
+            // 
+            this.textBoxNumberformat.Location = new System.Drawing.Point(12, 127);
+            this.textBoxNumberformat.Name = "textBoxNumberformat";
+            this.textBoxNumberformat.Size = new System.Drawing.Size(100, 20);
+            this.textBoxNumberformat.TabIndex = 6;
+            this.textBoxNumberformat.Text = "D2";
+            // 
+            // labelNumberHelp
+            // 
+            this.labelNumberHelp.AutoSize = true;
+            this.labelNumberHelp.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.labelNumberHelp.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelNumberHelp.ForeColor = System.Drawing.Color.Blue;
+            this.labelNumberHelp.Location = new System.Drawing.Point(118, 130);
+            this.labelNumberHelp.Name = "labelNumberHelp";
+            this.labelNumberHelp.Size = new System.Drawing.Size(29, 13);
+            this.labelNumberHelp.TabIndex = 8;
+            this.labelNumberHelp.Text = "Help";
+            this.labelNumberHelp.Click += new System.EventHandler(this.labelNumberHelp_Click);
+            this.labelNumberHelp.MouseEnter += new System.EventHandler(this.labelNumberHelp_MouseEnter);
+            this.labelNumberHelp.MouseLeave += new System.EventHandler(this.labelNumberHelp_MouseLeave);
+            // 
             // Settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 261);
+            this.Controls.Add(this.labelNumberHelp);
+            this.Controls.Add(this.labelNumberFormat);
+            this.Controls.Add(this.textBoxNumberformat);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonOK);
             this.Controls.Add(this.labeltimeFormat);
@@ -122,5 +160,8 @@
         private System.Windows.Forms.TextBox textBoxtimeFormat;
         private System.Windows.Forms.Button buttonOK;
         private System.Windows.Forms.Button buttonCancel;
+        private System.Windows.Forms.Label labelNumberFormat;
+        private System.Windows.Forms.TextBox textBoxNumberformat;
+        private System.Windows.Forms.Label labelNumberHelp;
     }
 }
