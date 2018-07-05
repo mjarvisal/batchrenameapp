@@ -231,6 +231,24 @@ namespace BatchRenameApp
             {
                 e.Effect = DragDropEffects.None;
                 string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+                ArrayList tempDirectories = new ArrayList();
+
+                foreach (string filename in files)
+                {
+                    DirectoryInfo file = new DirectoryInfo(filename);
+                    if (file.Attributes == FileAttributes.Directory)
+                    {
+                        tempDirectories.Add(
+                        CustomDirectoryIterator.GetDirectories(filename, "*", SearchOption.AllDirectories)
+                        );
+                    }
+
+                }
+                if (tempDirectories.Count > 0)
+                {
+                    ImportFoldersWindow foldersWindow = new ImportFoldersWindow();
+                    foldersWindow.ShowDialog();
+                } 
                 int errors = 0;
                 Exception outException = null;
                 foreach (string filename in files)
@@ -468,7 +486,7 @@ namespace BatchRenameApp
         }
 
         private static Regex r = new Regex(":");
-        private static FileInfo notImage;
+
 
         //retrieves the datetime WITHOUT loading the whole image
         public static DateTime GetDateTakenFromImage(string path)
@@ -498,9 +516,12 @@ namespace BatchRenameApp
                 {
                     using (Image myImage = Image.FromStream(fs, false, false))
                     {
-                        if (myImage.PropertyIdList.Contains(1) && myImage.PropertyIdList.Contains(2) && myImage.PropertyIdList.Contains(3) && myImage.PropertyIdList.Contains(4))
+                        if (myImage.PropertyIdList.Contains(1) &&
+                            myImage.PropertyIdList.Contains(2) &&
+                            myImage.PropertyIdList.Contains(3) &&
+                            myImage.PropertyIdList.Contains(4)
+                            )
                         {
-
                             output[0] = ExifGpsToDouble(myImage.GetPropertyItem(1), myImage.GetPropertyItem(2));
                             output[1] = ExifGpsToDouble(myImage.GetPropertyItem(3), myImage.GetPropertyItem(4));
                             return output;
@@ -508,11 +529,10 @@ namespace BatchRenameApp
                         return output;
                     }
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
 
                 }
-
             return output;
         }
 
@@ -555,6 +575,7 @@ namespace BatchRenameApp
             output = output.Replace("%fnc%", EvaluateFunctionString(function, number));
 
             double[] location = GetGPSLocationFromImage(file.FullName);
+
             if (location[0] > -1.0 && location[1] > -1.0)
             {
                 output = output.Replace("%loc%", location[0] + " x " + location[1]);

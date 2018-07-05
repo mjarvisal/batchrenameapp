@@ -52,6 +52,7 @@
     <Compile Include="CollapsibleGroupBox\CollapsibleGroupBox.Designer.cs">
       <DependentUpon>CollapsibleGroupBox.cs</DependentUpon>
     </Compile>
+    <Compile Include="CustomDirectoryIterator.cs" />
     <Compile Include="DragDropListBox\DragDropListBox.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -59,6 +60,12 @@
     <Compile Include="FilenameStorage.cs" />
     <Compile Include="DragDropListBox\IDragDropSource.cs" />
     <Compile Include="History.cs" />
+    <Compile Include="ImportFoldersForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ImportFoldersForm.Designer.cs">
+      <DependentUpon>ImportFoldersForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -84,6 +91,9 @@
     </Compile>
     <EmbeddedResource Include="CollapsibleGroupBox\CollapsibleGroupBox.resx">
       <DependentUpon>CollapsibleGroupBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ImportFoldersForm.resx">
+      <DependentUpon>ImportFoldersForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>
