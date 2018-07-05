@@ -17,6 +17,19 @@ namespace BatchRenameApp
          */
         private static ArrayList files = new ArrayList();
 
+        public void AddFile(string[] filename)
+        {
+            foreach (string file in filename)
+            {
+                try
+                {
+                    AddFile(file);
+                } catch (Exception)
+                {
+
+                }
+            }
+        }
 
         public void AddFile(string filename)
         {

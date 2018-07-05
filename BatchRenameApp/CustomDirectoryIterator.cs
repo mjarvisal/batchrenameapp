@@ -10,27 +10,26 @@ namespace BatchRenameApp
 {
     class CustomDirectoryIterator
     {
-        public static TreeNode DirSearch(string dir)
+        public static Dictionary<string, object> DirSearch(string dir)
         {
             try
             {
                 FileInfo fileinfo = new FileInfo(dir);
-                TreeNode output = new TreeNode(fileinfo.Name);
+                Dictionary<string, object> output = new Dictionary<string, object>();
                 foreach (string d in Directory.GetDirectories(dir))
                 {
-                    output.Nodes.Add(DirSearch(d));
+                    output.Add(d, DirSearch(d));
                 }
                 foreach (string f in Directory.GetFiles(dir))
                 {
-                    FileInfo fileinfo2 = new FileInfo(f);                         
-                   var node = new TreeNode(fileinfo2.Name);
-                   output.Nodes.Add(node);
+                   FileInfo fileinfo2 = new FileInfo(f);                                      
+                   output.Add(f, fileinfo2);
                 }                
                 return output;
             }
             catch (Exception)
             {
-                return new TreeNode();
+                return new Dictionary<string, object>();
             }
         }
 

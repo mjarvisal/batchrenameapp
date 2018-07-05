@@ -231,7 +231,7 @@ namespace BatchRenameApp
             {
                 e.Effect = DragDropEffects.None;
                 string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
-                TreeNode[] tempDirectories = new TreeNode[files.Length];
+                List<object> tempDirectories = new List<object>();
 
                 var x = 0;
                 foreach (string filename in files)
@@ -239,23 +239,35 @@ namespace BatchRenameApp
                     DirectoryInfo file = new DirectoryInfo(filename);
                     if (file.Attributes == FileAttributes.Directory)
                     {
-                        tempDirectories[x] = CustomDirectoryIterator.DirSearch(filename);                        
+                        tempDirectories.Add(CustomDirectoryIterator.DirSearch(filename));
                         x++;
-                    }                   
+                    }
                 }
 
-                if (tempDirectories.Length > 0)
+                if (tempDirectories.Count > 0)
                 {
                     ImportFoldersWindow foldersWindow = new ImportFoldersWindow();
-                    foldersWindow.AddFiles(tempDirectories);
-                    foldersWindow.ShowDialog();                   
-                    return;
-                } 
+                    x = 0;
+                    foldersWindow.clear();
+
+                    foreach (Dictionary<string, object> dir in tempDirectories)
+                    {
+                        foldersWindow.AddFiles(files[x], dir);
+                        x++;
+                    }
+                    DialogResult asd = foldersWindow.ShowDialog();
+                    if (asd == DialogResult.OK)
+                    {
+                        files = foldersWindow.getFiles();
+                    }
+                }
 
                 int errors = 0;
                 Exception outException = null;
+                listBoxFilelist.BeginUpdate();
                 foreach (string filename in files)
                 {
+                    
                     if (Program.mainWindowForm.filestorage.Contains(filename) == false)
                     {
                         try
@@ -270,12 +282,13 @@ namespace BatchRenameApp
                         }
                     }
                 }
-
+                listBoxFilelist.EndUpdate();
                 if (errors > 0)
                 {
                     CenteredMessageBox.Show(this, outException.Message, errors + " Errors", MessageBoxButtons.OK);
                 }
             }
+
             UpdatePreview();
         }
 
@@ -714,7 +727,7 @@ namespace BatchRenameApp
                 double doubleresult = Convert.ToDouble(result);
                 // @TODO
                 // Evaluate that the string format is valid
-                if (numberformat.Contains("d")  || numberformat.Contains("x"))
+                if (numberformat.Contains("d") || numberformat.Contains("x"))
                 {
                     int numberresult = Convert.ToInt32(doubleresult);
                     return numberresult.ToString(numberformat);
