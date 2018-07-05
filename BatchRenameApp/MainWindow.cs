@@ -231,24 +231,27 @@ namespace BatchRenameApp
             {
                 e.Effect = DragDropEffects.None;
                 string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
-                ArrayList tempDirectories = new ArrayList();
+                TreeNode[] tempDirectories = new TreeNode[files.Length];
 
+                var x = 0;
                 foreach (string filename in files)
                 {
                     DirectoryInfo file = new DirectoryInfo(filename);
                     if (file.Attributes == FileAttributes.Directory)
                     {
-                        tempDirectories.Add(
-                        CustomDirectoryIterator.GetDirectories(filename, "*", SearchOption.AllDirectories)
-                        );
-                    }
-
+                        tempDirectories[x] = CustomDirectoryIterator.DirSearch(filename);                        
+                        x++;
+                    }                   
                 }
-                if (tempDirectories.Count > 0)
+
+                if (tempDirectories.Length > 0)
                 {
                     ImportFoldersWindow foldersWindow = new ImportFoldersWindow();
-                    foldersWindow.ShowDialog();
+                    foldersWindow.AddFiles(tempDirectories);
+                    foldersWindow.ShowDialog();                   
+                    return;
                 } 
+
                 int errors = 0;
                 Exception outException = null;
                 foreach (string filename in files)

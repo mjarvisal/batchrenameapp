@@ -4,36 +4,36 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.Windows.Forms;
 
 namespace BatchRenameApp
 {
     class CustomDirectoryIterator
     {
-        public static List<string> GetDirectories(string path, string searchPattern = "*", SearchOption searchOption = SearchOption.TopDirectoryOnly)
-        {
-            if (searchOption == SearchOption.TopDirectoryOnly)
-            {
-                return Directory.GetDirectories(path, searchPattern).ToList();
-            }
-
-            var directories = new List<string>(GetDirectories(path, searchPattern));
-
-            for (var i = 0; i < directories.Count; i++)
-                directories.AddRange(GetDirectories(directories[i], searchPattern));
-
-            return directories;
-        }
-
-        private static List<string> GetDirectories(string path, string searchPattern)
+        public static TreeNode DirSearch(string dir)
         {
             try
             {
-                return Directory.GetDirectories(path, searchPattern).ToList();
+                FileInfo fileinfo = new FileInfo(dir);
+                TreeNode output = new TreeNode(fileinfo.Name);
+                foreach (string d in Directory.GetDirectories(dir))
+                {
+                    output.Nodes.Add(DirSearch(d));
+                }
+                foreach (string f in Directory.GetFiles(dir))
+                {
+                    FileInfo fileinfo2 = new FileInfo(f);                         
+                   var node = new TreeNode(fileinfo2.Name);
+                   output.Nodes.Add(node);
+                }                
+                return output;
             }
-            catch (UnauthorizedAccessException)
+            catch (Exception)
             {
-                return new List<string>();
+                return new TreeNode();
             }
         }
+
+
     }
 }

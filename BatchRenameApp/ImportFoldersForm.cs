@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
@@ -12,7 +13,7 @@ namespace BatchRenameApp
 {
     public partial class ImportFoldersWindow : Form
     {
-        ArrayList array = new ArrayList();
+        List<string[]> array = new List<string[]>();
         
         public ImportFoldersWindow()
         {
@@ -20,15 +21,20 @@ namespace BatchRenameApp
         }
 
 
-        public void addFiles(string[] files)
+        public void AddFiles(TreeNode[] files)
         {
-            array.AddRange(files);
-            foreach (string file in files)
+            treeView1.BeginUpdate();
+            treeView1.Nodes.Clear();
+            foreach (TreeNode file in files)
             {
                 treeView1.Nodes.Add(file);
-            }
-
+            }            
+            treeView1.EndUpdate();
         }
 
+        private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+
+        }
     }
 }
