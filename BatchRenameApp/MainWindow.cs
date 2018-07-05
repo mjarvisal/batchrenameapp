@@ -666,6 +666,7 @@ namespace BatchRenameApp
             string expression = "x";
             string lastvalidexpression = "x";
             Regex allowedRegex = new Regex(@"[^x0-9()*/+-\^]");
+            string numberformat = settingsForm.numberformat.ToLower();
 
             MSScriptControl.ScriptControl sc = new MSScriptControl.ScriptControl { Language = "VBScript" };
             if (sFunction.Length > 0)
@@ -706,7 +707,18 @@ namespace BatchRenameApp
                 result = sc.Eval(lastvalidexpression);
             }
             if (result != null)
-                return result.ToString();
+            {
+                double doubleresult = Convert.ToDouble(result);
+                // @TODO
+                // Evaluate that the string format is valid
+                if (numberformat.Contains("d")  || numberformat.Contains("x"))
+                {
+                    int numberresult = Convert.ToInt32(doubleresult);
+                    return numberresult.ToString(numberformat);
+                }
+                else
+                    return doubleresult.ToString(numberformat);
+            }
             else
                 return "0";
         }
