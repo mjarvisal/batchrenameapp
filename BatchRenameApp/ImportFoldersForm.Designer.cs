@@ -39,11 +39,16 @@
             // trackBarFolderDepth
             // 
             this.trackBarFolderDepth.Location = new System.Drawing.Point(283, 12);
+            this.trackBarFolderDepth.Minimum = 1;
             this.trackBarFolderDepth.Name = "trackBarFolderDepth";
             this.trackBarFolderDepth.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.trackBarFolderDepth.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.trackBarFolderDepth.RightToLeftLayout = true;
             this.trackBarFolderDepth.Size = new System.Drawing.Size(45, 104);
             this.trackBarFolderDepth.TabIndex = 1;
             this.trackBarFolderDepth.TickStyle = System.Windows.Forms.TickStyle.TopLeft;
+            this.trackBarFolderDepth.Value = 10;
+            this.trackBarFolderDepth.ValueChanged += new System.EventHandler(this.trackBarFolderDepth_ValueChanged);
             // 
             // textBoxFolderDepth
             // 
