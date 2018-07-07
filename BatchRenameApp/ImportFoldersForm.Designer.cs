@@ -36,7 +36,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.trackBarFolderDepth)).BeginInit();
             this.SuspendLayout();
             // 
-            // trackBar1
+            // trackBarFolderDepth
             // 
             this.trackBarFolderDepth.Location = new System.Drawing.Point(283, 12);
             this.trackBarFolderDepth.Name = "trackBarFolderDepth";
@@ -45,36 +45,37 @@
             this.trackBarFolderDepth.TabIndex = 1;
             this.trackBarFolderDepth.TickStyle = System.Windows.Forms.TickStyle.TopLeft;
             // 
-            // textBox1
+            // textBoxFolderDepth
             // 
             this.textBoxFolderDepth.Location = new System.Drawing.Point(283, 122);
             this.textBoxFolderDepth.Name = "textBoxFolderDepth";
             this.textBoxFolderDepth.Size = new System.Drawing.Size(35, 20);
             this.textBoxFolderDepth.TabIndex = 2;
             // 
-            // treeView1
+            // treeViewFileslist
             // 
             this.treeViewFileslist.Location = new System.Drawing.Point(12, 12);
             this.treeViewFileslist.Name = "treeViewFileslist";
             this.treeViewFileslist.Size = new System.Drawing.Size(239, 426);
             this.treeViewFileslist.TabIndex = 3;
             this.treeViewFileslist.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterSelect);
+            this.treeViewFileslist.KeyUp += new System.Windows.Forms.KeyEventHandler(this.treeViewFileslist_KeyUp);
             // 
-            // OkButton
+            // ButtonOk
             // 
             this.ButtonOk.Location = new System.Drawing.Point(257, 382);
-            this.ButtonOk.Name = "OkButton";
+            this.ButtonOk.Name = "ButtonOk";
             this.ButtonOk.Size = new System.Drawing.Size(75, 23);
             this.ButtonOk.TabIndex = 4;
             this.ButtonOk.Text = "Ok";
             this.ButtonOk.UseVisualStyleBackColor = true;
             this.ButtonOk.Click += new System.EventHandler(this.OkButton_Click);
             // 
-            // CancelButton
+            // ButtonCancel
             // 
             this.ButtonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.ButtonCancel.Location = new System.Drawing.Point(257, 411);
-            this.ButtonCancel.Name = "CancelButton";
+            this.ButtonCancel.Name = "ButtonCancel";
             this.ButtonCancel.Size = new System.Drawing.Size(75, 23);
             this.ButtonCancel.TabIndex = 4;
             this.ButtonCancel.Text = "Cancel";
@@ -83,9 +84,9 @@
             // ImportFoldersWindow
             // 
             this.AcceptButton = this.ButtonOk;
-            this.CancelButton = this.ButtonCancel;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;    
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.ButtonCancel;
             this.ClientSize = new System.Drawing.Size(340, 450);
             this.Controls.Add(this.ButtonCancel);
             this.Controls.Add(this.ButtonOk);

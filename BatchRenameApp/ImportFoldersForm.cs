@@ -131,5 +131,13 @@ namespace BatchRenameApp
             Close();
             DialogResult = DialogResult.OK;
         }
+
+        private void treeViewFileslist_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Delete)
+            {
+                treeViewFileslist.SelectedNode.Remove();
+            }
+        }
     }
 }
