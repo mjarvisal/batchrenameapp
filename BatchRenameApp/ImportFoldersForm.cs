@@ -192,10 +192,13 @@ namespace BatchRenameApp
 
         private void trackBarFolderDepth_ValueChanged(object sender, EventArgs e)
         {
+
+            treeViewFileslist.BeginUpdate();
             clear();
             int value = trackBarFolderDepth.Value;
             textBoxFolderDepth.Text = ""+ value;
             UpdateFoldersWithDepth(value);
+            treeViewFileslist.EndUpdate();
         }
     }
 }

@@ -31,6 +31,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Resources\icon.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -57,6 +60,8 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="DragDropListBox\DroppedEventArgs.cs" />
+    <Compile Include="ExifReader.cs" />
+    <Compile Include="ExifTags.cs" />
     <Compile Include="FilenameStorage.cs" />
     <Compile Include="DragDropListBox\IDragDropSource.cs" />
     <Compile Include="History.cs" />
@@ -66,6 +71,7 @@
     <Compile Include="ImportFoldersForm.Designer.cs">
       <DependentUpon>ImportFoldersForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="LocationServices.cs" />
     <Compile Include="MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -145,6 +151,7 @@
     <Content Include="CollapsibleGroupBox\CollapsibleGroupBox.bmp" />
     <Content Include="CollapsibleGroupBox\Resources\minus.bmp" />
     <Content Include="CollapsibleGroupBox\Resources\plus.bmp" />
+    <None Include="Resources\icon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
