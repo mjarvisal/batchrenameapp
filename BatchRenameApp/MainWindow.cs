@@ -1,19 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
 using System.IO;
-using System.Collections;
+using System.Net;
 using System.Text.RegularExpressions;
 using System.Drawing.Imaging;
+using System.Xml;
+using System.Globalization;
+using System.IO.Compression;
 
 namespace BatchRenameApp
 {
@@ -491,7 +489,7 @@ namespace BatchRenameApp
 
         public Double[] GetGPSLocationFromImage(string path)
         {
-            Double[] output = new Double[2] { -1.0d, -1.0d };
+            Double[] output = new Double[2] { -360.0d, -360.0d };
 
             using (FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read))
                 try
@@ -540,8 +538,10 @@ namespace BatchRenameApp
 
         private string ProcessPatterns(int number, string replacetext, string function, FileInfo file)
         {
-            string filense = "";
-            string fileext = "";
+            string filense = string.Empty;
+            string fileext = string.Empty;
+            string output = replacetext;
+
             Regex extension = new Regex("[.](.){3,4}$");
             try
             {
@@ -551,6 +551,7 @@ namespace BatchRenameApp
                 filense = file.Name.Remove(index, lenght);
                 fileext = fileextregex.Value;
             }
+
             catch
             {
 
@@ -562,7 +563,7 @@ namespace BatchRenameApp
             string time = file.CreationTime.ToString(timeformat);
             String[] imagedatetime = { "%datetaken", "%timetaken" };
 
-            string output = replacetext.Replace("%file%", filense);
+            output = output.Replace("%file%", filense);
             output = output.Replace("%ext%", fileext);
             output = output.Replace("%folder%", file.Directory.Name);
             output = output.Replace("%datecreated%", date);
@@ -571,14 +572,49 @@ namespace BatchRenameApp
             output = output.Replace("%timenow%", DateTime.Now.ToString(timeformat));
             output = output.Replace("%fnc%", EvaluateFunctionString(function, number));
 
-            double[] location = GetGPSLocationFromImage(file.FullName);
-            if (location[0] > -1.0 && location[1] > -1.0)
-            {
-                output = output.Replace("%loc%", location[0] + " x " + location[1]);
-            }
-            else
-            {
-                output = output.Replace("%loc%", "");
+            if (output.Contains("%loc%"))
+{
+                double[] location = GetGPSLocationFromImage(file.FullName);
+                if (location[0] > -360.0 && location[1] > -360.0)
+                {
+                    NumberFormatInfo nfi = new NumberFormatInfo();
+                    nfi.NumberDecimalSeparator = ".";
+                    String url = String.Format("https://nominatim.openstreetmap.org/reverse?format=xml&lat={0}&lon={1}&zoom=18&addressdetails=1", location[0].ToString(nfi), location[1].ToString(nfi));
+                    Uri address = new Uri(url);
+                    string geoLocationCountry = "";
+                    string geoLocationCity = "";
+                    WebClient client = new WebClient();
+                    client.Headers["User-Agent"] = "Mozilla/5.0 (Windows; U; Windows NT 6.0; en-US; rv:1.9.2.6) Gecko/20100625 Firefox/3.6.6 (.NET CLR 3.5.30729)";
+                    client.Headers["Accept"] = "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8";
+                    client.Headers["Accept-Language"] = "en-us,en;q=0.5";
+                    client.Headers["Accept-Encoding"] = "gzip";
+                    client.Headers["Accept-Charset"] = "ISO-8859-1,utf-8;q=0.7,*;q=0.7";
+                    XmlReader xmlreader;
+
+                    var responseStream = new GZipStream(client.OpenRead(address), CompressionMode.Decompress);
+
+                    xmlreader = XmlReader.Create(responseStream);
+
+                    while (xmlreader.Read())
+                    {
+                        switch (xmlreader.Name.ToString().ToLower())
+                        {
+                            case "country":
+                                geoLocationCountry = xmlreader.ReadElementContentAsString();
+                                break;
+                            case "city":
+                                geoLocationCity = xmlreader.ReadElementContentAsString();
+                                break;
+                        }
+                    }
+                    string geoLocation = string.Format("{0},{1}", geoLocationCity, geoLocationCountry);
+
+                    output = output.Replace("%loc%", geoLocation);
+                }
+                else
+                {
+                    output = output.Replace("%loc%", "");
+                }
             }
 
             if (imagedatetime.Any(replacetext.Contains))
@@ -707,7 +743,7 @@ namespace BatchRenameApp
                 double doubleresult = Convert.ToDouble(result);
                 // @TODO
                 // Evaluate that the string format is valid
-                if (numberformat.Contains("d")  || numberformat.Contains("x"))
+                if (numberformat.Contains("d") || numberformat.Contains("x"))
                 {
                     int numberresult = Convert.ToInt32(doubleresult);
                     return numberresult.ToString(numberformat);
