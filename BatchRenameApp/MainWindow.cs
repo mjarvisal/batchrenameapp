@@ -230,42 +230,41 @@ namespace BatchRenameApp
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
                 e.Effect = DragDropEffects.None;
-                string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
-                List<object> tempDirectories = new List<object>();
+                string[] itemsdropped = (string[])e.Data.GetData(DataFormats.FileDrop);
+                List<object> lDirectories = new List<object>();
 
                 var x = 0;
-                foreach (string filename in files)
+                foreach (string filename in itemsdropped)
                 {
                     DirectoryInfo file = new DirectoryInfo(filename);
                     if (file.Attributes == FileAttributes.Directory)
                     {
-                        tempDirectories.Add(CustomDirectoryIterator.DirSearch(filename));
+                        lDirectories.Add(CustomDirectoryIterator.DirSearch(filename));
                         x++;
                     }
                 }
 
-                if (tempDirectories.Count > 0)
+                if (lDirectories.Count > 0)
                 {
                     ImportFoldersWindow foldersWindow = new ImportFoldersWindow();
                     x = 0;
-                    foldersWindow.clear();
-
-                    foreach (Dictionary<string, object> dir in tempDirectories)
+                    foldersWindow.clear();                   
+                    foreach (Dictionary<string, object> foldertreedict in lDirectories)
                     {
-                        foldersWindow.AddFiles(files[x], dir);
+                        foldersWindow.AddFiles(itemsdropped[x], foldertreedict);
                         x++;
                     }
-                    DialogResult asd = foldersWindow.ShowDialog();
-                    if (asd == DialogResult.OK)
+                    DialogResult result = foldersWindow.ShowDialog();
+                    if (result == DialogResult.OK)
                     {
-                        files = foldersWindow.getFiles();
+                        itemsdropped = foldersWindow.getFiles();
                     }
                 }
 
                 int errors = 0;
                 Exception outException = null;
                 listBoxFilelist.BeginUpdate();
-                foreach (string filename in files)
+                foreach (string filename in itemsdropped)
                 {
                     
                     if (Program.mainWindowForm.filestorage.Contains(filename) == false)

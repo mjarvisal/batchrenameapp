@@ -15,6 +15,7 @@ namespace BatchRenameApp
     public partial class ImportFoldersWindow : Form
     {
 
+        private static string parentfolder = "";
    
         public ImportFoldersWindow()
         {
@@ -23,29 +24,40 @@ namespace BatchRenameApp
 
         public void clear()
         {
-            treeView1.Nodes.Clear();
+            treeViewFileslist.Nodes.Clear();
         }
 
-        public void AddFiles(string dir, Dictionary<string, object> files)
+        public void AddFiles(string rootdir, Dictionary<string, object> files)
         {
-            treeView1.BeginUpdate();                       
-            treeView1.Nodes.Add(GenerateTreenode(dir, files));
-            treeView1.EndUpdate();
+            parentfolder = rootdir;
+            treeViewFileslist.BeginUpdate();
+            treeViewFileslist.Nodes.Add(GenerateTreenode(rootdir, files));
+            treeViewFileslist.EndUpdate();
         }
 
         private TreeNode GenerateTreenode(string rootDir, Dictionary<string, object> files)
         {
-            var node = new TreeNode(rootDir);
+            FileInfo folderName = new FileInfo(rootDir);
+            TreeNode node;
+            if (folderName.FullName == parentfolder)
+            {
+                node = new TreeNode(folderName.FullName);
+            }
+            else
+            {
+                node = new TreeNode(folderName.Name);
+            }
 
             foreach (KeyValuePair<string, object> temp in files)
             {
                 if (temp.Value.GetType() == typeof(FileInfo))
                 {
-                    node.Nodes.Add(((FileInfo)temp.Value).FullName);
+                    node.Nodes.Add(((FileInfo)temp.Value).Name);
                 }
                 else
                 {
-                    node.Nodes.Add(GenerateTreenode(temp.Key, (Dictionary<string, object>)temp.Value));
+                    FileInfo subfoldername = new FileInfo(temp.Key);
+                    node.Nodes.Add(GenerateTreenode(subfoldername.FullName, (Dictionary<string, object>)temp.Value));
                 }
             }
 
@@ -66,7 +78,7 @@ namespace BatchRenameApp
         {
 
             List<string> list = new List<string>();
-            foreach (TreeNode Node in treeView1.Nodes)
+            foreach (TreeNode Node in treeViewFileslist.Nodes)
             {
                 list.AddRange(GenerateReply(Node, list));
             }
@@ -90,12 +102,6 @@ namespace BatchRenameApp
                 }
             }
             return output;
-        }
-
-
-        private void CancelButton_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void OkButton_Click(object sender, EventArgs e)

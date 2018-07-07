@@ -14,7 +14,7 @@ namespace BatchRenameApp
         {
             try
             {
-                FileInfo fileinfo = new FileInfo(dir);
+                FileInfo filedirectory = new FileInfo(dir);
                 Dictionary<string, object> output = new Dictionary<string, object>();
                 foreach (string d in Directory.GetDirectories(dir))
                 {
@@ -22,8 +22,8 @@ namespace BatchRenameApp
                 }
                 foreach (string f in Directory.GetFiles(dir))
                 {
-                   FileInfo fileinfo2 = new FileInfo(f);                                      
-                   output.Add(f, fileinfo2);
+                   FileInfo filename = new FileInfo(f);                                      
+                   output.Add(filename.Name, filename);
                 }                
                 return output;
             }

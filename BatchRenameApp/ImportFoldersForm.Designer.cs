@@ -28,37 +28,37 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.trackBar1 = new System.Windows.Forms.TrackBar();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.treeView1 = new System.Windows.Forms.TreeView();
+            this.trackBarFolderDepth = new System.Windows.Forms.TrackBar();
+            this.textBoxFolderDepth = new System.Windows.Forms.TextBox();
+            this.treeViewFileslist = new System.Windows.Forms.TreeView();
             this.ButtonOk = new System.Windows.Forms.Button();
             this.ButtonCancel = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarFolderDepth)).BeginInit();
             this.SuspendLayout();
             // 
             // trackBar1
             // 
-            this.trackBar1.Location = new System.Drawing.Point(283, 12);
-            this.trackBar1.Name = "trackBar1";
-            this.trackBar1.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trackBar1.Size = new System.Drawing.Size(45, 104);
-            this.trackBar1.TabIndex = 1;
-            this.trackBar1.TickStyle = System.Windows.Forms.TickStyle.TopLeft;
+            this.trackBarFolderDepth.Location = new System.Drawing.Point(283, 12);
+            this.trackBarFolderDepth.Name = "trackBarFolderDepth";
+            this.trackBarFolderDepth.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.trackBarFolderDepth.Size = new System.Drawing.Size(45, 104);
+            this.trackBarFolderDepth.TabIndex = 1;
+            this.trackBarFolderDepth.TickStyle = System.Windows.Forms.TickStyle.TopLeft;
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(283, 122);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(35, 20);
-            this.textBox1.TabIndex = 2;
+            this.textBoxFolderDepth.Location = new System.Drawing.Point(283, 122);
+            this.textBoxFolderDepth.Name = "textBoxFolderDepth";
+            this.textBoxFolderDepth.Size = new System.Drawing.Size(35, 20);
+            this.textBoxFolderDepth.TabIndex = 2;
             // 
             // treeView1
             // 
-            this.treeView1.Location = new System.Drawing.Point(12, 12);
-            this.treeView1.Name = "treeView1";
-            this.treeView1.Size = new System.Drawing.Size(239, 426);
-            this.treeView1.TabIndex = 3;
-            this.treeView1.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterSelect);
+            this.treeViewFileslist.Location = new System.Drawing.Point(12, 12);
+            this.treeViewFileslist.Name = "treeViewFileslist";
+            this.treeViewFileslist.Size = new System.Drawing.Size(239, 426);
+            this.treeViewFileslist.TabIndex = 3;
+            this.treeViewFileslist.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterSelect);
             // 
             // OkButton
             // 
@@ -79,7 +79,6 @@
             this.ButtonCancel.TabIndex = 4;
             this.ButtonCancel.Text = "Cancel";
             this.ButtonCancel.UseVisualStyleBackColor = true;
-            this.ButtonCancel.Click += new System.EventHandler(this.CancelButton_Click);
             // 
             // ImportFoldersWindow
             // 
@@ -90,25 +89,25 @@
             this.ClientSize = new System.Drawing.Size(340, 450);
             this.Controls.Add(this.ButtonCancel);
             this.Controls.Add(this.ButtonOk);
-            this.Controls.Add(this.treeView1);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.trackBar1);
+            this.Controls.Add(this.treeViewFileslist);
+            this.Controls.Add(this.textBoxFolderDepth);
+            this.Controls.Add(this.trackBarFolderDepth);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "ImportFoldersWindow";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.Text = "Import Folders";
             this.TopMost = true;
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarFolderDepth)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-        private System.Windows.Forms.TrackBar trackBar1;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TreeView treeView1;
+        private System.Windows.Forms.TrackBar trackBarFolderDepth;
+        private System.Windows.Forms.TextBox textBoxFolderDepth;
+        private System.Windows.Forms.TreeView treeViewFileslist;
         private System.Windows.Forms.Button ButtonOk;
         private System.Windows.Forms.Button ButtonCancel;
     }
