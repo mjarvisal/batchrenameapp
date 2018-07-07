@@ -12,6 +12,7 @@ using System.Drawing.Imaging;
 using System.Xml;
 using System.Globalization;
 using System.IO.Compression;
+using System.Collections.Generic;
 
 namespace BatchRenameApp
 {
