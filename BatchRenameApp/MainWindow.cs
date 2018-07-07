@@ -228,11 +228,43 @@ namespace BatchRenameApp
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
                 e.Effect = DragDropEffects.None;
-                string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+                string[] itemsdropped = (string[])e.Data.GetData(DataFormats.FileDrop);
+                List<object> lDirectories = new List<object>();
+
+                var x = 0;
+                foreach (string filename in itemsdropped)
+                {
+                    DirectoryInfo file = new DirectoryInfo(filename);
+                    if (file.Attributes == FileAttributes.Directory)
+                    {
+                        lDirectories.Add(CustomDirectoryIterator.DirSearch(filename));
+                        x++;
+                    }
+                }
+
+                if (lDirectories.Count > 0)
+                {
+                    ImportFoldersWindow foldersWindow = new ImportFoldersWindow();
+                    x = 0;
+                    foldersWindow.clear();                   
+                    foreach (Dictionary<string, object> foldertreedict in lDirectories)
+                    {
+                        foldersWindow.AddFiles(itemsdropped[x], foldertreedict);
+                        x++;
+                    }
+                    DialogResult result = foldersWindow.ShowDialog();
+                    if (result == DialogResult.OK)
+                    {
+                        itemsdropped = foldersWindow.getFiles();
+                    }
+                }
+
                 int errors = 0;
                 Exception outException = null;
-                foreach (string filename in files)
+                listBoxFilelist.BeginUpdate();
+                foreach (string filename in itemsdropped)
                 {
+                    
                     if (Program.mainWindowForm.filestorage.Contains(filename) == false)
                     {
                         try
@@ -247,12 +279,13 @@ namespace BatchRenameApp
                         }
                     }
                 }
-
+                listBoxFilelist.EndUpdate();
                 if (errors > 0)
                 {
                     CenteredMessageBox.Show(this, outException.Message, errors + " Errors", MessageBoxButtons.OK);
                 }
             }
+
             UpdatePreview();
         }
 
@@ -466,7 +499,7 @@ namespace BatchRenameApp
         }
 
         private static Regex r = new Regex(":");
-        private static FileInfo notImage;
+
 
         //retrieves the datetime WITHOUT loading the whole image
         public static DateTime GetDateTakenFromImage(string path)
@@ -496,9 +529,12 @@ namespace BatchRenameApp
                 {
                     using (Image myImage = Image.FromStream(fs, false, false))
                     {
-                        if (myImage.PropertyIdList.Contains(1) && myImage.PropertyIdList.Contains(2) && myImage.PropertyIdList.Contains(3) && myImage.PropertyIdList.Contains(4))
+                        if (myImage.PropertyIdList.Contains(1) &&
+                            myImage.PropertyIdList.Contains(2) &&
+                            myImage.PropertyIdList.Contains(3) &&
+                            myImage.PropertyIdList.Contains(4)
+                            )
                         {
-
                             output[0] = ExifGpsToDouble(myImage.GetPropertyItem(1), myImage.GetPropertyItem(2));
                             output[1] = ExifGpsToDouble(myImage.GetPropertyItem(3), myImage.GetPropertyItem(4));
                             return output;
@@ -506,11 +542,10 @@ namespace BatchRenameApp
                         return output;
                     }
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
 
                 }
-
             return output;
         }
 

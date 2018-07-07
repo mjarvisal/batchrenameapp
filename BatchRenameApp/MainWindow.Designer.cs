@@ -39,6 +39,8 @@
             this.contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.undoContextMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.redoContextMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.TagsContextMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparatorMain1 = new System.Windows.Forms.ToolStripSeparator();
             this.sortContextMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ascendingContextMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -59,8 +61,6 @@
             this.labelChanged = new System.Windows.Forms.Label();
             this.collapsibleGroupBoxFunction = new Indigo.CollapsibleGroupBox();
             this.inputFunction = new System.Windows.Forms.TextBox();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.TagsContextMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenu.SuspendLayout();
             this.panelSearchandReplace.SuspendLayout();
             this.collabsibleGroupBoxFiles.SuspendLayout();
@@ -161,6 +161,18 @@
             this.redoContextMenuItem.Size = new System.Drawing.Size(170, 22);
             this.redoContextMenuItem.Text = "Redo";
             this.redoContextMenuItem.Click += new System.EventHandler(this.RedoContextMenuItem_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(167, 6);
+            // 
+            // TagsContextMenuItem
+            // 
+            this.TagsContextMenuItem.Name = "TagsContextMenuItem";
+            this.TagsContextMenuItem.Size = new System.Drawing.Size(170, 22);
+            this.TagsContextMenuItem.Text = "Tags";
+            this.TagsContextMenuItem.Click += new System.EventHandler(this.TagsContextMenuItem_Click);
             // 
             // toolStripSeparatorMain1
             // 
@@ -331,18 +343,6 @@
             this.inputFunction.Size = new System.Drawing.Size(252, 20);
             this.inputFunction.TabIndex = 10;
             this.inputFunction.TextChanged += new System.EventHandler(this.TextBoxFunction_TextChanged);
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(167, 6);
-            // 
-            // TagstoolStripMenuItem
-            // 
-            this.TagsContextMenuItem.Name = "TagsContextMenuItem";
-            this.TagsContextMenuItem.Size = new System.Drawing.Size(170, 22);
-            this.TagsContextMenuItem.Text = "Tags";
-            this.TagsContextMenuItem.Click += new System.EventHandler(this.TagsContextMenuItem_Click);
             // 
             // MainWindow
             // 
