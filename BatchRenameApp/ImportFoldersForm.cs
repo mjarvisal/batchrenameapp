@@ -40,11 +40,6 @@ namespace BatchRenameApp
             {
                 parentfolder = values.Key;
                 treeViewFileslist.Nodes.Add(GenerateTreenode(values.Key, (Dictionary<string, object>)values.Value));
-                if (tempFolderTreeDepth > folderTreeDepthMax)
-                {
-                    folderTreeDepthMax = tempFolderTreeDepth;
-                    textBoxFolderDepth.Text = "" + folderTreeDepthMax;
-                }
             }
             treeViewFileslist.EndUpdate();
             trackBarFolderDepth.Maximum = folderTreeDepthMax;
@@ -67,7 +62,7 @@ namespace BatchRenameApp
 
         private TreeNode GenerateTreenode(string rootDir, Dictionary<string, object> files)
         {
-            return GenerateTreenode(rootDir, files, -1);
+            return GenerateTreenode(rootDir, files, 20);
         }
 
         private TreeNode GenerateTreenode(string rootDir, Dictionary<string, object> files, int maxDepth)
@@ -104,17 +99,16 @@ namespace BatchRenameApp
                         // if subfolder has files, add them, othervice do nothing
                         if (subfolderObject.Count > 0)
                         {
-                            tempFolderTreeDepth += 1;
-                            if (maxDepth == -1)
+                            if (tempFolderTreeDepth < maxDepth)
                             {
-                                node.Nodes.Add(GenerateTreenode(temp.Key, subfolderObject, maxDepth)); // temp.key has full folder name.
-                            }
-                            else
-                            {
-                                if (tempFolderTreeDepth < maxDepth)
+                                tempFolderTreeDepth += 1;
+                                if (tempFolderTreeDepth > folderTreeDepthMax)
                                 {
-                                    node.Nodes.Add(GenerateTreenode(temp.Key, subfolderObject, maxDepth)); // temp.key has full folder name.
+                                    folderTreeDepthMax = tempFolderTreeDepth;
+                                    textBoxFolderDepth.Text = "" + folderTreeDepthMax;
                                 }
+                                node.Nodes.Add(GenerateTreenode(temp.Key, subfolderObject, maxDepth)); // temp.key has full folder name.
+                                tempFolderTreeDepth -= 1;
                             }
                         }
                     }
