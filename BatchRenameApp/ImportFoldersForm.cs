@@ -65,7 +65,7 @@ namespace BatchRenameApp
             return GenerateTreenode(rootDir, files, 20);
         }
 
-        private TreeNode GenerateTreenode(string rootDir, Dictionary<string, object> files, int maxDepth)
+        private TreeNode GenerateTreenode(string rootDir, Dictionary<string, object> itemsdict, int maxDepth)
         {
 
             FileInfo folderName = new FileInfo(rootDir);
@@ -82,20 +82,20 @@ namespace BatchRenameApp
                 node.Expand();
             }
 
-            foreach (KeyValuePair<string, object> temp in files)
+            foreach (KeyValuePair<string, object> keyvalpair in itemsdict)
             {
                 // check if the value type is file
-                if (temp.Value.GetType() == typeof(FileInfo))
+                if (keyvalpair.Value.GetType() == typeof(FileInfo))
                 {
-                    node.Nodes.Add(((FileInfo)temp.Value).Name);   // add plain filename
+                    node.Nodes.Add(((FileInfo)keyvalpair.Value).Name);   // add plain filename
                 }
                 else
                 {
                     // check if the value is a subfolder
-                    if (temp.Value.GetType() == typeof(Dictionary<string, object>))
+                    if (keyvalpair.Value.GetType() == typeof(Dictionary<string, object>))
                     {
                         // cast 
-                        var subfolderObject = (Dictionary<string, object>)temp.Value;
+                        var subfolderObject = (Dictionary<string, object>)keyvalpair.Value;
                         // if subfolder has files, add them, othervice do nothing
                         if (subfolderObject.Count > 0)
                         {
@@ -107,7 +107,7 @@ namespace BatchRenameApp
                                     folderTreeDepthMax = tempFolderTreeDepth;
                                     textBoxFolderDepth.Text = "" + folderTreeDepthMax;
                                 }
-                                node.Nodes.Add(GenerateTreenode(temp.Key, subfolderObject, maxDepth)); // temp.key has full folder name.
+                                node.Nodes.Add(GenerateTreenode(keyvalpair.Key, subfolderObject, maxDepth)); // temp.key has full folder name.
                                 tempFolderTreeDepth -= 1;
                             }
                         }
@@ -162,7 +162,7 @@ namespace BatchRenameApp
                 }
                 else
                 {
-                    output.Add(folder + "\\" + childNode.Text);
+                    output.Add(childNode.FullPath);
                 }
             }
 
