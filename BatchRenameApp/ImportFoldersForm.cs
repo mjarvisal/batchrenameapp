@@ -30,7 +30,7 @@ namespace BatchRenameApp
         public void AddFiles(string rootdir, Dictionary<string, object> files)
         {
             parentfolder = rootdir;
-            treeViewFileslist.BeginUpdate();
+            treeViewFileslist.BeginUpdate();         
             treeViewFileslist.Nodes.Add(GenerateTreenode(rootdir, files));
             treeViewFileslist.EndUpdate();
         }
@@ -39,28 +39,38 @@ namespace BatchRenameApp
         {
             FileInfo folderName = new FileInfo(rootDir);
             TreeNode node;
+            // check for first recursion
             if (folderName.FullName == parentfolder)
             {
-                node = new TreeNode(folderName.FullName);
+                node = new TreeNode(folderName.FullName); // add full folder name
             }
             else
             {
-                node = new TreeNode(folderName.Name);
+                node = new TreeNode(folderName.Name); // add only subfolder name
             }
 
             foreach (KeyValuePair<string, object> temp in files)
-            {
+            {            
+                // check if the value type is file
                 if (temp.Value.GetType() == typeof(FileInfo))
                 {
-                    node.Nodes.Add(((FileInfo)temp.Value).Name);
+                    node.Nodes.Add(((FileInfo)temp.Value).Name);   // add plain filename
                 }
                 else
                 {
-                    FileInfo subfoldername = new FileInfo(temp.Key);
-                    node.Nodes.Add(GenerateTreenode(subfoldername.FullName, (Dictionary<string, object>)temp.Value));
+                    // check if the value is a subfolder
+                    if (temp.Value.GetType() == typeof(Dictionary<string, object>))
+                    {
+                        // cast 
+                        var subfolderObject = (Dictionary<string, object>)temp.Value;
+                        // if subfolder has files, add them, othervice do nothing
+                        if (subfolderObject.Count > 0)
+                        {                            
+                            node.Nodes.Add(GenerateTreenode(temp.Key, subfolderObject)); // temp.key has full folder name.
+                        }
+                    }                    
                 }
             }
-
             return node;
         }
 
@@ -80,27 +90,39 @@ namespace BatchRenameApp
             List<string> list = new List<string>();
             foreach (TreeNode Node in treeViewFileslist.Nodes)
             {
+                // hold temporarily root folder
+                parentfolder = Node.Text;
                 list.AddRange(GenerateReply(Node, list));
             }
 
             return list.ToArray();
         }
 
-       public List<string> GenerateReply(TreeNode root, List<string> output)
-        {
-            output.Add(root.Text);
+        // generate back the original file names from the treenode structure.
+        public List<string> GenerateReply(TreeNode root, List<string> output)
+        {           
+            string folder = "";            
+            if (root.Text == parentfolder)
+            {
+                folder = parentfolder;
+            }            
+            else
+            {            
+                folder = parentfolder + "\\" + root.Text;
+            }
 
             foreach (TreeNode childNode in root.Nodes)
             {
                 if (childNode.Nodes.Count > 0)
-                {                                       
+                {
                     GenerateReply(childNode, output);
-                } 
+                }
                 else
                 {
-                    output.Add(childNode.Text);
+                    output.Add(folder + "\\" +  childNode.Text);
                 }
             }
+
             return output;
         }
 
