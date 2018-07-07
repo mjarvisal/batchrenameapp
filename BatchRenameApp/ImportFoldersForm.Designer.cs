@@ -52,10 +52,12 @@
             // 
             // textBoxFolderDepth
             // 
+            this.textBoxFolderDepth.Enabled = false;
             this.textBoxFolderDepth.Location = new System.Drawing.Point(283, 122);
             this.textBoxFolderDepth.Name = "textBoxFolderDepth";
             this.textBoxFolderDepth.Size = new System.Drawing.Size(35, 20);
             this.textBoxFolderDepth.TabIndex = 2;
+            this.textBoxFolderDepth.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // treeViewFileslist
             // 
