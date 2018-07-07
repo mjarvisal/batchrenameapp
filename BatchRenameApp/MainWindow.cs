@@ -13,6 +13,11 @@ using System.Xml;
 using System.Globalization;
 using System.IO.Compression;
 using System.Collections.Generic;
+using System.Threading;
+using System.Reflection;
+using System.Threading.Tasks;
+using System.ComponentModel;
+using System.Collections;
 
 namespace BatchRenameApp
 {
@@ -20,15 +25,15 @@ namespace BatchRenameApp
     public partial class MainWindow : Form
     {
         public Settings settingsForm = new Settings();
-
         public FilenameStorage filestorage = new FilenameStorage();
 
         /** For evaluating math functions */
         private static string lastvalidFunction = "x";
-
         private static string replaceString;
-
         private static bool bControlPressed = false;
+        private BackgroundWorker processPreviews;
+
+        // Backgroundworkers
 
         // MAIN WINDOW EVENTS
         #region Main Window events
@@ -36,6 +41,12 @@ namespace BatchRenameApp
         public MainWindow()
         {
             InitializeComponent();
+
+            processPreviews = new BackgroundWorker();
+            processPreviews.WorkerSupportsCancellation = false;
+            processPreviews.DoWork += new DoWorkEventHandler(DoWorkPreview);
+            processPreviews.RunWorkerCompleted += new RunWorkerCompletedEventHandler(listboxPreviewprocessCompleted);
+
             int errors = 0;
             Exception outException = null;
 
@@ -443,6 +454,7 @@ namespace BatchRenameApp
 
         private void RemoveSelection()
         {
+            listBoxFilelist.BeginUpdate();
             foreach (object Item in listBoxFilelist.SelectedItems)
             {
                 filestorage.RemoveFile(Item.ToString());
@@ -458,30 +470,96 @@ namespace BatchRenameApp
                 index = -1;
             }
             listBoxFilelist.SelectedIndex = index;
+            listBoxFilelist.EndUpdate();
         }
 
         public void UpdatePreview()
         {
-            listBoxPreview.Items.Clear();
-            string Search = inputSearch.Text;
-            if (Search.Length == 0)
-            {
-                Search = "^";
-            }
-            String[] inputs = { Search, inputReplace.Text, inputFunction.Text };
-            bool bmode = checkBoxUseRegex.Checked;
+            object[] listofitems = new object[listBoxFilelist.Items.Count];
             int x = 0;
-            foreach (FileInfo file in listBoxFilelist.Items)
+            foreach (object item in listBoxFilelist.Items)
             {
-                string fileName = ProcessRegex(x, bmode, inputs, file);
-                if (fileName != null)
-                {
-                    listBoxPreview.Items.Add(fileName);
-                }
+                listofitems[x] = item;
                 x++;
+            }
+            if (processPreviews.IsBusy != true)
+            {
+                listBoxPreview.BeginUpdate();
+                // Start the asynchronous operation.
+                processPreviews.RunWorkerAsync(listofitems);
             }
         }
 
+        private void DoWorkPreview(object sender, DoWorkEventArgs e)
+        {
+            object[] Filelist = (object[])e.Argument;
+            object[] Previewlist = new object[Filelist.Length];
+            string Search = inputSearch.Text;
+            string Replace = inputReplace.Text;
+            if (Search == "")
+            {
+                Search = "^";
+            }
+            bool bmode = checkBoxUseRegex.Checked;
+            int x = 0;
+            foreach (FileInfo item in Filelist)
+            {
+                string fileName = item.ToString();
+                if (fileName != null)
+                {
+                    string renamed = processfile(x, item, Search, Replace);
+                    if (renamed == "\r\n")
+                    {
+                        e.Cancel = true;
+                        break;
+                    }
+                    else
+                    {
+                        Previewlist.SetValue(renamed, x);
+                    }
+                }
+                x++;
+            }
+            e.Result = Previewlist;
+        }
+
+        private string processfile(int x, FileInfo file, string startSearch, string startReplace)
+        {
+            string Search = inputSearch.Text;
+            string Replace = inputReplace.Text;
+            if (Search == "")
+            {
+                Search = "^";
+            }
+            string result = string.Empty;
+            if (!startSearch.Equals(Search) || !startReplace.Equals(Replace))
+            {
+                return "\r\n";
+            }
+            else
+            {
+                bool bmode = checkBoxUseRegex.Checked;
+                String[] inputs = { Search, inputReplace.Text, inputFunction.Text };
+                result = ProcessRegex(x, bmode, inputs, file);
+            }
+            return result;
+        }
+
+
+        private void listboxPreviewprocessCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            if (e.Cancelled)
+            {
+                UpdatePreview();
+                listBoxPreview.EndUpdate();
+            }
+            else
+            {
+                listBoxPreview.Items.Clear();
+                listBoxPreview.Items.AddRange((object[])e.Result);
+                listBoxPreview.EndUpdate();
+            }
+        }
         #endregion
 
         // PROCESS STRINGS
@@ -578,35 +656,39 @@ namespace BatchRenameApp
             string fileext = string.Empty;
             string output = replacetext;
 
-            Regex extension = new Regex("[.](.){3,4}$");
-            try
-            {
-                Match fileextregex = extension.Match(file.Name);
-                int index = fileextregex.Index;
-                int lenght = fileextregex.Length;
-                filense = file.Name.Remove(index, lenght);
-                fileext = fileextregex.Value;
-            }
-
-            catch
-            {
-
-            }
-
             string dateformat = settingsForm.dateformat;
             string timeformat = settingsForm.timeformat;
             string date = file.CreationTime.ToString(dateformat);
             string time = file.CreationTime.ToString(timeformat);
             String[] imagedatetime = { "%datetaken", "%timetaken" };
+            String[] fileparts = { "%file%", "%ext%" };
 
-            output = output.Replace("%file%", filense);
-            output = output.Replace("%ext%", fileext);
+            if (fileparts.Any(output.Contains))
+            {
+                Regex extension = new Regex("[.](.){3,4}$");
+                try
+                {
+                    Match fileextregex = extension.Match(file.Name);
+                    int index = fileextregex.Index;
+                    int lenght = fileextregex.Length;
+                    filense = file.Name.Remove(index, lenght);
+                    fileext = fileextregex.Value;
+                }
+                catch { }
+                output = output.Replace("%ext%", fileext);
+                output = output.Replace("%file%", filense);
+            }
+
             output = output.Replace("%folder%", file.Directory.Name);
             output = output.Replace("%datecreated%", date);
             output = output.Replace("%timecreated%", time);
             output = output.Replace("%datenow%", DateTime.Now.ToString(dateformat));
             output = output.Replace("%timenow%", DateTime.Now.ToString(timeformat));
-            output = output.Replace("%fnc%", EvaluateFunctionString(function, number));
+
+            if (output.Contains("%fnc%"))
+            {
+                output = output.Replace("%fnc%", EvaluateFunctionString(function, number));
+            }
 
             if (output.Contains("%loc%"))
 {

@@ -74,6 +74,7 @@
             this.inputSearch.Name = "inputSearch";
             this.inputSearch.Size = new System.Drawing.Size(252, 20);
             this.inputSearch.TabIndex = 1;
+            this.inputSearch.Text = "^";
             this.inputSearch.TextChanged += new System.EventHandler(this.InputSearch_TextChanged);
             // 
             // labelRegExp

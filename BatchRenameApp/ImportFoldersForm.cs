@@ -158,6 +158,7 @@ namespace BatchRenameApp
             }
             return output;
         }
+
         public List<string> GenerateReply(TreeNode root, List<string> output)
         {
             foreach (TreeNode childNode in root.Nodes)
@@ -177,8 +178,8 @@ namespace BatchRenameApp
 
         private void OkButton_Click(object sender, EventArgs e)
         {
-            Close();
             DialogResult = DialogResult.OK;
+            Close();
         }
 
         private void treeViewFileslist_KeyUp(object sender, KeyEventArgs e)
