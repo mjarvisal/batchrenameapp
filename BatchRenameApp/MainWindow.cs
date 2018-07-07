@@ -229,7 +229,7 @@ namespace BatchRenameApp
             {
                 e.Effect = DragDropEffects.None;
                 string[] itemsdropped = (string[])e.Data.GetData(DataFormats.FileDrop);
-                List<object> lDirectories = new List<object>();
+                Dictionary<string, object> lDirectories = new Dictionary<string, object>();
 
                 var x = 0;
                 foreach (string filename in itemsdropped)
@@ -237,7 +237,7 @@ namespace BatchRenameApp
                     DirectoryInfo file = new DirectoryInfo(filename);
                     if (file.Attributes == FileAttributes.Directory)
                     {
-                        lDirectories.Add(CustomDirectoryIterator.DirSearch(filename));
+                        lDirectories.Add(filename, CustomDirectoryIterator.DirSearch(filename));
                         x++;
                     }
                 }
@@ -245,17 +245,17 @@ namespace BatchRenameApp
                 if (lDirectories.Count > 0)
                 {
                     ImportFoldersWindow foldersWindow = new ImportFoldersWindow();
-                    x = 0;
-                    foldersWindow.clear();                   
-                    foreach (Dictionary<string, object> foldertreedict in lDirectories)
-                    {
-                        foldersWindow.AddFiles(itemsdropped[x], foldertreedict);
-                        x++;
-                    }
+                    
+                    foldersWindow.clear();
+                    foldersWindow.AddFiles(lDirectories);
                     DialogResult result = foldersWindow.ShowDialog();
                     if (result == DialogResult.OK)
                     {
                         itemsdropped = foldersWindow.getFiles();
+                    }
+                    else
+                    {
+                        return;
                     }
                 }
 
