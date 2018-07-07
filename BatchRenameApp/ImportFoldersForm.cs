@@ -135,25 +135,31 @@ namespace BatchRenameApp
             {
                 // hold temporarily root folder
                 parentfolder = Node.Text;
-                list.AddRange(GenerateReply(Node, list));
+                list.AddRange(GenerateReply(Node));
             }
 
             return list.ToArray();
         }
 
         // generate back the original file names from the treenode structure.
+        public List<string> GenerateReply(TreeNode root)
+        {
+            List<string> output = new List<string>();
+            foreach (TreeNode childNode in root.Nodes)
+            {
+                if (childNode.Nodes.Count > 0)
+                {
+                    GenerateReply(childNode, output);
+                }
+                else
+                {
+                    output.Add(childNode.FullPath);
+                }
+            }
+            return output;
+        }
         public List<string> GenerateReply(TreeNode root, List<string> output)
         {
-            string folder = "";
-            if (root.Text == parentfolder)
-            {
-                folder = parentfolder;
-            }
-            else
-            {
-                folder = parentfolder + "\\" + root.Text;
-            }
-
             foreach (TreeNode childNode in root.Nodes)
             {
                 if (childNode.Nodes.Count > 0)
