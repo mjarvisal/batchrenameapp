@@ -90,9 +90,17 @@ namespace BatchRenameApp
             inputReplace.SelectionStart = Cursorlocation + insertText.Length;
         }
 
+        private void Tagelabelext_Click(object sender, EventArgs e)
+        {
+            string insertText = "%ext%";
+            int Cursorlocation = inputReplace.SelectionStart;
+            inputReplace.Text = inputReplace.Text.Insert(Cursorlocation, insertText);
+            inputReplace.SelectionStart = Cursorlocation + insertText.Length;
+        }
+
         private void buttonOK_Click(object sender, EventArgs e)
         {
             Close();
-        }
+        }     
     }
 }

@@ -40,6 +40,7 @@
             this.Taglabelfolder = new System.Windows.Forms.Label();
             this.Taglabelfile = new System.Windows.Forms.Label();
             this.Taglabelfunction = new System.Windows.Forms.Label();
+            this.Tagelabelext = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // Taglabeldatenow
@@ -130,7 +131,7 @@
             // Taglabelfolder
             // 
             this.Taglabelfolder.AutoSize = true;
-            this.Taglabelfolder.Location = new System.Drawing.Point(44, 162);
+            this.Taglabelfolder.Location = new System.Drawing.Point(44, 180);
             this.Taglabelfolder.Margin = new System.Windows.Forms.Padding(20, 5, 3, 0);
             this.Taglabelfolder.Name = "Taglabelfolder";
             this.Taglabelfolder.Size = new System.Drawing.Size(116, 13);
@@ -144,15 +145,15 @@
             this.Taglabelfile.Location = new System.Drawing.Point(44, 144);
             this.Taglabelfile.Margin = new System.Windows.Forms.Padding(20, 5, 3, 0);
             this.Taglabelfile.Name = "Taglabelfile";
-            this.Taglabelfile.Size = new System.Drawing.Size(90, 13);
+            this.Taglabelfile.Size = new System.Drawing.Size(163, 13);
             this.Taglabelfile.TabIndex = 8;
-            this.Taglabelfile.Text = "%file% - File name";
+            this.Taglabelfile.Text = "%file% - File name sans extension";
             this.Taglabelfile.Click += new System.EventHandler(this.Taglabelfile_Click);
             // 
             // Taglabelfunction
             // 
             this.Taglabelfunction.AutoSize = true;
-            this.Taglabelfunction.Location = new System.Drawing.Point(44, 180);
+            this.Taglabelfunction.Location = new System.Drawing.Point(44, 198);
             this.Taglabelfunction.Margin = new System.Windows.Forms.Padding(20, 5, 3, 0);
             this.Taglabelfunction.Name = "Taglabelfunction";
             this.Taglabelfunction.Size = new System.Drawing.Size(116, 13);
@@ -160,11 +161,23 @@
             this.Taglabelfunction.Text = "%fnc% - Function result";
             this.Taglabelfunction.Click += new System.EventHandler(this.Taglabelfunction_Click);
             // 
+            // Tagelabelext
+            // 
+            this.Tagelabelext.AutoSize = true;
+            this.Tagelabelext.Location = new System.Drawing.Point(44, 162);
+            this.Tagelabelext.Margin = new System.Windows.Forms.Padding(20, 5, 3, 0);
+            this.Tagelabelext.Name = "Tagelabelext";
+            this.Tagelabelext.Size = new System.Drawing.Size(110, 13);
+            this.Tagelabelext.TabIndex = 11;
+            this.Tagelabelext.Text = "%ext% - File extension";
+            this.Tagelabelext.Click += new System.EventHandler(this.Tagelabelext_Click);
+            // 
             // TagsLegend
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 260);
+            this.Controls.Add(this.Tagelabelext);
             this.Controls.Add(this.Taglabeltimetaken);
             this.Controls.Add(this.Taglabelfolder);
             this.Controls.Add(this.Taglabelfile);
@@ -198,5 +211,6 @@
         private System.Windows.Forms.Label Taglabelfolder;
         private System.Windows.Forms.Label Taglabelfile;
         private System.Windows.Forms.Label Taglabelfunction;
+        private System.Windows.Forms.Label Tagelabelext;
     }
 }

@@ -540,13 +540,30 @@ namespace BatchRenameApp
 
         private string ProcessPatterns(int number, string replacetext, string function, FileInfo file)
         {
+            string filense = "";
+            string fileext = "";
+            Regex extension = new Regex("[.](.){3,4}$");
+            try
+            {
+                Match fileextregex = extension.Match(file.Name);
+                int index = fileextregex.Index;
+                int lenght = fileextregex.Length;
+                filense = file.Name.Remove(index, lenght);
+                fileext = fileextregex.Value;
+            }
+            catch
+            {
+
+            }
+
             string dateformat = settingsForm.dateformat;
             string timeformat = settingsForm.timeformat;
             string date = file.CreationTime.ToString(dateformat);
             string time = file.CreationTime.ToString(timeformat);
             String[] imagedatetime = { "%datetaken", "%timetaken" };
 
-            string output = replacetext.Replace("%file%", file.Name);
+            string output = replacetext.Replace("%file%", filense);
+            output = output.Replace("%ext%", fileext);
             output = output.Replace("%folder%", file.Directory.Name);
             output = output.Replace("%datecreated%", date);
             output = output.Replace("%timecreated%", time);
