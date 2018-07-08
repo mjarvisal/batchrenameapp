@@ -169,12 +169,14 @@ namespace Oli.Controls
                 History.Push(Items, SelectedItems);
                 DragDropListBox tempdragDropListBox = new DragDropListBox{ DragDropGroup = "files" };
                 tempdragDropListBox.SelectionMode = SelectionMode.MultiSimple;
-                string[] files = (string[])drgevent.Data.GetData(DataFormats.FileDrop);
+                string[] itemsdropped = (string[])drgevent.Data.GetData(DataFormats.FileDrop);
+
+                itemsdropped = Program.mainWindowForm.FolderDropWizard(itemsdropped);
 
                 int errors = 0;
                 Exception outException = null;
 
-                foreach (string filename in files)
+                foreach (string filename in itemsdropped)
                 {
                         if (Program.mainWindowForm.filestorage.Contains(filename) == false)
                         {
@@ -242,7 +244,8 @@ namespace Oli.Controls
 				operation = DropOperation.CopyToHere;
 			}
 
-			// Adjust the selected items in the target.
+            // Adjust the selected items in the target.
+            BeginUpdate();
 			ClearSelected();
 			if (SelectionMode == SelectionMode.One) { // Select the first item inserted.
 				SelectedIndex = insertPoint;
@@ -251,6 +254,7 @@ namespace Oli.Controls
 					SetSelected(i, true);
 				}
 			}
+            EndUpdate();
 
 			// Now that we've selected the inserted items, restore the "Sorted" property.
 			Sorted = sortedSave;
@@ -358,8 +362,9 @@ namespace Oli.Controls
 		/// <param name="mouseLocation">Current mouse location.</param>
 		private void RestoreSelection(int clickedItemIndex)
 		{
-			// Restore the selection, unless modifier keys are pressed, which indicates that the user is currently editing the selection.
-			// The item the user clickes at must have been selected before the click (_selectionSave stores the state before the click).
+            // Restore the selection, unless modifier keys are pressed, which indicates that the user is currently editing the selection.
+            // The item the user clickes at must have been selected before the click (_selectionSave stores the state before the click).
+            BeginUpdate();
 			if (SelectionMode == SelectionMode.MultiExtended && Control.ModifierKeys == Keys.None && Array.IndexOf(_selectionSave, clickedItemIndex) >= 0) {
 				_restoringSelection = true; // Disable saving the selection while it is restored. (SetSelected raises the SelectedIndexChanged
 				// event, where we call SaveSelection.)
@@ -371,6 +376,7 @@ namespace Oli.Controls
                 SetSelected(clickedItemIndex, true);
                 _restoringSelection = false;
 			}
+            EndUpdate();
 		}
 
 		/// <summary>

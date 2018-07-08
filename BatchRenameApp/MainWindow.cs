@@ -49,7 +49,11 @@ namespace BatchRenameApp
             int errors = 0;
             Exception outException = null;
 
-            foreach (string item in GetArgs())
+            string[] itemsdropped = GetArgs();
+
+            itemsdropped = FolderDropWizard(itemsdropped);
+
+            foreach (string item in itemsdropped)
             {
                 try
                 {
@@ -209,29 +213,6 @@ namespace BatchRenameApp
             e.DrawFocusRectangle();
         }
 
-        private void ListBoxFilelist_Click(object sender, EventArgs e)
-        {
-            MouseEventArgs me = (MouseEventArgs)e;
-            if (!bControlPressed)
-            {
-                int clickedIndex = listBoxFilelist.IndexFromPoint(me.Location);
-                if (clickedIndex > -1)
-                {
-                    if (listBoxFilelist.SelectedIndices.Count > 1)
-                    {
-                        if (listBoxFilelist.SelectedIndices.Contains(clickedIndex))
-                        {
-                            listBoxFilelist.SetSelected(clickedIndex, !listBoxFilelist.GetSelected(clickedIndex));
-                        }
-                    }
-                    else if (clickedIndex == listBoxFilelist.SelectedIndex)
-                    {
-
-                    }
-                }
-            }
-        }
-
         private void MainWindow_DragDrop(object sender, DragEventArgs e)
         {
             History.Push(listBoxFilelist);
@@ -240,35 +221,8 @@ namespace BatchRenameApp
             {
                 e.Effect = DragDropEffects.None;
                 string[] itemsdropped = (string[])e.Data.GetData(DataFormats.FileDrop);
-                Dictionary<string, object> lDirectories = new Dictionary<string, object>();
 
-                var x = 0;
-                foreach (string filename in itemsdropped)
-                {
-                    DirectoryInfo file = new DirectoryInfo(filename);
-                    if (file.Attributes == FileAttributes.Directory)
-                    {
-                        lDirectories.Add(filename, CustomDirectoryIterator.DirSearch(filename));
-                        x++;
-                    }
-                }
-
-                if (lDirectories.Count > 0)
-                {
-                    ImportFoldersWindow foldersWindow = new ImportFoldersWindow();
-
-                    foldersWindow.clear();
-                    foldersWindow.AddFiles(lDirectories);
-                    DialogResult result = foldersWindow.ShowDialog();
-                    if (result == DialogResult.OK)
-                    {
-                        itemsdropped = foldersWindow.getFiles();
-                    }
-                    else
-                    {
-                        return;
-                    }
-                }
+                itemsdropped = FolderDropWizard(itemsdropped);
 
                 int errors = 0;
                 Exception outException = null;
@@ -298,6 +252,40 @@ namespace BatchRenameApp
             }
 
             UpdatePreview();
+        }
+
+        public string[] FolderDropWizard(string[] itemsdropped)
+        {
+            Dictionary<string, object> lDirectories = new Dictionary<string, object>();
+
+            var x = 0;
+            foreach (string filename in itemsdropped)
+            {
+                DirectoryInfo file = new DirectoryInfo(filename);
+                if (file.Attributes == FileAttributes.Directory)
+                {
+                    lDirectories.Add(filename, CustomDirectoryIterator.DirSearch(filename));
+                    x++;
+                }
+            }
+
+            if (lDirectories.Count > 0)
+            {
+                ImportFoldersWindow foldersWindow = new ImportFoldersWindow();
+
+                foldersWindow.clear();
+                foldersWindow.AddFiles(lDirectories);
+                DialogResult result = foldersWindow.ShowDialog();
+                if (result == DialogResult.OK)
+                {
+                    itemsdropped = foldersWindow.getFiles();
+                }
+                else
+                {
+                    return itemsdropped;
+                }
+            }
+            return itemsdropped;
         }
 
         private void Mainwindow_DragEnter(object sender, DragEventArgs e)
@@ -399,8 +387,10 @@ namespace BatchRenameApp
         private void InvertSelectionContextMenuItem_Click(object sender, EventArgs e)
         {
             History.Push(listBoxFilelist.SelectedItems);
+            listBoxFilelist.BeginUpdate();
             for (int i = 0; i < listBoxFilelist.Items.Count; i++)
                 listBoxFilelist.SetSelected(i, !listBoxFilelist.GetSelected(i));
+            listBoxFilelist.EndUpdate();
         }
 
         private void ClearSelectionContextMenuItem_Click(object sender, EventArgs e)

@@ -304,7 +304,6 @@
             this.listBoxFilelist.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
             this.listBoxFilelist.Size = new System.Drawing.Size(198, 264);
             this.listBoxFilelist.TabIndex = 0;
-            this.listBoxFilelist.Click += new System.EventHandler(this.ListBoxFilelist_Click);
             this.listBoxFilelist.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.ListBoxFilelist_DrawItem);
             // 
             // listBoxPreview
