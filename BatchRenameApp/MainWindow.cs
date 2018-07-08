@@ -555,7 +555,13 @@ namespace BatchRenameApp
             else
             {
                 listBoxPreview.Items.Clear();
-                listBoxPreview.Items.AddRange((object[])e.Result);
+                try
+                {
+                    listBoxPreview.Items.AddRange((object[])e.Result);
+                }
+                catch (Exception)
+                {
+                }
                 listBoxPreview.EndUpdate();
             }
         }
