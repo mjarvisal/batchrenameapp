@@ -101,6 +101,14 @@ namespace BatchRenameApp
         private void buttonOK_Click(object sender, EventArgs e)
         {
             Close();
-        }     
+        }
+
+        private void Taglabelloc_Click(object sender, EventArgs e)
+        {
+            string insertText = "%loc%";
+            int Cursorlocation = inputReplace.SelectionStart;
+            inputReplace.Text = inputReplace.Text.Insert(Cursorlocation, insertText);
+            inputReplace.SelectionStart = Cursorlocation + insertText.Length;
+        }
     }
 }

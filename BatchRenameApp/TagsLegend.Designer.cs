@@ -41,12 +41,13 @@
             this.Taglabelfile = new System.Windows.Forms.Label();
             this.Taglabelfunction = new System.Windows.Forms.Label();
             this.Tagelabelext = new System.Windows.Forms.Label();
+            this.Taglabelloc = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // Taglabeldatenow
             // 
             this.Taglabeldatenow.AutoSize = true;
-            this.Taglabeldatenow.Location = new System.Drawing.Point(44, 35);
+            this.Taglabeldatenow.Location = new System.Drawing.Point(29, 40);
             this.Taglabeldatenow.Margin = new System.Windows.Forms.Padding(20, 5, 3, 0);
             this.Taglabeldatenow.Name = "Taglabeldatenow";
             this.Taglabeldatenow.Size = new System.Drawing.Size(134, 13);
@@ -56,7 +57,7 @@
             // 
             // buttonOK
             // 
-            this.buttonOK.Location = new System.Drawing.Point(197, 225);
+            this.buttonOK.Location = new System.Drawing.Point(197, 251);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(75, 23);
             this.buttonOK.TabIndex = 1;
@@ -67,7 +68,7 @@
             // labelHelp
             // 
             this.labelHelp.AutoSize = true;
-            this.labelHelp.Location = new System.Drawing.Point(44, 9);
+            this.labelHelp.Location = new System.Drawing.Point(29, 14);
             this.labelHelp.Name = "labelHelp";
             this.labelHelp.Size = new System.Drawing.Size(225, 13);
             this.labelHelp.TabIndex = 2;
@@ -76,7 +77,7 @@
             // Taglabeltimenow
             // 
             this.Taglabeltimenow.AutoSize = true;
-            this.Taglabeltimenow.Location = new System.Drawing.Point(44, 53);
+            this.Taglabeltimenow.Location = new System.Drawing.Point(29, 58);
             this.Taglabeltimenow.Margin = new System.Windows.Forms.Padding(20, 5, 3, 0);
             this.Taglabeltimenow.Name = "Taglabeltimenow";
             this.Taglabeltimenow.Size = new System.Drawing.Size(127, 13);
@@ -87,7 +88,7 @@
             // Taglabeldatecreated
             // 
             this.Taglabeldatecreated.AutoSize = true;
-            this.Taglabeldatecreated.Location = new System.Drawing.Point(44, 71);
+            this.Taglabeldatecreated.Location = new System.Drawing.Point(29, 76);
             this.Taglabeldatecreated.Margin = new System.Windows.Forms.Padding(20, 5, 3, 0);
             this.Taglabeldatecreated.Name = "Taglabeldatecreated";
             this.Taglabeldatecreated.Size = new System.Drawing.Size(205, 13);
@@ -98,7 +99,7 @@
             // Taglabeltimecreated
             // 
             this.Taglabeltimecreated.AutoSize = true;
-            this.Taglabeltimecreated.Location = new System.Drawing.Point(44, 90);
+            this.Taglabeltimecreated.Location = new System.Drawing.Point(29, 95);
             this.Taglabeltimecreated.Margin = new System.Windows.Forms.Padding(20, 5, 3, 0);
             this.Taglabeltimecreated.Name = "Taglabeltimecreated";
             this.Taglabeltimecreated.Size = new System.Drawing.Size(201, 13);
@@ -109,7 +110,7 @@
             // Taglabeldatetaken
             // 
             this.Taglabeldatetaken.AutoSize = true;
-            this.Taglabeldatetaken.Location = new System.Drawing.Point(44, 108);
+            this.Taglabeldatetaken.Location = new System.Drawing.Point(29, 113);
             this.Taglabeldatetaken.Margin = new System.Windows.Forms.Padding(20, 5, 3, 0);
             this.Taglabeldatetaken.Name = "Taglabeldatetaken";
             this.Taglabeldatetaken.Size = new System.Drawing.Size(206, 13);
@@ -120,7 +121,7 @@
             // Taglabeltimetaken
             // 
             this.Taglabeltimetaken.AutoSize = true;
-            this.Taglabeltimetaken.Location = new System.Drawing.Point(44, 126);
+            this.Taglabeltimetaken.Location = new System.Drawing.Point(29, 131);
             this.Taglabeltimetaken.Margin = new System.Windows.Forms.Padding(20, 5, 3, 0);
             this.Taglabeltimetaken.Name = "Taglabeltimetaken";
             this.Taglabeltimetaken.Size = new System.Drawing.Size(202, 13);
@@ -131,7 +132,7 @@
             // Taglabelfolder
             // 
             this.Taglabelfolder.AutoSize = true;
-            this.Taglabelfolder.Location = new System.Drawing.Point(44, 180);
+            this.Taglabelfolder.Location = new System.Drawing.Point(29, 185);
             this.Taglabelfolder.Margin = new System.Windows.Forms.Padding(20, 5, 3, 0);
             this.Taglabelfolder.Name = "Taglabelfolder";
             this.Taglabelfolder.Size = new System.Drawing.Size(116, 13);
@@ -142,7 +143,7 @@
             // Taglabelfile
             // 
             this.Taglabelfile.AutoSize = true;
-            this.Taglabelfile.Location = new System.Drawing.Point(44, 144);
+            this.Taglabelfile.Location = new System.Drawing.Point(29, 149);
             this.Taglabelfile.Margin = new System.Windows.Forms.Padding(20, 5, 3, 0);
             this.Taglabelfile.Name = "Taglabelfile";
             this.Taglabelfile.Size = new System.Drawing.Size(163, 13);
@@ -153,7 +154,7 @@
             // Taglabelfunction
             // 
             this.Taglabelfunction.AutoSize = true;
-            this.Taglabelfunction.Location = new System.Drawing.Point(44, 198);
+            this.Taglabelfunction.Location = new System.Drawing.Point(29, 203);
             this.Taglabelfunction.Margin = new System.Windows.Forms.Padding(20, 5, 3, 0);
             this.Taglabelfunction.Name = "Taglabelfunction";
             this.Taglabelfunction.Size = new System.Drawing.Size(116, 13);
@@ -164,7 +165,7 @@
             // Tagelabelext
             // 
             this.Tagelabelext.AutoSize = true;
-            this.Tagelabelext.Location = new System.Drawing.Point(44, 162);
+            this.Tagelabelext.Location = new System.Drawing.Point(29, 167);
             this.Tagelabelext.Margin = new System.Windows.Forms.Padding(20, 5, 3, 0);
             this.Tagelabelext.Name = "Tagelabelext";
             this.Tagelabelext.Size = new System.Drawing.Size(110, 13);
@@ -172,11 +173,23 @@
             this.Tagelabelext.Text = "%ext% - File extension";
             this.Tagelabelext.Click += new System.EventHandler(this.Tagelabelext_Click);
             // 
+            // Taglabelloc
+            // 
+            this.Taglabelloc.AutoSize = true;
+            this.Taglabelloc.Location = new System.Drawing.Point(29, 221);
+            this.Taglabelloc.Margin = new System.Windows.Forms.Padding(20, 5, 3, 0);
+            this.Taglabelloc.Name = "Taglabelloc";
+            this.Taglabelloc.Size = new System.Drawing.Size(191, 13);
+            this.Taglabelloc.TabIndex = 12;
+            this.Taglabelloc.Text = "%loc% - Find city and country of picture";
+            this.Taglabelloc.Click += new System.EventHandler(this.Taglabelloc_Click);
+            // 
             // TagsLegend
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 260);
+            this.ClientSize = new System.Drawing.Size(284, 286);
+            this.Controls.Add(this.Taglabelloc);
             this.Controls.Add(this.Tagelabelext);
             this.Controls.Add(this.Taglabeltimetaken);
             this.Controls.Add(this.Taglabelfolder);
@@ -212,5 +225,6 @@
         private System.Windows.Forms.Label Taglabelfile;
         private System.Windows.Forms.Label Taglabelfunction;
         private System.Windows.Forms.Label Tagelabelext;
+        private System.Windows.Forms.Label Taglabelloc;
     }
 }
