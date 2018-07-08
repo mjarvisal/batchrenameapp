@@ -18,97 +18,71 @@ namespace BatchRenameApp
             InitializeComponent();
         }
 
+        private void InsertText(string text)
+        {
+            int Cursorlocation = inputReplace.SelectionStart;
+            inputReplace.Text = inputReplace.Text.Insert(Cursorlocation, text);
+            inputReplace.SelectionStart = Cursorlocation + text.Length;
+        }
+
         private void Taglabeldatenow_Click(object sender, EventArgs e)
         {
-            string insertText = "%datenow%";
-            int Cursorlocation = inputReplace.SelectionStart;
-            inputReplace.Text = inputReplace.Text.Insert(Cursorlocation, insertText);
-            inputReplace.SelectionStart = Cursorlocation + insertText.Length;
+            InsertText("%datenow%");
         }
 
         private void Taglabeltimenow_Click(object sender, EventArgs e)
         {
-            string insertText = "%timenow%";
-            int Cursorlocation = inputReplace.SelectionStart;
-            inputReplace.Text = inputReplace.Text.Insert(Cursorlocation, insertText);
-            inputReplace.SelectionStart = Cursorlocation + insertText.Length;
+            InsertText("%timenow%");
         }
 
         private void Taglabeldatecreated_Click(object sender, EventArgs e)
         {
-            string insertText = "%datecreated%";
-            int Cursorlocation = inputReplace.SelectionStart;
-            inputReplace.Text = inputReplace.Text.Insert(Cursorlocation, insertText);
-            inputReplace.SelectionStart = Cursorlocation + insertText.Length;
+            InsertText("%datecreated%");
         }
 
         private void Taglabeltimecreated_Click(object sender, EventArgs e)
         {
-            string insertText = "%timecreated%";
-            int Cursorlocation = inputReplace.SelectionStart;
-            inputReplace.Text = inputReplace.Text.Insert(Cursorlocation, insertText);
-            inputReplace.SelectionStart = Cursorlocation + insertText.Length;
+            InsertText("%timecreated%");
         }
 
         private void Taglabeldatetaken_Click(object sender, EventArgs e)
         {
-            string insertText = "%datetaken%";
-            int Cursorlocation = inputReplace.SelectionStart;
-            inputReplace.Text = inputReplace.Text.Insert(Cursorlocation, insertText);
-            inputReplace.SelectionStart = Cursorlocation + insertText.Length;
+            InsertText("%datetaken%");
         }
 
         private void Taglabeltimetaken_Click(object sender, EventArgs e)
         {
-            string insertText = "%timetaken%";
-            int Cursorlocation = inputReplace.SelectionStart;
-            inputReplace.Text = inputReplace.Text.Insert(Cursorlocation, insertText);
-            inputReplace.SelectionStart = Cursorlocation + insertText.Length;
+            InsertText("%timetaken%");
         }
 
         private void Taglabelfolder_Click(object sender, EventArgs e)
         {
-            string insertText = "%folder%";
-            int Cursorlocation = inputReplace.SelectionStart;
-            inputReplace.Text = inputReplace.Text.Insert(Cursorlocation, insertText);
-            inputReplace.SelectionStart = Cursorlocation + insertText.Length;
+            InsertText("%folder%");
         }
 
         private void Taglabelfile_Click(object sender, EventArgs e)
         {
-            string insertText = "%file%";
-            int Cursorlocation = inputReplace.SelectionStart;
-            inputReplace.Text = inputReplace.Text.Insert(Cursorlocation, insertText);
-            inputReplace.SelectionStart = Cursorlocation + insertText.Length;
+            InsertText("%file%");
         }
 
         private void Taglabelfunction_Click(object sender, EventArgs e)
         {
-            string insertText = "%fnc%";
-            int Cursorlocation = inputReplace.SelectionStart;
-            inputReplace.Text = inputReplace.Text.Insert(Cursorlocation, insertText);
-            inputReplace.SelectionStart = Cursorlocation + insertText.Length;
+            InsertText("%fnc%");
         }
 
         private void Tagelabelext_Click(object sender, EventArgs e)
         {
-            string insertText = "%ext%";
-            int Cursorlocation = inputReplace.SelectionStart;
-            inputReplace.Text = inputReplace.Text.Insert(Cursorlocation, insertText);
-            inputReplace.SelectionStart = Cursorlocation + insertText.Length;
+            InsertText("%ext%");
+        }
+
+        private void Taglabelloc_Click(object sender, EventArgs e)
+        {
+            InsertText("%loc%");
         }
 
         private void buttonOK_Click(object sender, EventArgs e)
         {
             Close();
-        }
-
-        private void Taglabelloc_Click(object sender, EventArgs e)
-        {
-            string insertText = "%loc%";
-            int Cursorlocation = inputReplace.SelectionStart;
-            inputReplace.Text = inputReplace.Text.Insert(Cursorlocation, insertText);
-            inputReplace.SelectionStart = Cursorlocation + insertText.Length;
         }
     }
 }
