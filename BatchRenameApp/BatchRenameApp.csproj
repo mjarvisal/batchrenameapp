@@ -32,7 +32,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Resources\icon.ico</ApplicationIcon>
+    <ApplicationIcon>BrenameIcon_rounded.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -148,9 +148,14 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="BrenameIcon.ico" />
+    <Content Include="BrenameIcon_noText.ico" />
+    <Content Include="BrenameIcon_rounded.ico" />
+    <Content Include="BrenameIcon_whBg.ico" />
     <Content Include="CollapsibleGroupBox\CollapsibleGroupBox.bmp" />
     <Content Include="CollapsibleGroupBox\Resources\minus.bmp" />
     <Content Include="CollapsibleGroupBox\Resources\plus.bmp" />
+    <None Include="Resources\BrenameIcon.ico" />
     <None Include="Resources\icon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

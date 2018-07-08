@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ImportFoldersWindow));
             this.trackBarFolderDepth = new System.Windows.Forms.TrackBar();
             this.textBoxFolderDepth = new System.Windows.Forms.TextBox();
             this.treeViewFileslist = new System.Windows.Forms.TreeView();
@@ -100,6 +101,7 @@
             this.Controls.Add(this.textBoxFolderDepth);
             this.Controls.Add(this.trackBarFolderDepth);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ImportFoldersWindow";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;

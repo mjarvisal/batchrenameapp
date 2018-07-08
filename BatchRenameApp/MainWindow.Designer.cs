@@ -53,6 +53,7 @@
             this.helpContextMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.regularExpressionsContextMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panelSearchandReplace = new System.Windows.Forms.Panel();
+            this.linkLabelRegex = new System.Windows.Forms.LinkLabel();
             this.collabsibleGroupBoxFiles = new Indigo.CollapsibleGroupBox();
             this.labelFileList = new System.Windows.Forms.Label();
             this.listBoxFilelist = new Oli.Controls.DragDropListBox();
@@ -60,7 +61,6 @@
             this.labelChanged = new System.Windows.Forms.Label();
             this.collapsibleGroupBoxFunction = new Indigo.CollapsibleGroupBox();
             this.inputFunction = new System.Windows.Forms.TextBox();
-            this.linkLabelRegex = new System.Windows.Forms.LinkLabel();
             this.contextMenu.SuspendLayout();
             this.panelSearchandReplace.SuspendLayout();
             this.collabsibleGroupBoxFiles.SuspendLayout();
@@ -255,6 +255,17 @@
             this.panelSearchandReplace.Size = new System.Drawing.Size(467, 103);
             this.panelSearchandReplace.TabIndex = 10;
             // 
+            // linkLabelRegex
+            // 
+            this.linkLabelRegex.AutoSize = true;
+            this.linkLabelRegex.Location = new System.Drawing.Point(190, 13);
+            this.linkLabelRegex.Name = "linkLabelRegex";
+            this.linkLabelRegex.Size = new System.Drawing.Size(160, 13);
+            this.linkLabelRegex.TabIndex = 10;
+            this.linkLabelRegex.TabStop = true;
+            this.linkLabelRegex.Text = "How to use Regular Expressions";
+            this.linkLabelRegex.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelRegex_LinkClicked);
+            // 
             // collabsibleGroupBoxFiles
             // 
             this.collabsibleGroupBoxFiles.Controls.Add(this.labelFileList);
@@ -328,17 +339,6 @@
             this.inputFunction.Size = new System.Drawing.Size(440, 20);
             this.inputFunction.TabIndex = 10;
             this.inputFunction.TextChanged += new System.EventHandler(this.TextBoxFunction_TextChanged);
-            // 
-            // linkLabelRegex
-            // 
-            this.linkLabelRegex.AutoSize = true;
-            this.linkLabelRegex.Location = new System.Drawing.Point(190, 13);
-            this.linkLabelRegex.Name = "linkLabelRegex";
-            this.linkLabelRegex.Size = new System.Drawing.Size(160, 13);
-            this.linkLabelRegex.TabIndex = 10;
-            this.linkLabelRegex.TabStop = true;
-            this.linkLabelRegex.Text = "How to use Regular Expressions";
-            this.linkLabelRegex.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelRegex_LinkClicked);
             // 
             // MainWindow
             // 
