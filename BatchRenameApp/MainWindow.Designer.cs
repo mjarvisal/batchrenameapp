@@ -35,7 +35,6 @@
             this.labelReplace = new System.Windows.Forms.Label();
             this.inputReplace = new System.Windows.Forms.TextBox();
             this.buttonRename = new System.Windows.Forms.Button();
-            this.checkBoxUseRegex = new System.Windows.Forms.CheckBox();
             this.contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.undoContextMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.redoContextMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -61,6 +60,7 @@
             this.labelChanged = new System.Windows.Forms.Label();
             this.collapsibleGroupBoxFunction = new Indigo.CollapsibleGroupBox();
             this.inputFunction = new System.Windows.Forms.TextBox();
+            this.linkLabelRegex = new System.Windows.Forms.LinkLabel();
             this.contextMenu.SuspendLayout();
             this.panelSearchandReplace.SuspendLayout();
             this.collabsibleGroupBoxFiles.SuspendLayout();
@@ -69,10 +69,10 @@
             // 
             // inputSearch
             // 
-            this.inputSearch.Location = new System.Drawing.Point(22, 29);
+            this.inputSearch.Location = new System.Drawing.Point(13, 29);
             this.inputSearch.Multiline = true;
             this.inputSearch.Name = "inputSearch";
-            this.inputSearch.Size = new System.Drawing.Size(252, 20);
+            this.inputSearch.Size = new System.Drawing.Size(337, 20);
             this.inputSearch.TabIndex = 1;
             this.inputSearch.Text = "^";
             this.inputSearch.TextChanged += new System.EventHandler(this.InputSearch_TextChanged);
@@ -80,7 +80,7 @@
             // labelRegExp
             // 
             this.labelRegExp.AutoSize = true;
-            this.labelRegExp.Location = new System.Drawing.Point(22, 13);
+            this.labelRegExp.Location = new System.Drawing.Point(12, 13);
             this.labelRegExp.Name = "labelRegExp";
             this.labelRegExp.Size = new System.Drawing.Size(41, 13);
             this.labelRegExp.TabIndex = 2;
@@ -89,7 +89,7 @@
             // labelReplace
             // 
             this.labelReplace.AutoSize = true;
-            this.labelReplace.Location = new System.Drawing.Point(22, 58);
+            this.labelReplace.Location = new System.Drawing.Point(12, 55);
             this.labelReplace.Name = "labelReplace";
             this.labelReplace.Size = new System.Drawing.Size(47, 13);
             this.labelReplace.TabIndex = 5;
@@ -97,36 +97,21 @@
             // 
             // inputReplace
             // 
-            this.inputReplace.Location = new System.Drawing.Point(22, 74);
+            this.inputReplace.Location = new System.Drawing.Point(13, 71);
             this.inputReplace.Name = "inputReplace";
-            this.inputReplace.Size = new System.Drawing.Size(252, 20);
+            this.inputReplace.Size = new System.Drawing.Size(337, 20);
             this.inputReplace.TabIndex = 2;
             this.inputReplace.TextChanged += new System.EventHandler(this.InputReplace_TextChanged);
             // 
             // buttonRename
             // 
-            this.buttonRename.Location = new System.Drawing.Point(310, 67);
+            this.buttonRename.Location = new System.Drawing.Point(378, 71);
             this.buttonRename.Name = "buttonRename";
             this.buttonRename.Size = new System.Drawing.Size(75, 23);
             this.buttonRename.TabIndex = 9;
             this.buttonRename.Text = "Rename!";
             this.buttonRename.UseVisualStyleBackColor = true;
             this.buttonRename.Click += new System.EventHandler(this.ButtonRename_Click);
-            // 
-            // checkBoxUseRegex
-            // 
-            this.checkBoxUseRegex.AutoSize = true;
-            this.checkBoxUseRegex.BackColor = System.Drawing.Color.Transparent;
-            this.checkBoxUseRegex.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.checkBoxUseRegex.Checked = true;
-            this.checkBoxUseRegex.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxUseRegex.Location = new System.Drawing.Point(310, 28);
-            this.checkBoxUseRegex.Name = "checkBoxUseRegex";
-            this.checkBoxUseRegex.Size = new System.Drawing.Size(143, 17);
-            this.checkBoxUseRegex.TabIndex = 3;
-            this.checkBoxUseRegex.Text = "Use Regular expressions";
-            this.checkBoxUseRegex.UseVisualStyleBackColor = false;
-            this.checkBoxUseRegex.CheckedChanged += new System.EventHandler(this.CheckBoxUseRegex_CheckedChanged);
             // 
             // contextMenu
             // 
@@ -258,7 +243,7 @@
             // 
             // panelSearchandReplace
             // 
-            this.panelSearchandReplace.Controls.Add(this.checkBoxUseRegex);
+            this.panelSearchandReplace.Controls.Add(this.linkLabelRegex);
             this.panelSearchandReplace.Controls.Add(this.inputSearch);
             this.panelSearchandReplace.Controls.Add(this.labelRegExp);
             this.panelSearchandReplace.Controls.Add(this.buttonRename);
@@ -267,7 +252,7 @@
             this.panelSearchandReplace.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelSearchandReplace.Location = new System.Drawing.Point(0, 0);
             this.panelSearchandReplace.Name = "panelSearchandReplace";
-            this.panelSearchandReplace.Size = new System.Drawing.Size(467, 100);
+            this.panelSearchandReplace.Size = new System.Drawing.Size(467, 103);
             this.panelSearchandReplace.TabIndex = 10;
             // 
             // collabsibleGroupBoxFiles
@@ -277,7 +262,7 @@
             this.collabsibleGroupBoxFiles.Controls.Add(this.listBoxPreview);
             this.collabsibleGroupBoxFiles.Controls.Add(this.labelChanged);
             this.collabsibleGroupBoxFiles.Dock = System.Windows.Forms.DockStyle.Top;
-            this.collabsibleGroupBoxFiles.Location = new System.Drawing.Point(0, 153);
+            this.collabsibleGroupBoxFiles.Location = new System.Drawing.Point(0, 156);
             this.collabsibleGroupBoxFiles.Name = "collabsibleGroupBoxFiles";
             this.collabsibleGroupBoxFiles.Size = new System.Drawing.Size(467, 321);
             this.collabsibleGroupBoxFiles.TabIndex = 12;
@@ -330,7 +315,7 @@
             // 
             this.collapsibleGroupBoxFunction.Controls.Add(this.inputFunction);
             this.collapsibleGroupBoxFunction.Dock = System.Windows.Forms.DockStyle.Top;
-            this.collapsibleGroupBoxFunction.Location = new System.Drawing.Point(0, 100);
+            this.collapsibleGroupBoxFunction.Location = new System.Drawing.Point(0, 103);
             this.collapsibleGroupBoxFunction.Name = "collapsibleGroupBoxFunction";
             this.collapsibleGroupBoxFunction.Size = new System.Drawing.Size(467, 53);
             this.collapsibleGroupBoxFunction.TabIndex = 13;
@@ -339,11 +324,22 @@
             // 
             // inputFunction
             // 
-            this.inputFunction.Location = new System.Drawing.Point(22, 19);
+            this.inputFunction.Location = new System.Drawing.Point(13, 19);
             this.inputFunction.Name = "inputFunction";
-            this.inputFunction.Size = new System.Drawing.Size(252, 20);
+            this.inputFunction.Size = new System.Drawing.Size(440, 20);
             this.inputFunction.TabIndex = 10;
             this.inputFunction.TextChanged += new System.EventHandler(this.TextBoxFunction_TextChanged);
+            // 
+            // linkLabelRegex
+            // 
+            this.linkLabelRegex.AutoSize = true;
+            this.linkLabelRegex.Location = new System.Drawing.Point(190, 13);
+            this.linkLabelRegex.Name = "linkLabelRegex";
+            this.linkLabelRegex.Size = new System.Drawing.Size(160, 13);
+            this.linkLabelRegex.TabIndex = 10;
+            this.linkLabelRegex.TabStop = true;
+            this.linkLabelRegex.Text = "How to use Regular Expressions";
+            this.linkLabelRegex.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelRegex_LinkClicked);
             // 
             // MainWindow
             // 
@@ -388,7 +384,6 @@
         private System.Windows.Forms.Label labelFileList;
         private System.Windows.Forms.Label labelChanged;
         private System.Windows.Forms.Button buttonRename;
-        private System.Windows.Forms.CheckBox checkBoxUseRegex;
         private System.Windows.Forms.ContextMenuStrip contextMenu;
         private System.Windows.Forms.ToolStripMenuItem sortContextMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ascendingContextMenuItem;
@@ -412,6 +407,7 @@
         public System.Windows.Forms.TextBox inputReplace;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem TagsContextMenuItem;
+        private System.Windows.Forms.LinkLabel linkLabelRegex;
     }
 }
 
