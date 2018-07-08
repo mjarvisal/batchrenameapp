@@ -126,11 +126,6 @@ namespace BatchRenameApp
         // UI ELEMENT CALLBACKS
         #region UI element callbacks
 
-        private void CheckBoxUseRegex_CheckedChanged(object sender, EventArgs e)
-        {
-            UpdatePreview();
-        }
-
         private void ListBoxFilelist_DrawItem(object sender, DrawItemEventArgs e)
         {
 
@@ -489,7 +484,7 @@ namespace BatchRenameApp
             {
                 Search = "^";
             }
-            bool bmode = checkBoxUseRegex.Checked;
+         
             int x = 0;
             foreach (FileInfo item in Filelist)
             {
@@ -527,9 +522,8 @@ namespace BatchRenameApp
             }
             else
             {
-                bool bmode = checkBoxUseRegex.Checked;
                 String[] inputs = { Search, inputReplace.Text, inputFunction.Text };
-                result = ProcessRegex(x, bmode, inputs, file);
+                result = ProcessRegex(x, inputs, file);
             }
             return result;
         }
@@ -755,18 +749,13 @@ namespace BatchRenameApp
             return "test";
         }
 
-        private string ProcessRegex(int number, bool mode, String[] inputs, FileInfo file)
+        private string ProcessRegex(int number, String[] inputs, FileInfo file)
         {
             string find = inputs[0];
             string replace = inputs[1];
             string function = inputs[2];
             string result = "";
             Replacement = replace;
-            if (!mode)
-            {
-                find = ConvertToRegex(find);
-            }
-
             try
             {
                 Regex regex = new Regex(find);
@@ -938,6 +927,11 @@ namespace BatchRenameApp
             {
                 return SavedExifData.ContainsKey(path);
             }
+        }
+
+        private void linkLabelRegex_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start("https://docs.microsoft.com/en-us/dotnet/standard/base-types/regular-expression-language-quick-reference");
         }
     }
 }
