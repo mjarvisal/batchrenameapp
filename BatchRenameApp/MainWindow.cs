@@ -603,25 +603,33 @@ namespace BatchRenameApp
             Double[] output = new Double[2] { -360.0d, -360.0d };
             double[] lat = null;
             double[] lon = null;
-            using (FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read))
+            if (exifcache.IsGPSsaved(path))
             {
-                try
+                return exifcache.getSavedGPS(path);
+            }
+            else
+            {
+                using (FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read))
                 {
-                    ExifLib.ExifReader exifReader = new ExifLib.ExifReader(fs);
-                    exifReader.GetTagValue<double[]>(ExifLib.ExifTags.GPSLatitude, out lat);
-                    exifReader.GetTagValue<double[]>(ExifLib.ExifTags.GPSLongitude, out lon);
-                }
-                catch
-                {
+                    try
+                    {
+                        ExifLib.ExifReader exifReader = new ExifLib.ExifReader(fs);
+                        exifReader.GetTagValue<double[]>(ExifLib.ExifTags.GPSLatitude, out lat);
+                        exifReader.GetTagValue<double[]>(ExifLib.ExifTags.GPSLongitude, out lon);
+                    }
+                    catch
+                    {
 
+                    }
                 }
+                if (!(lat == null) || !(lon == null))
+                {
+                    output[0] = lat[0] + lat[1] / 60 + lat[2] / 3600;
+                    output[1] = lon[0] + lon[1] / 60 + lon[2] / 3600;
+                }
+                exifcache.SaveGPS(output, path);
+                return output;
             }
-            if (!(lat == null) || !(lon == null))
-            {
-                output[0] = lat[0] + lat[1] / 60 + lat[2] / 3600;
-                output[1] = lon[0] + lon[1] / 60 + lon[2] / 3600;
-            }
-            return output;
         }
 
         private double ExifGpsToDouble(PropertyItem propItemRef, PropertyItem propItem)
@@ -745,158 +753,195 @@ namespace BatchRenameApp
         }
 
         private string ConvertToRegex(string normalsearch)
-{
-    Regex test = new Regex(".*");
-    // @todo implement this feature
-    return "test";
-}
-
-private string ProcessRegex(int number, bool mode, String[] inputs, FileInfo file)
-{
-    string find = inputs[0];
-    string replace = inputs[1];
-    string function = inputs[2];
-    string result = "";
-    Replacement = replace;
-    if (!mode)
-    {
-        find = ConvertToRegex(find);
-    }
-
-    try
-    {
-        Regex regex = new Regex(find);
-        MatchEvaluator myEvaluator = new MatchEvaluator(EvaluateMatch);
-        if (regex.IsMatch(file.Name))
         {
-            string renamed = regex.Replace(file.Name, myEvaluator);
-            result = ProcessPatterns(number, renamed, function, file);
+            Regex test = new Regex(".*");
+            // @todo implement this feature
+            return "test";
         }
-        if (result == file.Name)
-            return "";
-        else
-            return result;
 
-    }
-    catch (ArgumentException)
-    {
-        return null;
-    }
-}
-
-public string EvaluateMatch(Match match)
-{
-    string replace = Replacement;
-    return replace;
-    /*
-    if (match.Length > 0)
-        return replace;
-    else
-        return "";
-        */
-}
-
-private string EvaluateFunctionString(string sFunction, int number)
-{
-    string expression = "x";
-    string lastvalidexpression = "x";
-    Regex allowedRegex = new Regex(@"[^x0-9()*/+-\^]");
-    string numberformat = settingsForm.numberformat.ToLower();
-
-    MSScriptControl.ScriptControl sc = new MSScriptControl.ScriptControl { Language = "VBScript" };
-    if (sFunction.Length > 0)
-    {
-        if (allowedRegex.IsMatch(sFunction))
+        private string ProcessRegex(int number, bool mode, String[] inputs, FileInfo file)
         {
-            lastvalidexpression = lastvalidFunction.Replace("x", number.ToString());
+            string find = inputs[0];
+            string replace = inputs[1];
+            string function = inputs[2];
+            string result = "";
+            Replacement = replace;
+            if (!mode)
+            {
+                find = ConvertToRegex(find);
+            }
+
+            try
+            {
+                Regex regex = new Regex(find);
+                MatchEvaluator myEvaluator = new MatchEvaluator(EvaluateMatch);
+                if (regex.IsMatch(file.Name))
+                {
+                    string renamed = regex.Replace(file.Name, myEvaluator);
+                    result = ProcessPatterns(number, renamed, function, file);
+                }
+                if (result == file.Name)
+                    return "";
+                else
+                    return result;
+
+            }
+            catch (ArgumentException)
+            {
+                return null;
+            }
         }
-        else
+
+        public string EvaluateMatch(Match match)
         {
-            expression = sFunction.Replace("x", number.ToString());
-            lastvalidexpression = lastvalidFunction.Replace("x", number.ToString());
+            string replace = Replacement;
+            return replace;
+            /*
+            if (match.Length > 0)
+                return replace;
+            else
+                return "";
+                */
         }
-    }
-    else
-    {
-        sFunction = "x";
-        expression = sFunction.Replace("x", number.ToString());
-    }
 
-    object result = null;
-
-    try
-    {
-        if (allowedRegex.IsMatch(sFunction))
+        private string EvaluateFunctionString(string sFunction, int number)
         {
-            result = sc.Eval(lastvalidexpression);
+            string expression = "x";
+            string lastvalidexpression = "x";
+            Regex allowedRegex = new Regex(@"[^x0-9()*/+-\^]");
+            string numberformat = settingsForm.numberformat.ToLower();
 
+            MSScriptControl.ScriptControl sc = new MSScriptControl.ScriptControl { Language = "VBScript" };
+            if (sFunction.Length > 0)
+            {
+                if (allowedRegex.IsMatch(sFunction))
+                {
+                    lastvalidexpression = lastvalidFunction.Replace("x", number.ToString());
+                }
+                else
+                {
+                    expression = sFunction.Replace("x", number.ToString());
+                    lastvalidexpression = lastvalidFunction.Replace("x", number.ToString());
+                }
+            }
+            else
+            {
+                sFunction = "x";
+                expression = sFunction.Replace("x", number.ToString());
+            }
+
+            object result = null;
+
+            try
+            {
+                if (allowedRegex.IsMatch(sFunction))
+                {
+                    result = sc.Eval(lastvalidexpression);
+
+                }
+                else
+                {
+                    result = sc.Eval(expression);
+                    lastvalidFunction = sFunction;
+                }
+            }
+            catch (Exception)
+            {
+                result = sc.Eval(lastvalidexpression);
+            }
+            if (result != null)
+            {
+                double doubleresult = Convert.ToDouble(result);
+                // @TODO
+                // Evaluate that the string format is valid
+                if (numberformat.Contains("d") || numberformat.Contains("x"))
+                {
+                    int numberresult = Convert.ToInt32(doubleresult);
+                    return numberresult.ToString(numberformat);
+                }
+                else
+                    return doubleresult.ToString(numberformat);
+            }
+            else
+                return "0";
         }
-        else
+
+        #endregion
+
+        // RENAME FILES
+        #region
+        private int RenameFiles()
         {
-            result = sc.Eval(expression);
-            lastvalidFunction = sFunction;
+            int renamed = 0;
+            int index = 0;
+            foreach (string renameditem in listBoxPreview.Items)
+            {
+                if (renameditem != "")
+                {
+                    FileInfo originalfileInfo = (FileInfo)listBoxFilelist.Items[index];
+                    string directory = originalfileInfo.DirectoryName;
+                    string renamedFullname = directory + @"\" + renameditem;
+                    originalfileInfo.MoveTo(renamedFullname);
+                    renamed++;
+                }
+                index++;
+            }
+            return renamed;
         }
-    }
-    catch (Exception)
-    {
-        result = sc.Eval(lastvalidexpression);
-    }
-    if (result != null)
-    {
-        double doubleresult = Convert.ToDouble(result);
-        // @TODO
-        // Evaluate that the string format is valid
-        if (numberformat.Contains("d") || numberformat.Contains("x"))
+
+
+        #endregion
+
+        private void MainWindow_Load(object sender, EventArgs e)
         {
-            int numberresult = Convert.ToInt32(doubleresult);
-            return numberresult.ToString(numberformat);
+            listBoxFilelist.Items.Clear();
+            History.Push(listBoxFilelist);
+            int x = 0;
+            foreach (FileInfo file in filestorage.GetFileInfos())
+            {
+                listBoxFilelist.Items.Add(file);
+                listBoxFilelist.SetSelected(x, true);
+                x++;
+            }
+
+            UpdatePreview();
         }
-        else
-            return doubleresult.ToString(numberformat);
-    }
-    else
-        return "0";
-}
 
-#endregion
-
-// RENAME FILES
-#region
-private int RenameFiles()
-{
-    int renamed = 0;
-    int index = 0;
-    foreach (string renameditem in listBoxPreview.Items)
-    {
-        if (renameditem != "")
+        private class exifcache
         {
-            FileInfo originalfileInfo = (FileInfo)listBoxFilelist.Items[index];
-            string directory = originalfileInfo.DirectoryName;
-            string renamedFullname = directory + @"\" + renameditem;
-            originalfileInfo.MoveTo(renamedFullname);
-            renamed++;
+
+            internal static Dictionary<string, double[]> SavedExifData = new Dictionary<string, double[]>();
+
+            internal static void SaveGPS(double[] Coordinates, string path)
+            {
+                try
+                {
+                    SavedExifData.Add(path, Coordinates);
+                }
+                catch (ArgumentException)
+                {
+                    Debug.Print("exifcache, Key already exists");
+                }
+            }
+
+            internal static double[] getSavedGPS(string path)
+            {
+                double[] output;
+                if (SavedExifData.TryGetValue(path, out output))
+                {
+                    return output;
+                }
+                else
+                {
+                    return new double[] { -360.0, -360.0 };
+                }
+
+            }
+
+            internal static bool IsGPSsaved(string path)
+            {
+                return SavedExifData.ContainsKey(path);
+            }
         }
-        index++;
-    }
-    return renamed;
-}
-
-
-#endregion
-
-private void MainWindow_Load(object sender, EventArgs e)
-{
-    listBoxFilelist.Items.Clear();
-    History.Push(listBoxFilelist);
-    int x = 0;
-    foreach (FileInfo file in filestorage.GetFileInfos())
-    {
-        listBoxFilelist.Items.Add(file);
-        listBoxFilelist.SetSelected(x, true);
-        x++;
-    }
-
-    UpdatePreview();
-}
     }
 }

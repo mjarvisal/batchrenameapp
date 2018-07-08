@@ -101,7 +101,6 @@ namespace BatchRenameApp
             double lon = Coordinates[1];
             foreach (LocationStorage SavedLocation in SavedLocations)
             {
-
                 if (SavedLocation.TopLon <= lon && SavedLocation.BottomLon >= lon
                   && SavedLocation.TopLat >= lat && SavedLocation.BottomLat <= lat)
                 {
