@@ -16,7 +16,7 @@ namespace BatchRenameApp
     {
 
         private static string parentfolder = "";
-        private int folderTreeDepthMax = 0;        
+        private int folderTreeDepthMax = 0;
         private int tempFolderTreeDepth = 0;
         Dictionary<string, object> originalFiles = new Dictionary<string, object>();
 
@@ -48,15 +48,12 @@ namespace BatchRenameApp
 
         public void UpdateFoldersWithDepth(int maxDepth)
         {
-            treeViewFileslist.BeginUpdate();
             tempFolderTreeDepth = 0;
             foreach (KeyValuePair<string, object> values in originalFiles)
             {
                 parentfolder = values.Key;
                 treeViewFileslist.Nodes.Add(GenerateTreenode(values.Key, (Dictionary<string, object>)values.Value, maxDepth));
-            }           
-            treeViewFileslist.EndUpdate();
-            
+            }
         }
 
 
@@ -87,7 +84,11 @@ namespace BatchRenameApp
                 // check if the value type is file
                 if (keyvalpair.Value.GetType() == typeof(FileInfo))
                 {
-                    node.Nodes.Add(((FileInfo)keyvalpair.Value).Name);   // add plain filename
+                    DirectoryInfo testdirectory = new DirectoryInfo(((FileInfo)keyvalpair.Value).FullName);
+                    if ((testdirectory.Attributes & FileAttributes.Directory) != FileAttributes.Directory)
+                    {
+                        node.Nodes.Add(((FileInfo)keyvalpair.Value).Name);   // add plain filename
+                    }
                 }
                 else
                 {
@@ -96,20 +97,16 @@ namespace BatchRenameApp
                     {
                         // cast 
                         var subfolderObject = (Dictionary<string, object>)keyvalpair.Value;
-                        // if subfolder has files, add them, othervice do nothing
-                        if (subfolderObject.Count > 0)
-                        {
-                            if (tempFolderTreeDepth < maxDepth)
+                        if (tempFolderTreeDepth < maxDepth)
+                        { 
+                            tempFolderTreeDepth += 1;
+                            if (tempFolderTreeDepth > folderTreeDepthMax)
                             {
-                                tempFolderTreeDepth += 1;
-                                if (tempFolderTreeDepth > folderTreeDepthMax)
-                                {
-                                    folderTreeDepthMax = tempFolderTreeDepth;
-                                    textBoxFolderDepth.Text = "" + folderTreeDepthMax;
-                                }
-                                node.Nodes.Add(GenerateTreenode(keyvalpair.Key, subfolderObject, maxDepth)); // temp.key has full folder name.
-                                tempFolderTreeDepth -= 1;
+                                folderTreeDepthMax = tempFolderTreeDepth;
+                                textBoxFolderDepth.Text = "" + folderTreeDepthMax;
                             }
+                            node.Nodes.Add(GenerateTreenode(keyvalpair.Key, subfolderObject, maxDepth)); // temp.key has full folder name.
+                            tempFolderTreeDepth -= 1;
                         }
                     }
                 }
@@ -120,11 +117,6 @@ namespace BatchRenameApp
         private TreeNode GenerateTreenode(Dictionary<string, object> files)
         {
             return GenerateTreenode("", files);
-        }
-
-        private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
-        {
-
         }
 
         public string[] getFiles()
@@ -153,7 +145,11 @@ namespace BatchRenameApp
                 }
                 else
                 {
-                    output.Add(childNode.FullPath);
+                    DirectoryInfo isdirectory = new DirectoryInfo(childNode.FullPath);
+                    if ((isdirectory.Attributes & FileAttributes.Directory) != FileAttributes.Directory)
+                    {
+                        output.Add(childNode.FullPath);
+                    }
                 }
             }
             return output;
@@ -169,7 +165,11 @@ namespace BatchRenameApp
                 }
                 else
                 {
-                    output.Add(childNode.FullPath);
+                    DirectoryInfo isdirectory = new DirectoryInfo(childNode.FullPath);
+                    if ((isdirectory.Attributes & FileAttributes.Directory) != FileAttributes.Directory)
+                    {
+                        output.Add(childNode.FullPath);
+                    }
                 }
             }
 
@@ -196,7 +196,7 @@ namespace BatchRenameApp
             treeViewFileslist.BeginUpdate();
             clear();
             int value = trackBarFolderDepth.Value;
-            textBoxFolderDepth.Text = ""+ value;
+            textBoxFolderDepth.Text = "" + value;
             UpdateFoldersWithDepth(value);
             treeViewFileslist.EndUpdate();
         }

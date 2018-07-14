@@ -202,6 +202,7 @@ namespace BatchRenameApp
 
                 int errors = 0;
                 Exception outException = null;
+                List<string> erronousFiles = new List<string>();
                 listBoxFilelist.BeginUpdate();
                 foreach (string filename in itemsdropped)
                 {
@@ -215,15 +216,21 @@ namespace BatchRenameApp
                         }
                         catch (Exception ex)
                         {
+                            erronousFiles.Add(ex.Message);
+                            erronousFiles.Add(filename);
                             errors += 1;
-                            outException = ex;
                         }
                     }
                 }
                 listBoxFilelist.EndUpdate();
                 if (errors > 0)
                 {
-                    CenteredMessageBox.Show(this, outException.Message, errors + " Errors", MessageBoxButtons.OK);
+                    String ErrorText = "";
+                    foreach (string ErrorItem in erronousFiles)
+                    {
+                        ErrorText += String.Format("{0} \r\n", ErrorItem);
+                    }
+                    CenteredMessageBox.Show(this, ErrorText, errors + " Errors", MessageBoxButtons.OK);
                 }
             }
 
@@ -233,33 +240,41 @@ namespace BatchRenameApp
         public string[] FolderDropWizard(string[] itemsdropped)
         {
             Dictionary<string, object> lDirectories = new Dictionary<string, object>();
+            Array itemsArray = itemsdropped.ToArray();
 
-            var x = 0;
-            foreach (string filename in itemsdropped)
+            try
             {
-                DirectoryInfo file = new DirectoryInfo(filename);
-                if (file.Attributes == FileAttributes.Directory)
+                var x = 0;
+                foreach (string filename in itemsArray)
                 {
-                    lDirectories.Add(filename, CustomDirectoryIterator.DirSearch(filename));
-                    x++;
+                    DirectoryInfo file = new DirectoryInfo(filename);
+                    if ((file.Attributes & FileAttributes.Directory) == FileAttributes.Directory)
+                    {
+                        lDirectories.Add(filename, CustomDirectoryIterator.DirSearch(filename));
+                        x++;
+                    }
+                }
+
+                if (lDirectories.Count > 0)
+                {
+                    ImportFoldersWindow foldersWindow = new ImportFoldersWindow();
+
+                    foldersWindow.clear();
+                    foldersWindow.AddFiles(lDirectories);
+                    DialogResult result = foldersWindow.ShowDialog();
+                    if (result == DialogResult.OK)
+                    {
+                        itemsdropped = foldersWindow.getFiles();
+                    }
+                    else
+                    {
+                        return itemsdropped;
+                    }
                 }
             }
-
-            if (lDirectories.Count > 0)
+            catch
             {
-                ImportFoldersWindow foldersWindow = new ImportFoldersWindow();
-
-                foldersWindow.clear();
-                foldersWindow.AddFiles(lDirectories);
-                DialogResult result = foldersWindow.ShowDialog();
-                if (result == DialogResult.OK)
-                {
-                    itemsdropped = foldersWindow.getFiles();
-                }
-                else
-                {
-                    return itemsdropped;
-                }
+                return new string[0];
             }
             return itemsdropped;
         }
