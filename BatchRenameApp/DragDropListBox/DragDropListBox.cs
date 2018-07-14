@@ -104,9 +104,8 @@ namespace Oli.Controls
 		/// The role a control plays (source or target) can be determined from e.Operation.</remarks>
 		public virtual void OnDropped(DroppedEventArgs e)
 		{
-			var dropEvent = Dropped;
-				dropEvent(this, e);
-		}
+            Dropped?.Invoke(this, e);
+        }
 
 		#endregion
 

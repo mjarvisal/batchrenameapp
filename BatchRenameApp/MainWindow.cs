@@ -364,14 +364,14 @@ namespace BatchRenameApp
         private void AscendingContextMenuItem_Click(object sender, EventArgs e)
         {
             History.Push(listBoxFilelist.Items);
-            ListBoxSort.SortAsc(listBoxFilelist);
+            ListBoxSort.SortAsc(listBoxFilelist, InputSortFilter.Text);
             UpdatePreview();
         }
 
         private void DescendingContextMenuItem_Click(object sender, EventArgs e)
         {
             History.Push(listBoxFilelist.Items);
-            ListBoxSort.SortDesc(listBoxFilelist);
+            ListBoxSort.SortDesc(listBoxFilelist, InputSortFilter.Text);
             UpdatePreview();
         }
 
@@ -594,7 +594,6 @@ namespace BatchRenameApp
         #region
 
         private static string Replacement { get; set; }
-
         private static Regex r = new Regex(":");
         private bool bSearchStringEmpty;
 

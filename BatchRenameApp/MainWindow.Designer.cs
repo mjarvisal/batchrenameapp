@@ -60,18 +60,19 @@
             this.listBoxFilelist = new Oli.Controls.DragDropListBox();
             this.labelFileList = new System.Windows.Forms.Label();
             this.labelChanged = new System.Windows.Forms.Label();
-            this.collapsibleGroupBoxFunction = new Indigo.CollapsibleGroupBox();
             this.inputFunction = new System.Windows.Forms.TextBox();
             this.tableLayoutPanelBottom = new System.Windows.Forms.TableLayoutPanel();
             this.labelSelected = new System.Windows.Forms.Label();
             this.labelMatched = new System.Windows.Forms.Label();
             this.progressBarApp = new System.Windows.Forms.ProgressBar();
             this.labelProgress = new System.Windows.Forms.Label();
+            this.InputSortFilter = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.contextMenu.SuspendLayout();
             this.panelSearchandReplace.SuspendLayout();
             this.collabsibleGroupBoxFiles.SuspendLayout();
             this.tableLayoutPanelListBoxes.SuspendLayout();
-            this.collapsibleGroupBoxFunction.SuspendLayout();
             this.tableLayoutPanelBottom.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -138,7 +139,8 @@
             this.contextMenu.Name = "contextMenu";
             this.contextMenu.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
             this.contextMenu.ShowImageMargin = false;
-            this.contextMenu.Size = new System.Drawing.Size(171, 220);
+            this.contextMenu.Size = new System.Drawing.Size(171, 198);
+            this.contextMenu.Text = "^";
             // 
             // undoContextMenuItem
             // 
@@ -171,14 +173,14 @@
             // ascendingContextMenuItem
             // 
             this.ascendingContextMenuItem.Name = "ascendingContextMenuItem";
-            this.ascendingContextMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.ascendingContextMenuItem.Size = new System.Drawing.Size(180, 22);
             this.ascendingContextMenuItem.Text = "Ascending";
             this.ascendingContextMenuItem.Click += new System.EventHandler(this.AscendingContextMenuItem_Click);
             // 
             // descendingContextMenuItem
             // 
             this.descendingContextMenuItem.Name = "descendingContextMenuItem";
-            this.descendingContextMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.descendingContextMenuItem.Size = new System.Drawing.Size(180, 22);
             this.descendingContextMenuItem.Text = "Descending";
             this.descendingContextMenuItem.Click += new System.EventHandler(this.DescendingContextMenuItem_Click);
             // 
@@ -231,7 +233,7 @@
             // regularExpressionsContextMenuItem
             // 
             this.regularExpressionsContextMenuItem.Name = "regularExpressionsContextMenuItem";
-            this.regularExpressionsContextMenuItem.Size = new System.Drawing.Size(177, 22);
+            this.regularExpressionsContextMenuItem.Size = new System.Drawing.Size(180, 22);
             this.regularExpressionsContextMenuItem.Text = "Regular expressions";
             this.regularExpressionsContextMenuItem.Click += new System.EventHandler(this.RegularExpressionsContextMenuItem_Click);
             // 
@@ -242,6 +244,10 @@
             // 
             // panelSearchandReplace
             // 
+            this.panelSearchandReplace.Controls.Add(this.label2);
+            this.panelSearchandReplace.Controls.Add(this.label1);
+            this.panelSearchandReplace.Controls.Add(this.InputSortFilter);
+            this.panelSearchandReplace.Controls.Add(this.inputFunction);
             this.panelSearchandReplace.Controls.Add(this.linkLabelTags);
             this.panelSearchandReplace.Controls.Add(this.linkLabelRegex);
             this.panelSearchandReplace.Controls.Add(this.inputSearch);
@@ -252,7 +258,7 @@
             this.panelSearchandReplace.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelSearchandReplace.Location = new System.Drawing.Point(0, 0);
             this.panelSearchandReplace.Name = "panelSearchandReplace";
-            this.panelSearchandReplace.Size = new System.Drawing.Size(467, 103);
+            this.panelSearchandReplace.Size = new System.Drawing.Size(467, 151);
             this.panelSearchandReplace.TabIndex = 10;
             // 
             // linkLabelTags
@@ -282,7 +288,7 @@
             // 
             this.collabsibleGroupBoxFiles.Controls.Add(this.tableLayoutPanelListBoxes);
             this.collabsibleGroupBoxFiles.Dock = System.Windows.Forms.DockStyle.Top;
-            this.collabsibleGroupBoxFiles.Location = new System.Drawing.Point(0, 156);
+            this.collabsibleGroupBoxFiles.Location = new System.Drawing.Point(0, 151);
             this.collabsibleGroupBoxFiles.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
             this.collabsibleGroupBoxFiles.Name = "collabsibleGroupBoxFiles";
             this.collabsibleGroupBoxFiles.Padding = new System.Windows.Forms.Padding(3, 3, 3, 0);
@@ -314,6 +320,8 @@
             this.listBoxPreview.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.listBoxPreview.FormattingEnabled = true;
             this.listBoxPreview.HorizontalScrollbar = true;
+            this.listBoxPreview.Items.AddRange(new object[] {
+            ""});
             this.listBoxPreview.Location = new System.Drawing.Point(223, 19);
             this.listBoxPreview.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
             this.listBoxPreview.Name = "listBoxPreview";
@@ -353,22 +361,11 @@
             this.labelChanged.TabIndex = 8;
             this.labelChanged.Text = "Changed filenames";
             // 
-            // collapsibleGroupBoxFunction
-            // 
-            this.collapsibleGroupBoxFunction.Controls.Add(this.inputFunction);
-            this.collapsibleGroupBoxFunction.Dock = System.Windows.Forms.DockStyle.Top;
-            this.collapsibleGroupBoxFunction.Location = new System.Drawing.Point(0, 103);
-            this.collapsibleGroupBoxFunction.Name = "collapsibleGroupBoxFunction";
-            this.collapsibleGroupBoxFunction.Size = new System.Drawing.Size(467, 53);
-            this.collapsibleGroupBoxFunction.TabIndex = 13;
-            this.collapsibleGroupBoxFunction.TabStop = false;
-            this.collapsibleGroupBoxFunction.Text = "Function";
-            // 
             // inputFunction
             // 
-            this.inputFunction.Location = new System.Drawing.Point(13, 19);
+            this.inputFunction.Location = new System.Drawing.Point(235, 115);
             this.inputFunction.Name = "inputFunction";
-            this.inputFunction.Size = new System.Drawing.Size(337, 20);
+            this.inputFunction.Size = new System.Drawing.Size(215, 20);
             this.inputFunction.TabIndex = 10;
             this.inputFunction.TextChanged += new System.EventHandler(this.TextBoxFunction_TextChanged);
             // 
@@ -378,7 +375,7 @@
             this.tableLayoutPanelBottom.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 49.09091F));
             this.tableLayoutPanelBottom.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.90909F));
             this.tableLayoutPanelBottom.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 116F));
-            this.tableLayoutPanelBottom.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 105F));
+            this.tableLayoutPanelBottom.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 106F));
             this.tableLayoutPanelBottom.Controls.Add(this.labelSelected, 0, 0);
             this.tableLayoutPanelBottom.Controls.Add(this.labelMatched, 0, 0);
             this.tableLayoutPanelBottom.Controls.Add(this.progressBarApp, 3, 0);
@@ -395,7 +392,7 @@
             // 
             this.labelSelected.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.labelSelected.AutoSize = true;
-            this.labelSelected.Location = new System.Drawing.Point(111, 6);
+            this.labelSelected.Location = new System.Drawing.Point(110, 6);
             this.labelSelected.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
             this.labelSelected.Name = "labelSelected";
             this.labelSelected.Size = new System.Drawing.Size(52, 13);
@@ -425,12 +422,37 @@
             // 
             this.labelProgress.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.labelProgress.AutoSize = true;
-            this.labelProgress.Location = new System.Drawing.Point(294, 6);
+            this.labelProgress.Location = new System.Drawing.Point(293, 6);
             this.labelProgress.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
             this.labelProgress.Name = "labelProgress";
             this.labelProgress.Size = new System.Drawing.Size(38, 13);
             this.labelProgress.TabIndex = 15;
             this.labelProgress.Text = "Ready";
+            // 
+            // InputSortFilter
+            // 
+            this.InputSortFilter.Location = new System.Drawing.Point(15, 115);
+            this.InputSortFilter.Name = "InputSortFilter";
+            this.InputSortFilter.Size = new System.Drawing.Size(214, 20);
+            this.InputSortFilter.TabIndex = 12;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(235, 99);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(48, 13);
+            this.label1.TabIndex = 13;
+            this.label1.Text = "Function";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(15, 99);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(51, 13);
+            this.label2.TabIndex = 14;
+            this.label2.Text = "Sort Filter";
             // 
             // MainWindow
             // 
@@ -443,7 +465,6 @@
             this.ContextMenuStrip = this.contextMenu;
             this.Controls.Add(this.tableLayoutPanelBottom);
             this.Controls.Add(this.collabsibleGroupBoxFiles);
-            this.Controls.Add(this.collapsibleGroupBoxFunction);
             this.Controls.Add(this.panelSearchandReplace);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -461,8 +482,6 @@
             this.collabsibleGroupBoxFiles.ResumeLayout(false);
             this.tableLayoutPanelListBoxes.ResumeLayout(false);
             this.tableLayoutPanelListBoxes.PerformLayout();
-            this.collapsibleGroupBoxFunction.ResumeLayout(false);
-            this.collapsibleGroupBoxFunction.PerformLayout();
             this.tableLayoutPanelBottom.ResumeLayout(false);
             this.tableLayoutPanelBottom.PerformLayout();
             this.ResumeLayout(false);
@@ -493,7 +512,6 @@
         private System.Windows.Forms.ToolStripMenuItem redoContextMenuItem;
         private System.Windows.Forms.TextBox inputFunction;
         private Indigo.CollapsibleGroupBox collabsibleGroupBoxFiles;
-        private Indigo.CollapsibleGroupBox collapsibleGroupBoxFunction;
         private System.Windows.Forms.Panel panelSearchandReplace;
         public Oli.Controls.DragDropListBox listBoxFilelist;
         private System.Windows.Forms.ToolStripMenuItem settingsContextMenuItem;
@@ -507,6 +525,9 @@
         private System.Windows.Forms.Label labelSelected;
         private System.Windows.Forms.Label labelMatched;
         private System.Windows.Forms.LinkLabel linkLabelTags;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox InputSortFilter;
     }
 }
 
