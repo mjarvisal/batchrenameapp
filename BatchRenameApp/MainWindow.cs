@@ -30,7 +30,6 @@ namespace BatchRenameApp
         /** For evaluating math functions */
         private static string lastvalidFunction = "x";
         private static string replaceString;
-        private static bool bControlPressed = false;
         private BackgroundWorker processPreviews;
         private LocationServices savedLocations = new LocationServices();
 
@@ -92,30 +91,12 @@ namespace BatchRenameApp
                     listBoxFilelist.ClearSelected();
                     break;
 
-                case (Keys.ControlKey):
-                    {
-                        bControlPressed = true;
-                    }
-                    break;
-
                 case (Keys.Delete):
                     if (listBoxFilelist.ClientRectangle.Contains(listBoxFilelist.PointToClient(MousePosition)))
                     {
                         History.Push(listBoxFilelist);
                         RemoveSelection();
                         UpdatePreview();
-                    }
-                    break;
-            }
-        }
-
-        private void MainWindow_KeyUp(object sender, KeyEventArgs e)
-        {
-            switch (e.KeyCode)
-            {
-                case (Keys.ControlKey):
-                    {
-                        bControlPressed = false;
                     }
                     break;
             }
