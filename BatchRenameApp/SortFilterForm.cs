@@ -67,5 +67,10 @@ namespace BatchRenameApp
         {
             Program.mainWindowForm.SelectFiltered();
         }
+
+        private void buttonClearSelection_Click(object sender, EventArgs e)
+        {
+            Program.mainWindowForm.listBoxFilelist.ClearSelected();
+        } 
     }
 }

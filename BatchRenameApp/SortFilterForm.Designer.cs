@@ -106,6 +106,7 @@
             this.buttonClearSelection.TabIndex = 7;
             this.buttonClearSelection.Text = "Clear Selection";
             this.buttonClearSelection.UseVisualStyleBackColor = true;
+            this.buttonClearSelection.Click += new System.EventHandler(this.buttonClearSelection_Click);
             // 
             // label2
             // 
