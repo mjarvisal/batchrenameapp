@@ -39,8 +39,6 @@
             this.undoContextMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.redoContextMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.TagsContextMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparatorMain1 = new System.Windows.Forms.ToolStripSeparator();
             this.sortContextMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ascendingContextMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.descendingContextMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -53,6 +51,7 @@
             this.helpContextMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.regularExpressionsContextMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panelSearchandReplace = new System.Windows.Forms.Panel();
+            this.linkLabelTags = new System.Windows.Forms.LinkLabel();
             this.linkLabelRegex = new System.Windows.Forms.LinkLabel();
             this.collabsibleGroupBoxFiles = new Indigo.CollapsibleGroupBox();
             this.statusStripProgress = new System.Windows.Forms.StatusStrip();
@@ -125,8 +124,6 @@
             this.undoContextMenuItem,
             this.redoContextMenuItem,
             this.toolStripSeparator1,
-            this.TagsContextMenuItem,
-            this.toolStripSeparatorMain1,
             this.sortContextMenuItem,
             this.toolStripSeparatorMain2,
             this.invertSelectionContextMenuItem,
@@ -138,7 +135,7 @@
             this.contextMenu.Name = "contextMenu";
             this.contextMenu.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
             this.contextMenu.ShowImageMargin = false;
-            this.contextMenu.Size = new System.Drawing.Size(171, 248);
+            this.contextMenu.Size = new System.Drawing.Size(171, 198);
             // 
             // undoContextMenuItem
             // 
@@ -158,18 +155,6 @@
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(167, 6);
-            // 
-            // TagsContextMenuItem
-            // 
-            this.TagsContextMenuItem.Name = "TagsContextMenuItem";
-            this.TagsContextMenuItem.Size = new System.Drawing.Size(170, 22);
-            this.TagsContextMenuItem.Text = "Tags";
-            this.TagsContextMenuItem.Click += new System.EventHandler(this.TagsContextMenuItem_Click);
-            // 
-            // toolStripSeparatorMain1
-            // 
-            this.toolStripSeparatorMain1.Name = "toolStripSeparatorMain1";
-            this.toolStripSeparatorMain1.Size = new System.Drawing.Size(167, 6);
             // 
             // sortContextMenuItem
             // 
@@ -249,6 +234,7 @@
             // 
             // panelSearchandReplace
             // 
+            this.panelSearchandReplace.Controls.Add(this.linkLabelTags);
             this.panelSearchandReplace.Controls.Add(this.linkLabelRegex);
             this.panelSearchandReplace.Controls.Add(this.inputSearch);
             this.panelSearchandReplace.Controls.Add(this.labelRegExp);
@@ -260,6 +246,18 @@
             this.panelSearchandReplace.Name = "panelSearchandReplace";
             this.panelSearchandReplace.Size = new System.Drawing.Size(467, 103);
             this.panelSearchandReplace.TabIndex = 10;
+            // 
+            // linkLabelTags
+            // 
+            this.linkLabelTags.AutoSize = true;
+            this.linkLabelTags.Location = new System.Drawing.Point(319, 55);
+            this.linkLabelTags.Name = "linkLabelTags";
+            this.linkLabelTags.Size = new System.Drawing.Size(31, 13);
+            this.linkLabelTags.TabIndex = 11;
+            this.linkLabelTags.TabStop = true;
+            this.linkLabelTags.Text = "Tags";
+            this.linkLabelTags.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.linkLabelTags.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
             // 
             // linkLabelRegex
             // 
@@ -448,7 +446,6 @@
         private System.Windows.Forms.ToolStripMenuItem undoContextMenuItem;
         private System.Windows.Forms.ToolStripMenuItem invertSelectionContextMenuItem;
         private System.Windows.Forms.ToolStripMenuItem clearSelectionContextMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparatorMain1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparatorMain2;
         private System.Windows.Forms.ToolStripMenuItem removeSelectionContextMenuItem;
         private System.Windows.Forms.ToolStripMenuItem redoContextMenuItem;
@@ -460,12 +457,12 @@
         private System.Windows.Forms.ToolStripMenuItem settingsContextMenuItem;
         public System.Windows.Forms.TextBox inputReplace;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripMenuItem TagsContextMenuItem;
         private System.Windows.Forms.LinkLabel linkLabelRegex;
         private System.Windows.Forms.StatusStrip statusStripProgress;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelProcessing;
         private System.Windows.Forms.ToolStripProgressBar toolStripProgressBar;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.LinkLabel linkLabelTags;
     }
 }
 
