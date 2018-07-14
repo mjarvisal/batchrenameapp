@@ -145,7 +145,11 @@ namespace BatchRenameApp
                 }
                 else
                 {
-                    output.Add(childNode.FullPath);
+                    DirectoryInfo isdirectory = new DirectoryInfo(childNode.FullPath);
+                    if ((isdirectory.Attributes & FileAttributes.Directory) != FileAttributes.Directory)
+                    {
+                        output.Add(childNode.FullPath);
+                    }
                 }
             }
             return output;
@@ -161,7 +165,11 @@ namespace BatchRenameApp
                 }
                 else
                 {
-                    output.Add(childNode.FullPath);
+                    DirectoryInfo isdirectory = new DirectoryInfo(childNode.FullPath);
+                    if ((isdirectory.Attributes & FileAttributes.Directory) != FileAttributes.Directory)
+                    {
+                        output.Add(childNode.FullPath);
+                    }
                 }
             }
 
