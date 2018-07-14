@@ -40,8 +40,6 @@
             this.redoContextMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparatorMainSort = new System.Windows.Forms.ToolStripSeparator();
             this.sortContextMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ascendingContextMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.descendingContextMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparatorMainSelection = new System.Windows.Forms.ToolStripSeparator();
             this.invertSelectionContextMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clearSelectionContextMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -139,7 +137,7 @@
             this.contextMenu.Name = "contextMenu";
             this.contextMenu.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
             this.contextMenu.ShowImageMargin = false;
-            this.contextMenu.Size = new System.Drawing.Size(171, 198);
+            this.contextMenu.Size = new System.Drawing.Size(171, 220);
             this.contextMenu.Text = "^";
             // 
             // undoContextMenuItem
@@ -163,26 +161,10 @@
             // 
             // sortContextMenuItem
             // 
-            this.sortContextMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ascendingContextMenuItem,
-            this.descendingContextMenuItem});
             this.sortContextMenuItem.Name = "sortContextMenuItem";
             this.sortContextMenuItem.Size = new System.Drawing.Size(170, 22);
             this.sortContextMenuItem.Text = "Sort";
-            // 
-            // ascendingContextMenuItem
-            // 
-            this.ascendingContextMenuItem.Name = "ascendingContextMenuItem";
-            this.ascendingContextMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.ascendingContextMenuItem.Text = "Ascending";
-            this.ascendingContextMenuItem.Click += new System.EventHandler(this.AscendingContextMenuItem_Click);
-            // 
-            // descendingContextMenuItem
-            // 
-            this.descendingContextMenuItem.Name = "descendingContextMenuItem";
-            this.descendingContextMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.descendingContextMenuItem.Text = "Descending";
-            this.descendingContextMenuItem.Click += new System.EventHandler(this.DescendingContextMenuItem_Click);
+            this.sortContextMenuItem.Click += new System.EventHandler(this.sortContextMenuItem_Click);
             // 
             // toolStripSeparatorMainSelection
             // 
@@ -435,6 +417,7 @@
             this.InputSortFilter.Name = "InputSortFilter";
             this.InputSortFilter.Size = new System.Drawing.Size(214, 20);
             this.InputSortFilter.TabIndex = 12;
+            this.InputSortFilter.TextChanged += new System.EventHandler(this.InputSortFilter_TextChanged);
             // 
             // label1
             // 
@@ -498,8 +481,6 @@
         private System.Windows.Forms.Button buttonRename;
         private System.Windows.Forms.ContextMenuStrip contextMenu;
         private System.Windows.Forms.ToolStripMenuItem sortContextMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem ascendingContextMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem descendingContextMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparatorMainSettings;
         private System.Windows.Forms.ToolStripMenuItem helpContextMenuItem;
         private System.Windows.Forms.ToolStripMenuItem regularExpressionsContextMenuItem;

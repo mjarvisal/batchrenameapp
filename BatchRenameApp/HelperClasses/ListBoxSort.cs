@@ -3,6 +3,7 @@ using System.Collections;
 using System.Windows.Forms;
 using System.IO;
 using System.Text.RegularExpressions;
+using System.Drawing;
 
 namespace BatchRenameApp
 {
@@ -88,22 +89,19 @@ namespace BatchRenameApp
         {
             bool bValidregex = false;
 
-            string SearchText = "^";
-            Regex regex = new Regex(Filter);
+            Regex regex = new Regex("^");
 
-            if (Text.Length > 0)
+            if (Filter.Length > 0)
             {
-                SearchText = Text;
-            }
+                try
+                {
+                    regex = new Regex(Filter);
+                    bValidregex = true;
+                }
+                catch (ArgumentException)
+                {
 
-            try
-            {
-                regex = new Regex(SearchText);
-                bValidregex = true;
-            }
-            catch (ArgumentException)
-            {
-
+                }
             }
 
             if (bValidregex)
@@ -111,12 +109,47 @@ namespace BatchRenameApp
                 if (regex.IsMatch(Text))
                 {
                     MatchCollection collection = regex.Matches(Text);
+                    int i = collection.Count-1;
                     if (collection.Count > 0)
-                        return collection[0].Value;
+                        return collection[i].Value;
                 }
                 return Text;
             }
             return Text;
+        }
+
+
+        public static CharacterRange GetFilterRange(String Filter, String Text)
+        {
+            bool bValidregex = false;
+
+            Regex regex = new Regex("^");
+
+            if (Filter.Length > 0)
+            {
+                try
+                {
+                    regex = new Regex(Filter);
+                    bValidregex = true;
+                }
+                catch (ArgumentException)
+                {
+
+                }
+            }
+
+            if (bValidregex)
+            {
+                if (regex.IsMatch(Text))
+                {
+                    MatchCollection collection = regex.Matches(Text);
+                    int i = collection.Count - 1;
+                    if (collection.Count > 0)
+                        return new CharacterRange(collection[i].Index, collection[i].Length);
+                }
+                return new CharacterRange(0, Text.Length);
+            }
+            return new CharacterRange(0, Text.Length);
         }
 
     }

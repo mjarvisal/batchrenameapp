@@ -32,6 +32,9 @@ namespace BatchRenameApp
         private BackgroundWorker processPreviews;
         private LocationServices savedLocations = new LocationServices();
         private TagsLegend legend;
+        private SortFilterForm sortFilterForm;
+
+        public String SortFilter = "";
 
         // MAIN WINDOW EVENTS
         #region Main Window events
@@ -185,6 +188,21 @@ namespace BatchRenameApp
                     }
 
                 }
+
+                // if sortfilter form is shown.
+                if (sortFilterForm != null && !sortFilterForm.IsDisposed)
+                {
+                    StringFormat stringFormat2 = new StringFormat
+                    {
+                        Alignment = StringAlignment.Near
+                    };
+                    CharacterRange[] characterRanges2 = { ListBoxSort.GetFilterRange(SortFilter, itemText) };
+                    stringFormat2.SetMeasurableCharacterRanges(characterRanges2);
+                    Region[] regions2 = e.Graphics.MeasureCharacterRanges(itemText, e.Font, e.Bounds, stringFormat2);
+                    RectangleF rect2 = regions2[0].GetBounds(e.Graphics);
+                    e.Graphics.DrawRectangle(Pens.Black, Rectangle.Round(rect2));
+                }
+
                 e.Graphics.DrawString(itemText, e.Font, new SolidBrush(e.ForeColor), e.Bounds);
                 ItemsCountPrev = listBoxFilelist.Items.Count;
             }
@@ -361,17 +379,17 @@ namespace BatchRenameApp
         // MENU EVENTS
         #region Menu Events 
 
-        private void AscendingContextMenuItem_Click(object sender, EventArgs e)
+        public void SortFilesAsc()
         {
             History.Push(listBoxFilelist.Items);
-            ListBoxSort.SortAsc(listBoxFilelist, InputSortFilter.Text);
+            ListBoxSort.SortAsc(listBoxFilelist, SortFilter);
             UpdatePreview();
         }
 
-        private void DescendingContextMenuItem_Click(object sender, EventArgs e)
+        public void SortFilesDesc()
         {
             History.Push(listBoxFilelist.Items);
-            ListBoxSort.SortDesc(listBoxFilelist, InputSortFilter.Text);
+            ListBoxSort.SortDesc(listBoxFilelist, SortFilter);
             UpdatePreview();
         }
 
@@ -657,8 +675,8 @@ namespace BatchRenameApp
             string fileext = string.Empty;
             string output = replacetext;
 
-            string dateformat = settingsForm.dateformat;
-            string timeformat = settingsForm.timeformat;
+            string dateformat = Properties.Settings.Default.DateFormat;
+            string timeformat = Properties.Settings.Default.TimeFormat;
             string date = file.CreationTime.ToString(dateformat);
             string time = file.CreationTime.ToString(timeformat);
             String[] imagedatetime = { "%datetaken", "%timetaken" };
@@ -801,7 +819,7 @@ namespace BatchRenameApp
             string expression = "x";
             string lastvalidexpression = "x";
             Regex allowedRegex = new Regex(@"[^x0-9()*/+-\^]");
-            string numberformat = settingsForm.numberformat.ToLower();
+            string numberformat = Properties.Settings.Default.NumberFormat.ToLower();
 
             MSScriptControl.ScriptControl sc = new MSScriptControl.ScriptControl { Language = "VBScript" };
             if (sFunction.Length > 0)
@@ -952,8 +970,8 @@ namespace BatchRenameApp
             }
 
             Point newLocation = new Point(Location.X + Bounds.Width + 3, Location.Y + 30);
-           
-            if ((newLocation.X + legend.Width ) > Screen.GetWorkingArea(this).Right)
+
+            if ((newLocation.X + legend.Width) > Screen.GetWorkingArea(this).Right)
             {
                 newLocation.X = Bounds.Left - legend.Width + 3;
             }
@@ -963,6 +981,24 @@ namespace BatchRenameApp
             legend.Focus();
         }
 
+        private void InputSortFilter_TextChanged(object sender, EventArgs e)
+        {
+            UpdatePreview();
+        }
+
+        private void sortContextMenuItem_Click(object sender, EventArgs e)
+        {
+            if (sortFilterForm == null || sortFilterForm.IsDisposed)
+            {
+                sortFilterForm = new SortFilterForm();
+            }
+
+            sortFilterForm.Show();
+            sortFilterForm.Focus();
+
+
+
+        }
     }
 
 }
