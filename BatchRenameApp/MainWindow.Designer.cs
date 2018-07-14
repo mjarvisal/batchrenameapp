@@ -55,22 +55,22 @@
             this.panelSearchandReplace = new System.Windows.Forms.Panel();
             this.linkLabelRegex = new System.Windows.Forms.LinkLabel();
             this.collabsibleGroupBoxFiles = new Indigo.CollapsibleGroupBox();
-            this.labelFileList = new System.Windows.Forms.Label();
-            this.listBoxFilelist = new Oli.Controls.DragDropListBox();
+            this.statusStripProgress = new System.Windows.Forms.StatusStrip();
+            this.toolStripProgressBar = new System.Windows.Forms.ToolStripProgressBar();
+            this.toolStripStatusLabelProcessing = new System.Windows.Forms.ToolStripStatusLabel();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.listBoxPreview = new System.Windows.Forms.ListBox();
+            this.listBoxFilelist = new Oli.Controls.DragDropListBox();
+            this.labelFileList = new System.Windows.Forms.Label();
             this.labelChanged = new System.Windows.Forms.Label();
             this.collapsibleGroupBoxFunction = new Indigo.CollapsibleGroupBox();
             this.inputFunction = new System.Windows.Forms.TextBox();
-            this.toolStripStatusLabelProcessing = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripProgressBar = new System.Windows.Forms.ToolStripProgressBar();
-            this.statusStripProgress = new System.Windows.Forms.StatusStrip();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.contextMenu.SuspendLayout();
             this.panelSearchandReplace.SuspendLayout();
             this.collabsibleGroupBoxFiles.SuspendLayout();
-            this.collapsibleGroupBoxFunction.SuspendLayout();
             this.statusStripProgress.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
+            this.collapsibleGroupBoxFunction.SuspendLayout();
             this.SuspendLayout();
             // 
             // inputSearch
@@ -138,7 +138,7 @@
             this.contextMenu.Name = "contextMenu";
             this.contextMenu.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
             this.contextMenu.ShowImageMargin = false;
-            this.contextMenu.Size = new System.Drawing.Size(171, 226);
+            this.contextMenu.Size = new System.Drawing.Size(171, 248);
             // 
             // undoContextMenuItem
             // 
@@ -284,14 +284,64 @@
             this.collabsibleGroupBoxFiles.TabStop = false;
             this.collabsibleGroupBoxFiles.Text = "Files";
             // 
-            // labelFileList
+            // statusStripProgress
             // 
-            this.labelFileList.AutoSize = true;
-            this.labelFileList.Location = new System.Drawing.Point(3, 0);
-            this.labelFileList.Name = "labelFileList";
-            this.labelFileList.Size = new System.Drawing.Size(89, 13);
-            this.labelFileList.TabIndex = 3;
-            this.labelFileList.Text = "Original filenames";
+            this.statusStripProgress.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.statusStripProgress.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.statusStripProgress.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripProgressBar,
+            this.toolStripStatusLabelProcessing});
+            this.statusStripProgress.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
+            this.statusStripProgress.Location = new System.Drawing.Point(3, 304);
+            this.statusStripProgress.Name = "statusStripProgress";
+            this.statusStripProgress.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.statusStripProgress.Size = new System.Drawing.Size(461, 22);
+            this.statusStripProgress.SizingGrip = false;
+            this.statusStripProgress.TabIndex = 9;
+            // 
+            // toolStripProgressBar
+            // 
+            this.toolStripProgressBar.Margin = new System.Windows.Forms.Padding(1, 3, 13, 3);
+            this.toolStripProgressBar.Name = "toolStripProgressBar";
+            this.toolStripProgressBar.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.toolStripProgressBar.RightToLeftLayout = true;
+            this.toolStripProgressBar.Size = new System.Drawing.Size(100, 16);
+            // 
+            // toolStripStatusLabelProcessing
+            // 
+            this.toolStripStatusLabelProcessing.Name = "toolStripStatusLabelProcessing";
+            this.toolStripStatusLabelProcessing.Overflow = System.Windows.Forms.ToolStripItemOverflow.Never;
+            this.toolStripStatusLabelProcessing.Size = new System.Drawing.Size(39, 17);
+            this.toolStripStatusLabelProcessing.Text = "Ready";
+            this.toolStripStatusLabelProcessing.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 2;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Controls.Add(this.listBoxPreview, 1, 1);
+            this.tableLayoutPanel1.Controls.Add(this.listBoxFilelist, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.labelFileList, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.labelChanged, 1, 0);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(12, 19);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 2;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 5.782313F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 94.21769F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(441, 293);
+            this.tableLayoutPanel1.TabIndex = 10;
+            // 
+            // listBoxPreview
+            // 
+            this.listBoxPreview.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.listBoxPreview.FormattingEnabled = true;
+            this.listBoxPreview.HorizontalScrollbar = true;
+            this.listBoxPreview.Location = new System.Drawing.Point(223, 19);
+            this.listBoxPreview.Name = "listBoxPreview";
+            this.listBoxPreview.SelectionMode = System.Windows.Forms.SelectionMode.None;
+            this.listBoxPreview.Size = new System.Drawing.Size(215, 264);
+            this.listBoxPreview.TabIndex = 7;
             // 
             // listBoxFilelist
             // 
@@ -306,16 +356,14 @@
             this.listBoxFilelist.TabIndex = 0;
             this.listBoxFilelist.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.ListBoxFilelist_DrawItem);
             // 
-            // listBoxPreview
+            // labelFileList
             // 
-            this.listBoxPreview.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.listBoxPreview.FormattingEnabled = true;
-            this.listBoxPreview.HorizontalScrollbar = true;
-            this.listBoxPreview.Location = new System.Drawing.Point(223, 19);
-            this.listBoxPreview.Name = "listBoxPreview";
-            this.listBoxPreview.SelectionMode = System.Windows.Forms.SelectionMode.None;
-            this.listBoxPreview.Size = new System.Drawing.Size(215, 264);
-            this.listBoxPreview.TabIndex = 7;
+            this.labelFileList.AutoSize = true;
+            this.labelFileList.Location = new System.Drawing.Point(3, 0);
+            this.labelFileList.Name = "labelFileList";
+            this.labelFileList.Size = new System.Drawing.Size(89, 13);
+            this.labelFileList.TabIndex = 3;
+            this.labelFileList.Text = "Original filenames";
             // 
             // labelChanged
             // 
@@ -345,54 +393,6 @@
             this.inputFunction.TabIndex = 10;
             this.inputFunction.TextChanged += new System.EventHandler(this.TextBoxFunction_TextChanged);
             // 
-            // toolStripStatusLabelProcessing
-            // 
-            this.toolStripStatusLabelProcessing.Name = "toolStripStatusLabelProcessing";
-            this.toolStripStatusLabelProcessing.Overflow = System.Windows.Forms.ToolStripItemOverflow.Never;
-            this.toolStripStatusLabelProcessing.Size = new System.Drawing.Size(39, 17);
-            this.toolStripStatusLabelProcessing.Text = "Ready";
-            this.toolStripStatusLabelProcessing.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // toolStripProgressBar
-            // 
-            this.toolStripProgressBar.Margin = new System.Windows.Forms.Padding(1, 3, 13, 3);
-            this.toolStripProgressBar.Name = "toolStripProgressBar";
-            this.toolStripProgressBar.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.toolStripProgressBar.RightToLeftLayout = true;
-            this.toolStripProgressBar.Size = new System.Drawing.Size(100, 16);
-            // 
-            // statusStripProgress
-            // 
-            this.statusStripProgress.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.statusStripProgress.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.statusStripProgress.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripProgressBar,
-            this.toolStripStatusLabelProcessing});
-            this.statusStripProgress.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
-            this.statusStripProgress.Location = new System.Drawing.Point(3, 304);
-            this.statusStripProgress.Name = "statusStripProgress";
-            this.statusStripProgress.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.statusStripProgress.Size = new System.Drawing.Size(461, 22);
-            this.statusStripProgress.SizingGrip = false;
-            this.statusStripProgress.TabIndex = 9;
-            // 
-            // tableLayoutPanel1
-            // 
-            this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Controls.Add(this.listBoxPreview, 1, 1);
-            this.tableLayoutPanel1.Controls.Add(this.listBoxFilelist, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.labelFileList, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.labelChanged, 1, 0);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(12, 19);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 2;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 5.782313F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 94.21769F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(441, 293);
-            this.tableLayoutPanel1.TabIndex = 10;
-            // 
             // MainWindow
             // 
             this.AllowDrop = true;
@@ -400,7 +400,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(467, 483);
+            this.ClientSize = new System.Drawing.Size(467, 651);
             this.ContextMenuStrip = this.contextMenu;
             this.Controls.Add(this.collabsibleGroupBoxFiles);
             this.Controls.Add(this.collapsibleGroupBoxFunction);
@@ -420,12 +420,12 @@
             this.panelSearchandReplace.PerformLayout();
             this.collabsibleGroupBoxFiles.ResumeLayout(false);
             this.collabsibleGroupBoxFiles.PerformLayout();
-            this.collapsibleGroupBoxFunction.ResumeLayout(false);
-            this.collapsibleGroupBoxFunction.PerformLayout();
             this.statusStripProgress.ResumeLayout(false);
             this.statusStripProgress.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
+            this.collapsibleGroupBoxFunction.ResumeLayout(false);
+            this.collapsibleGroupBoxFunction.PerformLayout();
             this.ResumeLayout(false);
 
         }

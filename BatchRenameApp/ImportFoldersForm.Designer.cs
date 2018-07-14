@@ -40,7 +40,7 @@
             // trackBarFolderDepth
             // 
             this.trackBarFolderDepth.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.trackBarFolderDepth.Location = new System.Drawing.Point(467, 12);
+            this.trackBarFolderDepth.Location = new System.Drawing.Point(311, 12);
             this.trackBarFolderDepth.Name = "trackBarFolderDepth";
             this.trackBarFolderDepth.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.trackBarFolderDepth.RightToLeft = System.Windows.Forms.RightToLeft.No;
@@ -55,7 +55,7 @@
             // 
             this.textBoxFolderDepth.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxFolderDepth.Enabled = false;
-            this.textBoxFolderDepth.Location = new System.Drawing.Point(467, 122);
+            this.textBoxFolderDepth.Location = new System.Drawing.Point(311, 122);
             this.textBoxFolderDepth.Name = "textBoxFolderDepth";
             this.textBoxFolderDepth.Size = new System.Drawing.Size(45, 20);
             this.textBoxFolderDepth.TabIndex = 2;
@@ -68,15 +68,14 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.treeViewFileslist.Location = new System.Drawing.Point(12, 12);
             this.treeViewFileslist.Name = "treeViewFileslist";
-            this.treeViewFileslist.Size = new System.Drawing.Size(432, 426);
+            this.treeViewFileslist.Size = new System.Drawing.Size(276, 426);
             this.treeViewFileslist.TabIndex = 3;
-            this.treeViewFileslist.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterSelect);
             this.treeViewFileslist.KeyUp += new System.Windows.Forms.KeyEventHandler(this.treeViewFileslist_KeyUp);
             // 
             // ButtonOk
             // 
             this.ButtonOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.ButtonOk.Location = new System.Drawing.Point(450, 382);
+            this.ButtonOk.Location = new System.Drawing.Point(294, 382);
             this.ButtonOk.Name = "ButtonOk";
             this.ButtonOk.Size = new System.Drawing.Size(75, 23);
             this.ButtonOk.TabIndex = 4;
@@ -88,7 +87,7 @@
             // 
             this.ButtonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.ButtonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.ButtonCancel.Location = new System.Drawing.Point(450, 411);
+            this.ButtonCancel.Location = new System.Drawing.Point(294, 411);
             this.ButtonCancel.Name = "ButtonCancel";
             this.ButtonCancel.Size = new System.Drawing.Size(75, 23);
             this.ButtonCancel.TabIndex = 4;
@@ -101,7 +100,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.ButtonCancel;
-            this.ClientSize = new System.Drawing.Size(533, 450);
+            this.ClientSize = new System.Drawing.Size(377, 450);
             this.Controls.Add(this.ButtonCancel);
             this.Controls.Add(this.ButtonOk);
             this.Controls.Add(this.treeViewFileslist);
