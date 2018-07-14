@@ -105,9 +105,7 @@ namespace Oli.Controls
 		public virtual void OnDropped(DroppedEventArgs e)
 		{
 			var dropEvent = Dropped;
-			if (dropEvent != null) {
 				dropEvent(this, e);
-			}
 		}
 
 		#endregion
@@ -446,23 +444,30 @@ namespace Oli.Controls
             {
                 return effect = DragDropEffects.Copy;
             }
-                IDragDropSource src = drgevent.Data.GetData("IDragDropSource") as IDragDropSource;
 
-			if (src != null && _dragDropGroup == src.DragDropGroup) { // The stuff being draged is compatible.
-				if (src == this) { // Drag-and-drop happens within this control.
-					if (_allowReorder && !this.Sorted) {
-						effect = DragDropEffects.Move;
-					}
-				} else if (_isDragDropTarget) {
-					// If only Copy is allowed then copy. If Copy and Move are allowed, then Move, unless the Ctrl-key is pressed.
-					if (src.IsDragDropCopySource && (!src.IsDragDropMoveSource || drgevent.KeyState == CtrlKeyPlusLeftMouseButton)) {
-						effect = DragDropEffects.Copy;
-					} else if (src.IsDragDropMoveSource) {
-						effect = DragDropEffects.Move;
-					}
-				}
-			}
-			return effect;
+            if (drgevent.Data.GetData("IDragDropSource") is IDragDropSource src && _dragDropGroup == src.DragDropGroup)
+            { // The stuff being draged is compatible.
+                if (src == this)
+                { // Drag-and-drop happens within this control.
+                    if (_allowReorder && !this.Sorted)
+                    {
+                        effect = DragDropEffects.Move;
+                    }
+                }
+                else if (_isDragDropTarget)
+                {
+                    // If only Copy is allowed then copy. If Copy and Move are allowed, then Move, unless the Ctrl-key is pressed.
+                    if (src.IsDragDropCopySource && (!src.IsDragDropMoveSource || drgevent.KeyState == CtrlKeyPlusLeftMouseButton))
+                    {
+                        effect = DragDropEffects.Copy;
+                    }
+                    else if (src.IsDragDropMoveSource)
+                    {
+                        effect = DragDropEffects.Move;
+                    }
+                }
+            }
+            return effect;
 		}
 
 		#endregion

@@ -140,8 +140,7 @@ namespace Indigo
         {
             IsCollapsed = !IsCollapsed;
 
-            if (CollapseBoxClickedEvent != null)
-                CollapseBoxClickedEvent(this);
+            CollapseBoxClickedEvent?.Invoke(this);
         }
 
         void HandleResize()

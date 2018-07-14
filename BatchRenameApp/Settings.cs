@@ -51,17 +51,17 @@ namespace BatchRenameApp
             }
         }
 
-        private void labelNumberHelp_Click(object sender, EventArgs e)
+        private void LabelNumberHelp_Click(object sender, EventArgs e)
         {
             Process.Start("https://docs.microsoft.com/en-us/dotnet/standard/base-types/standard-numeric-format-strings");
         }
 
-        private void labelNumberHelp_MouseEnter(object sender, EventArgs e)
+        private void LabelNumberHelp_MouseEnter(object sender, EventArgs e)
         {
             labelNumberHelp.Font = new Font(labelNumberHelp.Font, FontStyle.Underline);
         }
 
-        private void labelNumberHelp_MouseLeave(object sender, EventArgs e)
+        private void LabelNumberHelp_MouseLeave(object sender, EventArgs e)
         {
             labelNumberHelp.Font = new Font(labelNumberHelp.Font, FontStyle.Regular);
         }

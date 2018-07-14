@@ -98,6 +98,7 @@ namespace BatchRenameApp
         public String TagDescription;
 
         public Tag(string Name, string Desc)
+        private void ButtonOK_Click(object sender, EventArgs e)
         {
             TagName = Name;
             TagDescription = Desc;

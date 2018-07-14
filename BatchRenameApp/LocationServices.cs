@@ -32,8 +32,10 @@ namespace BatchRenameApp
             string geoLocationCountry = "";
             do
             {
-                NumberFormatInfo nfi = new NumberFormatInfo();
-                nfi.NumberDecimalSeparator = ".";
+                NumberFormatInfo nfi = new NumberFormatInfo
+                {
+                    NumberDecimalSeparator = "."
+                };
                 String url = String.Format("https://nominatim.openstreetmap.org/reverse?format=xml&lat={0}&lon={1}&zoom={2}&addressdetails=1", Coordinates[0].ToString(nfi), Coordinates[1].ToString(nfi), zoom.ToString());
                 Uri address = new Uri(url);
 

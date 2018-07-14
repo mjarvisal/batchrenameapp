@@ -122,9 +122,9 @@
             this.labelNumberHelp.Size = new System.Drawing.Size(29, 13);
             this.labelNumberHelp.TabIndex = 8;
             this.labelNumberHelp.Text = "Help";
-            this.labelNumberHelp.Click += new System.EventHandler(this.labelNumberHelp_Click);
-            this.labelNumberHelp.MouseEnter += new System.EventHandler(this.labelNumberHelp_MouseEnter);
-            this.labelNumberHelp.MouseLeave += new System.EventHandler(this.labelNumberHelp_MouseLeave);
+            this.labelNumberHelp.Click += new System.EventHandler(this.LabelNumberHelp_Click);
+            this.labelNumberHelp.MouseEnter += new System.EventHandler(this.LabelNumberHelp_MouseEnter);
+            this.labelNumberHelp.MouseLeave += new System.EventHandler(this.LabelNumberHelp_MouseLeave);
             // 
             // Settings
             // 

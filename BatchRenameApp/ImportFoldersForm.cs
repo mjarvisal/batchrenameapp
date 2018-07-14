@@ -25,7 +25,7 @@ namespace BatchRenameApp
             InitializeComponent();
         }
 
-        public void clear()
+        public void Clear()
         {
             folderTreeDepthMax = 0;
             treeViewFileslist.Nodes.Clear();
@@ -119,7 +119,7 @@ namespace BatchRenameApp
             return GenerateTreenode("", files);
         }
 
-        public string[] getFiles()
+        public string[] GetFiles()
         {
 
             List<string> list = new List<string>();
@@ -182,7 +182,7 @@ namespace BatchRenameApp
             Close();
         }
 
-        private void treeViewFileslist_KeyUp(object sender, KeyEventArgs e)
+        private void TreeViewFileslist_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Delete)
             {
@@ -190,11 +190,11 @@ namespace BatchRenameApp
             }
         }
 
-        private void trackBarFolderDepth_ValueChanged(object sender, EventArgs e)
+        private void TrackBarFolderDepth_ValueChanged(object sender, EventArgs e)
         {
 
             treeViewFileslist.BeginUpdate();
-            clear();
+            Clear();
             int value = trackBarFolderDepth.Value;
             textBoxFolderDepth.Text = "" + value;
             UpdateFoldersWithDepth(value);
