@@ -51,6 +51,7 @@
             this.helpContextMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.regularExpressionsContextMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panelSearchandReplace = new System.Windows.Forms.Panel();
+            this.linkLabelTags = new System.Windows.Forms.LinkLabel();
             this.linkLabelRegex = new System.Windows.Forms.LinkLabel();
             this.collabsibleGroupBoxFiles = new Indigo.CollapsibleGroupBox();
             this.statusStripProgress = new System.Windows.Forms.StatusStrip();
@@ -63,7 +64,6 @@
             this.labelChanged = new System.Windows.Forms.Label();
             this.collapsibleGroupBoxFunction = new Indigo.CollapsibleGroupBox();
             this.inputFunction = new System.Windows.Forms.TextBox();
-            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.contextMenu.SuspendLayout();
             this.panelSearchandReplace.SuspendLayout();
             this.collabsibleGroupBoxFiles.SuspendLayout();
@@ -168,14 +168,14 @@
             // ascendingContextMenuItem
             // 
             this.ascendingContextMenuItem.Name = "ascendingContextMenuItem";
-            this.ascendingContextMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.ascendingContextMenuItem.Size = new System.Drawing.Size(136, 22);
             this.ascendingContextMenuItem.Text = "Ascending";
             this.ascendingContextMenuItem.Click += new System.EventHandler(this.AscendingContextMenuItem_Click);
             // 
             // descendingContextMenuItem
             // 
             this.descendingContextMenuItem.Name = "descendingContextMenuItem";
-            this.descendingContextMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.descendingContextMenuItem.Size = new System.Drawing.Size(136, 22);
             this.descendingContextMenuItem.Text = "Descending";
             this.descendingContextMenuItem.Click += new System.EventHandler(this.DescendingContextMenuItem_Click);
             // 
@@ -234,7 +234,7 @@
             // 
             // panelSearchandReplace
             // 
-            this.panelSearchandReplace.Controls.Add(this.linkLabel1);
+            this.panelSearchandReplace.Controls.Add(this.linkLabelTags);
             this.panelSearchandReplace.Controls.Add(this.linkLabelRegex);
             this.panelSearchandReplace.Controls.Add(this.inputSearch);
             this.panelSearchandReplace.Controls.Add(this.labelRegExp);
@@ -246,6 +246,18 @@
             this.panelSearchandReplace.Name = "panelSearchandReplace";
             this.panelSearchandReplace.Size = new System.Drawing.Size(467, 103);
             this.panelSearchandReplace.TabIndex = 10;
+            // 
+            // linkLabelTags
+            // 
+            this.linkLabelTags.AutoSize = true;
+            this.linkLabelTags.Location = new System.Drawing.Point(319, 55);
+            this.linkLabelTags.Name = "linkLabelTags";
+            this.linkLabelTags.Size = new System.Drawing.Size(31, 13);
+            this.linkLabelTags.TabIndex = 11;
+            this.linkLabelTags.TabStop = true;
+            this.linkLabelTags.Text = "Tags";
+            this.linkLabelTags.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.linkLabelTags.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
             // 
             // linkLabelRegex
             // 
@@ -379,18 +391,6 @@
             this.inputFunction.TabIndex = 10;
             this.inputFunction.TextChanged += new System.EventHandler(this.TextBoxFunction_TextChanged);
             // 
-            // linkLabel1
-            // 
-            this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Location = new System.Drawing.Point(280, 55);
-            this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(70, 13);
-            this.linkLabel1.TabIndex = 11;
-            this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = "Tags Legend";
-            this.linkLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
-            // 
             // MainWindow
             // 
             this.AllowDrop = true;
@@ -462,7 +462,7 @@
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelProcessing;
         private System.Windows.Forms.ToolStripProgressBar toolStripProgressBar;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.LinkLabel linkLabel1;
+        private System.Windows.Forms.LinkLabel linkLabelTags;
     }
 }
 
