@@ -410,16 +410,7 @@ namespace BatchRenameApp
 
         private void TagsContextMenuItem_Click(object sender, EventArgs e)
         {
-            TagsLegend legend = new TagsLegend
-            {
-                StartPosition = FormStartPosition.Manual
-            };
-
-            Point startinglocation = Location;
-            startinglocation.X = Location.X + Bounds.Width + 3;
-            startinglocation.Y = Location.Y + 30;
-            legend.Location = startinglocation;
-            legend.Show();
+           
         }
         private void SettingsContextMenuItem_Click(object sender, EventArgs e)
         {
@@ -906,6 +897,20 @@ namespace BatchRenameApp
         private void linkLabelRegex_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Process.Start("https://docs.microsoft.com/en-us/dotnet/standard/base-types/regular-expression-language-quick-reference");
+        }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            TagsLegend legend = new TagsLegend
+            {
+                StartPosition = FormStartPosition.Manual
+            };
+
+            Point startinglocation = Location;
+            startinglocation.X = Location.X + Bounds.Width + 3;
+            startinglocation.Y = Location.Y + 30;
+            legend.Location = startinglocation;
+            legend.Show();
         }
     }
 }

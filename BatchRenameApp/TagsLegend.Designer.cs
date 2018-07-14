@@ -29,202 +29,165 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TagsLegend));
-            this.Taglabeldatenow = new System.Windows.Forms.Label();
             this.buttonOK = new System.Windows.Forms.Button();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.labelHelp = new System.Windows.Forms.Label();
-            this.Taglabeltimenow = new System.Windows.Forms.Label();
-            this.Taglabeldatecreated = new System.Windows.Forms.Label();
-            this.Taglabeltimecreated = new System.Windows.Forms.Label();
-            this.Taglabeldatetaken = new System.Windows.Forms.Label();
-            this.Taglabeltimetaken = new System.Windows.Forms.Label();
-            this.Taglabelfolder = new System.Windows.Forms.Label();
-            this.Taglabelfile = new System.Windows.Forms.Label();
-            this.Taglabelfunction = new System.Windows.Forms.Label();
-            this.Tagelabelext = new System.Windows.Forms.Label();
-            this.Taglabelloc = new System.Windows.Forms.Label();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.flowLayoutPanelGeneric = new System.Windows.Forms.FlowLayoutPanel();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.flowLayoutPanelExif = new System.Windows.Forms.FlowLayoutPanel();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.flowLayoutPanelFileAttributes = new System.Windows.Forms.FlowLayoutPanel();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.panel1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            this.groupBox3.SuspendLayout();
+            this.panel2.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // Taglabeldatenow
-            // 
-            this.Taglabeldatenow.AutoSize = true;
-            this.Taglabeldatenow.Location = new System.Drawing.Point(29, 40);
-            this.Taglabeldatenow.Margin = new System.Windows.Forms.Padding(20, 5, 3, 0);
-            this.Taglabeldatenow.Name = "Taglabeldatenow";
-            this.Taglabeldatenow.Size = new System.Drawing.Size(134, 13);
-            this.Taglabeldatenow.TabIndex = 0;
-            this.Taglabeldatenow.Text = "%datenow% -- Current date";
-            this.Taglabeldatenow.Click += new System.EventHandler(this.Taglabeldatenow_Click);
             // 
             // buttonOK
             // 
-            this.buttonOK.Location = new System.Drawing.Point(197, 251);
+            this.buttonOK.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.buttonOK.Location = new System.Drawing.Point(0, 0);
             this.buttonOK.Name = "buttonOK";
-            this.buttonOK.Size = new System.Drawing.Size(75, 23);
+            this.buttonOK.Size = new System.Drawing.Size(301, 26);
             this.buttonOK.TabIndex = 1;
-            this.buttonOK.Text = "OK";
+            this.buttonOK.Text = "Close";
             this.buttonOK.UseVisualStyleBackColor = true;
             this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.labelHelp);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(301, 37);
+            this.panel1.TabIndex = 1;
             // 
             // labelHelp
             // 
             this.labelHelp.AutoSize = true;
-            this.labelHelp.Location = new System.Drawing.Point(29, 14);
+            this.labelHelp.Location = new System.Drawing.Point(51, 12);
             this.labelHelp.Name = "labelHelp";
             this.labelHelp.Size = new System.Drawing.Size(225, 13);
             this.labelHelp.TabIndex = 2;
             this.labelHelp.Text = "Click the tag to insert it to the Replace textBox";
             // 
-            // Taglabeltimenow
+            // groupBox2
             // 
-            this.Taglabeltimenow.AutoSize = true;
-            this.Taglabeltimenow.Location = new System.Drawing.Point(29, 58);
-            this.Taglabeltimenow.Margin = new System.Windows.Forms.Padding(20, 5, 3, 0);
-            this.Taglabeltimenow.Name = "Taglabeltimenow";
-            this.Taglabeltimenow.Size = new System.Drawing.Size(127, 13);
-            this.Taglabeltimenow.TabIndex = 3;
-            this.Taglabeltimenow.Text = "%timenow% - Current time";
-            this.Taglabeltimenow.Click += new System.EventHandler(this.Taglabeltimenow_Click);
+            this.groupBox2.Controls.Add(this.flowLayoutPanelGeneric);
+            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.groupBox2.Location = new System.Drawing.Point(0, 37);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(10, 3, 3, 3);
+            this.groupBox2.Size = new System.Drawing.Size(301, 109);
+            this.groupBox2.TabIndex = 14;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Generic Tags";
             // 
-            // Taglabeldatecreated
+            // flowLayoutPanelGeneric
             // 
-            this.Taglabeldatecreated.AutoSize = true;
-            this.Taglabeldatecreated.Location = new System.Drawing.Point(29, 76);
-            this.Taglabeldatecreated.Margin = new System.Windows.Forms.Padding(20, 5, 3, 0);
-            this.Taglabeldatecreated.Name = "Taglabeldatecreated";
-            this.Taglabeldatecreated.Size = new System.Drawing.Size(205, 13);
-            this.Taglabeldatecreated.TabIndex = 4;
-            this.Taglabeldatecreated.Text = "%datecreated% - date the file was created";
-            this.Taglabeldatecreated.Click += new System.EventHandler(this.Taglabeldatecreated_Click);
+            this.flowLayoutPanelGeneric.AutoSize = true;
+            this.flowLayoutPanelGeneric.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.flowLayoutPanelGeneric.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanelGeneric.Location = new System.Drawing.Point(10, 16);
+            this.flowLayoutPanelGeneric.Name = "flowLayoutPanelGeneric";
+            this.flowLayoutPanelGeneric.Size = new System.Drawing.Size(288, 90);
+            this.flowLayoutPanelGeneric.TabIndex = 12;
             // 
-            // Taglabeltimecreated
+            // groupBox3
             // 
-            this.Taglabeltimecreated.AutoSize = true;
-            this.Taglabeltimecreated.Location = new System.Drawing.Point(29, 95);
-            this.Taglabeltimecreated.Margin = new System.Windows.Forms.Padding(20, 5, 3, 0);
-            this.Taglabeltimecreated.Name = "Taglabeltimecreated";
-            this.Taglabeltimecreated.Size = new System.Drawing.Size(201, 13);
-            this.Taglabeltimecreated.TabIndex = 6;
-            this.Taglabeltimecreated.Text = "%timecreated% - time the file was created";
-            this.Taglabeltimecreated.Click += new System.EventHandler(this.Taglabeltimecreated_Click);
+            this.groupBox3.Controls.Add(this.flowLayoutPanelExif);
+            this.groupBox3.Dock = System.Windows.Forms.DockStyle.Top;
+            this.groupBox3.Location = new System.Drawing.Point(0, 255);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Padding = new System.Windows.Forms.Padding(10, 3, 3, 3);
+            this.groupBox3.Size = new System.Drawing.Size(301, 109);
+            this.groupBox3.TabIndex = 15;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Exif Tags";
             // 
-            // Taglabeldatetaken
+            // flowLayoutPanelExif
             // 
-            this.Taglabeldatetaken.AutoSize = true;
-            this.Taglabeldatetaken.Location = new System.Drawing.Point(29, 113);
-            this.Taglabeldatetaken.Margin = new System.Windows.Forms.Padding(20, 5, 3, 0);
-            this.Taglabeldatetaken.Name = "Taglabeldatetaken";
-            this.Taglabeldatetaken.Size = new System.Drawing.Size(206, 13);
-            this.Taglabeldatetaken.TabIndex = 5;
-            this.Taglabeldatetaken.Text = "%datetaken% - date the picture was taken";
-            this.Taglabeldatetaken.Click += new System.EventHandler(this.Taglabeldatetaken_Click);
+            this.flowLayoutPanelExif.AutoSize = true;
+            this.flowLayoutPanelExif.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.flowLayoutPanelExif.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanelExif.Location = new System.Drawing.Point(10, 16);
+            this.flowLayoutPanelExif.Name = "flowLayoutPanelExif";
+            this.flowLayoutPanelExif.Size = new System.Drawing.Size(288, 90);
+            this.flowLayoutPanelExif.TabIndex = 12;
             // 
-            // Taglabeltimetaken
+            // panel2
             // 
-            this.Taglabeltimetaken.AutoSize = true;
-            this.Taglabeltimetaken.Location = new System.Drawing.Point(29, 131);
-            this.Taglabeltimetaken.Margin = new System.Windows.Forms.Padding(20, 5, 3, 0);
-            this.Taglabeltimetaken.Name = "Taglabeltimetaken";
-            this.Taglabeltimetaken.Size = new System.Drawing.Size(202, 13);
-            this.Taglabeltimetaken.TabIndex = 10;
-            this.Taglabeltimetaken.Text = "%timetaken% - time the picture was taken";
-            this.Taglabeltimetaken.Click += new System.EventHandler(this.Taglabeltimetaken_Click);
+            this.panel2.Controls.Add(this.buttonOK);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel2.Location = new System.Drawing.Point(0, 388);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(301, 26);
+            this.panel2.TabIndex = 16;
             // 
-            // Taglabelfolder
+            // flowLayoutPanelFileAttributes
             // 
-            this.Taglabelfolder.AutoSize = true;
-            this.Taglabelfolder.Location = new System.Drawing.Point(29, 185);
-            this.Taglabelfolder.Margin = new System.Windows.Forms.Padding(20, 5, 3, 0);
-            this.Taglabelfolder.Name = "Taglabelfolder";
-            this.Taglabelfolder.Size = new System.Drawing.Size(116, 13);
-            this.Taglabelfolder.TabIndex = 9;
-            this.Taglabelfolder.Text = "%folder% - Folder name";
-            this.Taglabelfolder.Click += new System.EventHandler(this.Taglabelfolder_Click);
+            this.flowLayoutPanelFileAttributes.AutoSize = true;
+            this.flowLayoutPanelFileAttributes.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.flowLayoutPanelFileAttributes.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanelFileAttributes.Location = new System.Drawing.Point(10, 16);
+            this.flowLayoutPanelFileAttributes.Name = "flowLayoutPanelFileAttributes";
+            this.flowLayoutPanelFileAttributes.Size = new System.Drawing.Size(288, 90);
+            this.flowLayoutPanelFileAttributes.TabIndex = 12;
             // 
-            // Taglabelfile
+            // groupBox1
             // 
-            this.Taglabelfile.AutoSize = true;
-            this.Taglabelfile.Location = new System.Drawing.Point(29, 149);
-            this.Taglabelfile.Margin = new System.Windows.Forms.Padding(20, 5, 3, 0);
-            this.Taglabelfile.Name = "Taglabelfile";
-            this.Taglabelfile.Size = new System.Drawing.Size(163, 13);
-            this.Taglabelfile.TabIndex = 8;
-            this.Taglabelfile.Text = "%file% - File name sans extension";
-            this.Taglabelfile.Click += new System.EventHandler(this.Taglabelfile_Click);
-            // 
-            // Taglabelfunction
-            // 
-            this.Taglabelfunction.AutoSize = true;
-            this.Taglabelfunction.Location = new System.Drawing.Point(29, 203);
-            this.Taglabelfunction.Margin = new System.Windows.Forms.Padding(20, 5, 3, 0);
-            this.Taglabelfunction.Name = "Taglabelfunction";
-            this.Taglabelfunction.Size = new System.Drawing.Size(116, 13);
-            this.Taglabelfunction.TabIndex = 7;
-            this.Taglabelfunction.Text = "%fnc% - Function result";
-            this.Taglabelfunction.Click += new System.EventHandler(this.Taglabelfunction_Click);
-            // 
-            // Tagelabelext
-            // 
-            this.Tagelabelext.AutoSize = true;
-            this.Tagelabelext.Location = new System.Drawing.Point(29, 167);
-            this.Tagelabelext.Margin = new System.Windows.Forms.Padding(20, 5, 3, 0);
-            this.Tagelabelext.Name = "Tagelabelext";
-            this.Tagelabelext.Size = new System.Drawing.Size(110, 13);
-            this.Tagelabelext.TabIndex = 11;
-            this.Tagelabelext.Text = "%ext% - File extension";
-            this.Tagelabelext.Click += new System.EventHandler(this.Tagelabelext_Click);
-            // 
-            // Taglabelloc
-            // 
-            this.Taglabelloc.AutoSize = true;
-            this.Taglabelloc.Location = new System.Drawing.Point(29, 221);
-            this.Taglabelloc.Margin = new System.Windows.Forms.Padding(20, 5, 3, 0);
-            this.Taglabelloc.Name = "Taglabelloc";
-            this.Taglabelloc.Size = new System.Drawing.Size(191, 13);
-            this.Taglabelloc.TabIndex = 12;
-            this.Taglabelloc.Text = "%loc% - Find city and country of picture";
-            this.Taglabelloc.Click += new System.EventHandler(this.Taglabelloc_Click);
+            this.groupBox1.Controls.Add(this.flowLayoutPanelFileAttributes);
+            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.groupBox1.Location = new System.Drawing.Point(0, 146);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(10, 3, 3, 3);
+            this.groupBox1.Size = new System.Drawing.Size(301, 109);
+            this.groupBox1.TabIndex = 13;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "File Attribute Tags";
             // 
             // TagsLegend
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 286);
-            this.Controls.Add(this.Taglabelloc);
-            this.Controls.Add(this.Tagelabelext);
-            this.Controls.Add(this.Taglabeltimetaken);
-            this.Controls.Add(this.Taglabelfolder);
-            this.Controls.Add(this.Taglabelfile);
-            this.Controls.Add(this.Taglabelfunction);
-            this.Controls.Add(this.Taglabeltimecreated);
-            this.Controls.Add(this.Taglabeldatetaken);
-            this.Controls.Add(this.Taglabeldatecreated);
-            this.Controls.Add(this.Taglabeltimenow);
-            this.Controls.Add(this.labelHelp);
-            this.Controls.Add(this.buttonOK);
-            this.Controls.Add(this.Taglabeldatenow);
+            this.ClientSize = new System.Drawing.Size(301, 414);
+            this.Controls.Add(this.panel2);
+            this.Controls.Add(this.groupBox3);
+            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "TagsLegend";
+            this.ShowInTaskbar = false;
             this.Text = "Tags legend";
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Label Taglabeldatenow;
         private System.Windows.Forms.Button buttonOK;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelGeneric;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelExif;
         private System.Windows.Forms.Label labelHelp;
-        private System.Windows.Forms.Label Taglabeltimenow;
-        private System.Windows.Forms.Label Taglabeldatecreated;
-        private System.Windows.Forms.Label Taglabeltimecreated;
-        private System.Windows.Forms.Label Taglabeldatetaken;
-        private System.Windows.Forms.Label Taglabeltimetaken;
-        private System.Windows.Forms.Label Taglabelfolder;
-        private System.Windows.Forms.Label Taglabelfile;
-        private System.Windows.Forms.Label Taglabelfunction;
-        private System.Windows.Forms.Label Tagelabelext;
-        private System.Windows.Forms.Label Taglabelloc;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelFileAttributes;
+        private System.Windows.Forms.GroupBox groupBox1;
     }
 }
