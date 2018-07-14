@@ -29,7 +29,6 @@ namespace BatchRenameApp
 
         /** For evaluating math functions */
         private static string lastvalidFunction = "x";
-        private static string replaceString;
         private BackgroundWorker processPreviews;
         private LocationServices savedLocations = new LocationServices();
 
@@ -40,10 +39,12 @@ namespace BatchRenameApp
         {
             InitializeComponent();
 
-            processPreviews = new BackgroundWorker();
-            processPreviews.WorkerSupportsCancellation = false;
+            processPreviews = new BackgroundWorker
+            {
+                WorkerSupportsCancellation = false
+            };
             processPreviews.DoWork += new DoWorkEventHandler(DoWorkPreview);
-            processPreviews.RunWorkerCompleted += new RunWorkerCompletedEventHandler(listboxPreviewprocessCompleted);
+            processPreviews.RunWorkerCompleted += new RunWorkerCompletedEventHandler(ListboxPreviewprocessCompleted);
 
             int errors = 0;
             Exception outException = null;
@@ -89,6 +90,7 @@ namespace BatchRenameApp
                 case (Keys.Escape):
                     History.Push(listBoxFilelist);
                     listBoxFilelist.ClearSelected();
+                    labelSelected.Text = "Selected: 0";
                     break;
 
                 case (Keys.Delete):
@@ -146,38 +148,41 @@ namespace BatchRenameApp
                 }
                 if (bValidregex)
                 {
-                    MatchCollection collection = regex.Matches(itemText);
-                    Brush brush = Brushes.DeepSkyBlue;
-                    int matchindx = 0;
-                    foreach (Match match in collection)
+                    if (regex.IsMatch(itemText))
                     {
-
-                        StringFormat stringFormat = new StringFormat
+                        MatchCollection collection = regex.Matches(itemText);
+                        Brush brush = Brushes.DeepSkyBlue;
+                        int matchindx = 0;
+                        foreach (Match match in collection)
                         {
-                            Alignment = StringAlignment.Near
-                        };
-                        CharacterRange[] characterRanges = { new CharacterRange(match.Index, match.Length) };
-                        stringFormat.SetMeasurableCharacterRanges(characterRanges);
+                            StringFormat stringFormat = new StringFormat
+                            {
+                                Alignment = StringAlignment.Near
+                            };
+                            CharacterRange[] characterRanges = { new CharacterRange(match.Index, match.Length) };
+                            stringFormat.SetMeasurableCharacterRanges(characterRanges);
 
-                        Region[] regions = e.Graphics.MeasureCharacterRanges(itemText, e.Font, e.Bounds, stringFormat);
+                            Region[] regions = e.Graphics.MeasureCharacterRanges(itemText, e.Font, e.Bounds, stringFormat);
 
-                        RectangleF rect = regions[0].GetBounds(e.Graphics);
-                        switch (matchindx)
-                        {
-                            case 0:
-                                brush = Brushes.DeepSkyBlue;
-                                matchindx++;
-                                break;
-                            case 1:
-                                brush = Brushes.DodgerBlue;
-                                matchindx = 0;
-                                break;
-                            default:
-                                matchindx = 0;
-                                break;
+                            RectangleF rect = regions[0].GetBounds(e.Graphics);
+                            switch (matchindx)
+                            {
+                                case 0:
+                                    brush = Brushes.DeepSkyBlue;
+                                    matchindx++;
+                                    break;
+                                case 1:
+                                    brush = Brushes.DodgerBlue;
+                                    matchindx = 0;
+                                    break;
+                                default:
+                                    matchindx = 0;
+                                    break;
+                            }
+                            e.Graphics.FillRectangle(brush, Rectangle.Round(rect));
                         }
-                        e.Graphics.FillRectangle(brush, Rectangle.Round(rect));
                     }
+
                 }
                 e.Graphics.DrawString(itemText, e.Font, new SolidBrush(e.ForeColor), e.Bounds);
                 ItemsCountPrev = listBoxFilelist.Items.Count;
@@ -187,6 +192,7 @@ namespace BatchRenameApp
                 listBoxFilelist.HorizontalExtent = 0;
             }
             e.DrawFocusRectangle();
+            labelSelected.Text = String.Format("Selected: {0}", listBoxFilelist.SelectedIndices.Count);
         }
 
         private void MainWindow_DragDrop(object sender, DragEventArgs e)
@@ -201,7 +207,6 @@ namespace BatchRenameApp
                 itemsdropped = FolderDropWizard(itemsdropped);
 
                 int errors = 0;
-                Exception outException = null;
                 List<string> erronousFiles = new List<string>();
                 listBoxFilelist.BeginUpdate();
                 foreach (string filename in itemsdropped)
@@ -259,12 +264,12 @@ namespace BatchRenameApp
                 {
                     ImportFoldersWindow foldersWindow = new ImportFoldersWindow();
 
-                    foldersWindow.clear();
+                    foldersWindow.Clear();
                     foldersWindow.AddFiles(lDirectories);
                     DialogResult result = foldersWindow.ShowDialog();
                     if (result == DialogResult.OK)
                     {
-                        itemsdropped = foldersWindow.getFiles();
+                        itemsdropped = foldersWindow.GetFiles();
                     }
                     else
                     {
@@ -381,6 +386,7 @@ namespace BatchRenameApp
             listBoxFilelist.BeginUpdate();
             for (int i = 0; i < listBoxFilelist.Items.Count; i++)
                 listBoxFilelist.SetSelected(i, !listBoxFilelist.GetSelected(i));
+            labelSelected.Text = String.Format("Selected: {0}", listBoxFilelist.SelectedIndices.Count);
             listBoxFilelist.EndUpdate();
         }
 
@@ -388,6 +394,7 @@ namespace BatchRenameApp
         {
             History.Push(listBoxFilelist.SelectedItems);
             listBoxFilelist.ClearSelected();
+            labelSelected.Text = String.Format("Selected: {0}", listBoxFilelist.SelectedIndices.Count);
         }
 
         private void RemoveSelectionContextMenuItem_Click(object sender, EventArgs e)
@@ -449,6 +456,7 @@ namespace BatchRenameApp
             {
                 index = -1;
             }
+            labelSelected.Text = String.Format("Selected: {0}", listBoxFilelist.SelectedIndices.Count);
             listBoxFilelist.SelectedIndex = index;
             listBoxFilelist.EndUpdate();
         }
@@ -470,24 +478,53 @@ namespace BatchRenameApp
             }
         }
 
+        public class PreviewResult
+        {
+            public object[] Filelist;
+            public object[] PreviewList;
+            public int MatchedCount;
+
+            public PreviewResult(object[] inputFilelist)
+            {
+                MatchedCount = 0;
+                Filelist = inputFilelist;
+                PreviewList = new object[Filelist.Length];
+            }
+
+            public PreviewResult()
+            {
+                MatchedCount = 0;
+                Filelist = new object[0];
+                PreviewList = new object[Filelist.Length];
+            }
+
+        }
+
         private void DoWorkPreview(object sender, DoWorkEventArgs e)
         {
-            object[] Filelist = (object[])e.Argument;
-            object[] Previewlist = new object[Filelist.Length];
+            PreviewResult previewResult = new PreviewResult((object[])e.Argument);
+
             string Search = inputSearch.Text;
             string Replace = inputReplace.Text;
             if (Search == "")
             {
+                bSearchStringEmpty = true;
                 Search = "^";
             }
-         
+            else
+                bSearchStringEmpty = false;
+
             int x = 0;
-            foreach (FileInfo item in Filelist)
+            foreach (FileInfo item in previewResult.Filelist)
             {
                 string fileName = item.ToString();
                 if (fileName != null)
                 {
-                    string renamed = processfile(x, item, Search, Replace);
+                    string renamed = Processfile(x, item, Search, Replace);
+                    if (renamed != "")
+                    {
+                        previewResult.MatchedCount += 1;
+                    }
                     if (renamed == "\r\n")
                     {
                         e.Cancel = true;
@@ -495,22 +532,30 @@ namespace BatchRenameApp
                     }
                     else
                     {
-                        Previewlist.SetValue(renamed, x);
+                        previewResult.PreviewList.SetValue(renamed, x);
                     }
                 }
                 x++;
             }
-            e.Result = Previewlist;
+            if (bSearchStringEmpty)
+            {
+
+            }
+            e.Result = previewResult;
         }
 
-        private string processfile(int x, FileInfo file, string startSearch, string startReplace)
+        private string Processfile(int x, FileInfo file, string startSearch, string startReplace)
         {
             string Search = inputSearch.Text;
             string Replace = inputReplace.Text;
             if (Search == "")
             {
+                bSearchStringEmpty = true;
                 Search = "^";
             }
+            else
+                bSearchStringEmpty = false;
+
             string result = string.Empty;
             if (!startSearch.Equals(Search) || !startReplace.Equals(Replace))
             {
@@ -525,7 +570,7 @@ namespace BatchRenameApp
         }
 
 
-        private void listboxPreviewprocessCompleted(object sender, RunWorkerCompletedEventArgs e)
+        private void ListboxPreviewprocessCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             if (e.Cancelled)
             {
@@ -534,15 +579,25 @@ namespace BatchRenameApp
             }
             else
             {
+                PreviewResult result = new PreviewResult();
+                try
+                {
+                    result = (PreviewResult)e.Result;
+                }
+                catch
+                {
+                }
+
                 listBoxPreview.Items.Clear();
                 try
                 {
-                    listBoxPreview.Items.AddRange((object[])e.Result);
+                    listBoxPreview.Items.AddRange(result.PreviewList);
                 }
                 catch (Exception)
                 {
                 }
                 listBoxPreview.EndUpdate();
+                labelMatched.Text = String.Format("Matched: {0}", result.MatchedCount);
             }
         }
         #endregion
@@ -550,19 +605,10 @@ namespace BatchRenameApp
         // PROCESS STRINGS
         #region
 
-        private static string Replacement
-        {
-            get
-            {
-                return replaceString;
-            }
-            set
-            {
-                replaceString = value;
-            }
-        }
+        private static string Replacement { get; set; }
 
         private static Regex r = new Regex(":");
+        private bool bSearchStringEmpty;
 
 
         //retrieves the datetime WITHOUT loading the whole image
@@ -589,9 +635,9 @@ namespace BatchRenameApp
             Double[] output = new Double[2] { -360.0d, -360.0d };
             double[] lat = null;
             double[] lon = null;
-            if (exifcache.IsGPSsaved(path))
+            if (Exifcache.IsGPSsaved(path))
             {
-                return exifcache.getSavedGPS(path);
+                return Exifcache.GetSavedGPS(path);
             }
             else
             {
@@ -613,7 +659,7 @@ namespace BatchRenameApp
                     output[0] = lat[0] + lat[1] / 60 + lat[2] / 3600;
                     output[1] = lon[0] + lon[1] / 60 + lon[2] / 3600;
                 }
-                exifcache.SaveGPS(output, path);
+                Exifcache.SaveGPS(output, path);
                 return output;
             }
         }
@@ -862,11 +908,11 @@ namespace BatchRenameApp
                 listBoxFilelist.SetSelected(x, true);
                 x++;
             }
-
+            labelSelected.Text = String.Format("Selected: {0}", listBoxFilelist.SelectedIndices.Count);
             UpdatePreview();
         }
 
-        private class exifcache
+        private class Exifcache
         {
 
             internal static Dictionary<string, double[]> SavedExifData = new Dictionary<string, double[]>();
@@ -883,10 +929,9 @@ namespace BatchRenameApp
                 }
             }
 
-            internal static double[] getSavedGPS(string path)
+            internal static double[] GetSavedGPS(string path)
             {
-                double[] output;
-                if (SavedExifData.TryGetValue(path, out output))
+                if (SavedExifData.TryGetValue(path, out double[] output))
                 {
                     return output;
                 }
@@ -903,9 +948,10 @@ namespace BatchRenameApp
             }
         }
 
-        private void linkLabelRegex_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void LinkLabelRegex_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Process.Start("https://docs.microsoft.com/en-us/dotnet/standard/base-types/regular-expression-language-quick-reference");
         }
+
     }
 }

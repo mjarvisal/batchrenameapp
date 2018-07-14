@@ -80,7 +80,7 @@ namespace BatchRenameApp
             InsertText("%loc%");
         }
 
-        private void buttonOK_Click(object sender, EventArgs e)
+        private void ButtonOK_Click(object sender, EventArgs e)
         {
             Close();
         }

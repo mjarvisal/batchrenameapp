@@ -49,7 +49,7 @@
             this.trackBarFolderDepth.TabIndex = 1;
             this.trackBarFolderDepth.TickStyle = System.Windows.Forms.TickStyle.TopLeft;
             this.trackBarFolderDepth.Value = 10;
-            this.trackBarFolderDepth.ValueChanged += new System.EventHandler(this.trackBarFolderDepth_ValueChanged);
+            this.trackBarFolderDepth.ValueChanged += new System.EventHandler(this.TrackBarFolderDepth_ValueChanged);
             // 
             // textBoxFolderDepth
             // 
@@ -70,7 +70,7 @@
             this.treeViewFileslist.Name = "treeViewFileslist";
             this.treeViewFileslist.Size = new System.Drawing.Size(276, 426);
             this.treeViewFileslist.TabIndex = 3;
-            this.treeViewFileslist.KeyUp += new System.Windows.Forms.KeyEventHandler(this.treeViewFileslist_KeyUp);
+            this.treeViewFileslist.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TreeViewFileslist_KeyUp);
             // 
             // ButtonOk
             // 

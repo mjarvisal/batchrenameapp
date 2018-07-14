@@ -531,8 +531,7 @@ namespace ExifLib
 
             // There's more data stored in the EXIF subifd, the offset to which is found in tag 0x8769.
             // As with all TIFF offsets, it will be relative to the first byte of the TIFF header.
-            uint offset;
-            if (GetTagValue(_ifd0PrimaryCatalogue, 0x8769, out offset))
+            if (GetTagValue(_ifd0PrimaryCatalogue, 0x8769, out uint offset))
             {
                 // Jump to the exif SubIFD
                 _stream.Position = offset + _tiffHeaderStart;
@@ -569,9 +568,10 @@ namespace ExifLib
 
         public bool GetTagValue<T>(ushort tagID, out T result)
         {
-            IFD ifd;
-            if (_ifdLookup.TryGetValue(tagID, out ifd))
+            if (_ifdLookup.TryGetValue(tagID, out IFD ifd))
+            {
                 return GetTagValue(tagID, ifd, out result);
+            }
 
             // It's an unknown tag. Try all IFDs. Note that the thumbnail catalogue (IFD1)
             // is only used for thumbnails, never for tag retrieval
@@ -612,9 +612,7 @@ namespace ExifLib
         /// </summary>
         private bool GetTagValue<T>(Dictionary<ushort, long> tagDictionary, ushort tagID, out T result)
         {
-            ushort tiffDataType;
-            uint numberOfComponents;
-            byte[] tagData = GetTagBytes(tagDictionary, tagID, out tiffDataType, out numberOfComponents);
+            byte[] tagData = GetTagBytes(tagDictionary, tagID, out ushort tiffDataType, out uint numberOfComponents);
 
             if (tagData == null)
             {
@@ -664,8 +662,7 @@ namespace ExifLib
                     // Special processing for dates.
                     if (typeof(T) == typeof(DateTime))
                     {
-                        DateTime dateResult;
-                        bool success = ToDateTime(str, out dateResult);
+                        bool success = ToDateTime(str, out DateTime dateResult);
 
                         result = (T)(object)dateResult;
                         return success;
@@ -880,8 +877,7 @@ namespace ExifLib
                 return null;
 
             // Get the thumbnail encoding
-            ushort compression;
-            if (!GetTagValue(_ifd1Catalogue, (ushort)ExifTags.Compression, out compression))
+            if (!GetTagValue(_ifd1Catalogue, (ushort)ExifTags.Compression, out ushort compression))
                 return null;
 
             // This method only handles JPEG thumbnails (compression type 6)
@@ -889,13 +885,11 @@ namespace ExifLib
                 return null;
 
             // Get the location of the thumbnail
-            uint offset;
-            if (!GetTagValue(_ifd1Catalogue, (ushort)ExifTags.JPEGInterchangeFormat, out offset))
+            if (!GetTagValue(_ifd1Catalogue, (ushort)ExifTags.JPEGInterchangeFormat, out uint offset))
                 return null;
 
             // Get the length of the thumbnail data
-            uint length;
-            if (!GetTagValue(_ifd1Catalogue, (ushort)ExifTags.JPEGInterchangeFormatLength, out length))
+            if (!GetTagValue(_ifd1Catalogue, (ushort)ExifTags.JPEGInterchangeFormatLength, out uint length))
                 return null;
 
             _stream.Position = offset;
