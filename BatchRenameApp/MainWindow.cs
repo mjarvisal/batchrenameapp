@@ -32,6 +32,7 @@ namespace BatchRenameApp
         private static string replaceString;
         private BackgroundWorker processPreviews;
         private LocationServices savedLocations = new LocationServices();
+        private TagsLegend legend;
 
         // MAIN WINDOW EVENTS
         #region Main Window events
@@ -408,10 +409,6 @@ namespace BatchRenameApp
             UpdatePreview();
         }
 
-        private void TagsContextMenuItem_Click(object sender, EventArgs e)
-        {
-           
-        }
         private void SettingsContextMenuItem_Click(object sender, EventArgs e)
         {
             settingsForm.StartPosition = FormStartPosition.CenterParent;
@@ -901,16 +898,26 @@ namespace BatchRenameApp
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            TagsLegend legend = new TagsLegend
-            {
-                StartPosition = FormStartPosition.Manual
-            };
 
-            Point startinglocation = Location;
-            startinglocation.X = Location.X + Bounds.Width + 3;
-            startinglocation.Y = Location.Y + 30;
-            legend.Location = startinglocation;
+            if (legend == null || legend.IsDisposed)
+            {
+                legend = new TagsLegend
+                {
+                    StartPosition = FormStartPosition.Manual
+                };
+            }
+
+            Point newLocation = new Point(Location.X + Bounds.Width + 3, Location.Y + 30);
+           
+            if ((newLocation.X + legend.Width ) > Screen.GetWorkingArea(this).Right)
+            {
+                newLocation.X = Bounds.Left - legend.Width + 3;
+            }
+
+            legend.Location = newLocation;
             legend.Show();
+            legend.Focus();
         }
     }
+
 }
