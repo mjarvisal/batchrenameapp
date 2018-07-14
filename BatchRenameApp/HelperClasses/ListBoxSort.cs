@@ -147,9 +147,9 @@ namespace BatchRenameApp
                     if (collection.Count > 0)
                         return new CharacterRange(collection[i].Index, collection[i].Length);
                 }
-                return new CharacterRange(0, Text.Length);
+                return new CharacterRange(0, 0);
             }
-            return new CharacterRange(0, Text.Length);
+            return new CharacterRange(0, 0);
         }
 
     }

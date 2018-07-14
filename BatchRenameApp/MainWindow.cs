@@ -200,7 +200,7 @@ namespace BatchRenameApp
                     stringFormat2.SetMeasurableCharacterRanges(characterRanges2);
                     Region[] regions2 = e.Graphics.MeasureCharacterRanges(itemText, e.Font, e.Bounds, stringFormat2);
                     RectangleF rect2 = regions2[0].GetBounds(e.Graphics);
-                    e.Graphics.DrawRectangle(Pens.Black, Rectangle.Round(rect2));
+                    e.Graphics.DrawRectangle(Pens.DarkOrange, Rectangle.Round(rect2));
                 }
 
                 e.Graphics.DrawString(itemText, e.Font, new SolidBrush(e.ForeColor), e.Bounds);
