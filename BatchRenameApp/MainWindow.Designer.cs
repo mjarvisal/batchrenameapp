@@ -50,28 +50,28 @@
             this.regularExpressionsContextMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparatorTags = new System.Windows.Forms.ToolStripSeparator();
             this.panelSearchandReplace = new System.Windows.Forms.Panel();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.InputSortFilter = new System.Windows.Forms.TextBox();
+            this.inputFunction = new System.Windows.Forms.TextBox();
             this.linkLabelTags = new System.Windows.Forms.LinkLabel();
             this.linkLabelRegex = new System.Windows.Forms.LinkLabel();
+            this.tableLayoutPanelBottom = new System.Windows.Forms.TableLayoutPanel();
+            this.labelSelected = new System.Windows.Forms.Label();
+            this.labelMatched = new System.Windows.Forms.Label();
+            this.progressBarApp = new System.Windows.Forms.ProgressBar();
+            this.labelProgress = new System.Windows.Forms.Label();
             this.collabsibleGroupBoxFiles = new Indigo.CollapsibleGroupBox();
             this.tableLayoutPanelListBoxes = new System.Windows.Forms.TableLayoutPanel();
             this.listBoxPreview = new System.Windows.Forms.ListBox();
             this.listBoxFilelist = new Oli.Controls.DragDropListBox();
             this.labelFileList = new System.Windows.Forms.Label();
             this.labelChanged = new System.Windows.Forms.Label();
-            this.inputFunction = new System.Windows.Forms.TextBox();
-            this.tableLayoutPanelBottom = new System.Windows.Forms.TableLayoutPanel();
-            this.labelSelected = new System.Windows.Forms.Label();
-            this.labelMatched = new System.Windows.Forms.Label();
-            this.progressBarApp = new System.Windows.Forms.ProgressBar();
-            this.labelProgress = new System.Windows.Forms.Label();
-            this.InputSortFilter = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             this.contextMenu.SuspendLayout();
             this.panelSearchandReplace.SuspendLayout();
+            this.tableLayoutPanelBottom.SuspendLayout();
             this.collabsibleGroupBoxFiles.SuspendLayout();
             this.tableLayoutPanelListBoxes.SuspendLayout();
-            this.tableLayoutPanelBottom.SuspendLayout();
             this.SuspendLayout();
             // 
             // inputSearch
@@ -137,7 +137,7 @@
             this.contextMenu.Name = "contextMenu";
             this.contextMenu.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
             this.contextMenu.ShowImageMargin = false;
-            this.contextMenu.Size = new System.Drawing.Size(171, 220);
+            this.contextMenu.Size = new System.Drawing.Size(171, 198);
             this.contextMenu.Text = "^";
             // 
             // undoContextMenuItem
@@ -215,7 +215,7 @@
             // regularExpressionsContextMenuItem
             // 
             this.regularExpressionsContextMenuItem.Name = "regularExpressionsContextMenuItem";
-            this.regularExpressionsContextMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.regularExpressionsContextMenuItem.Size = new System.Drawing.Size(177, 22);
             this.regularExpressionsContextMenuItem.Text = "Regular expressions";
             this.regularExpressionsContextMenuItem.Click += new System.EventHandler(this.RegularExpressionsContextMenuItem_Click);
             // 
@@ -243,6 +243,40 @@
             this.panelSearchandReplace.Size = new System.Drawing.Size(467, 151);
             this.panelSearchandReplace.TabIndex = 10;
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(15, 99);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(51, 13);
+            this.label2.TabIndex = 14;
+            this.label2.Text = "Sort Filter";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(235, 99);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(48, 13);
+            this.label1.TabIndex = 13;
+            this.label1.Text = "Function";
+            // 
+            // InputSortFilter
+            // 
+            this.InputSortFilter.Location = new System.Drawing.Point(15, 115);
+            this.InputSortFilter.Name = "InputSortFilter";
+            this.InputSortFilter.Size = new System.Drawing.Size(214, 20);
+            this.InputSortFilter.TabIndex = 12;
+            this.InputSortFilter.TextChanged += new System.EventHandler(this.InputSortFilter_TextChanged);
+            // 
+            // inputFunction
+            // 
+            this.inputFunction.Location = new System.Drawing.Point(235, 115);
+            this.inputFunction.Name = "inputFunction";
+            this.inputFunction.Size = new System.Drawing.Size(215, 20);
+            this.inputFunction.TabIndex = 10;
+            this.inputFunction.TextChanged += new System.EventHandler(this.TextBoxFunction_TextChanged);
+            // 
             // linkLabelTags
             // 
             this.linkLabelTags.AutoSize = true;
@@ -265,6 +299,66 @@
             this.linkLabelRegex.TabStop = true;
             this.linkLabelRegex.Text = "How to use Regular Expressions";
             this.linkLabelRegex.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkLabelRegex_LinkClicked);
+            // 
+            // tableLayoutPanelBottom
+            // 
+            this.tableLayoutPanelBottom.ColumnCount = 4;
+            this.tableLayoutPanelBottom.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 49.09091F));
+            this.tableLayoutPanelBottom.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.90909F));
+            this.tableLayoutPanelBottom.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 116F));
+            this.tableLayoutPanelBottom.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 108F));
+            this.tableLayoutPanelBottom.Controls.Add(this.labelSelected, 0, 0);
+            this.tableLayoutPanelBottom.Controls.Add(this.labelMatched, 0, 0);
+            this.tableLayoutPanelBottom.Controls.Add(this.progressBarApp, 3, 0);
+            this.tableLayoutPanelBottom.Controls.Add(this.labelProgress, 2, 0);
+            this.tableLayoutPanelBottom.Location = new System.Drawing.Point(12, 462);
+            this.tableLayoutPanelBottom.Name = "tableLayoutPanelBottom";
+            this.tableLayoutPanelBottom.RowCount = 1;
+            this.tableLayoutPanelBottom.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanelBottom.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanelBottom.Size = new System.Drawing.Size(441, 23);
+            this.tableLayoutPanelBottom.TabIndex = 14;
+            // 
+            // labelSelected
+            // 
+            this.labelSelected.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.labelSelected.AutoSize = true;
+            this.labelSelected.Location = new System.Drawing.Point(109, 6);
+            this.labelSelected.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
+            this.labelSelected.Name = "labelSelected";
+            this.labelSelected.Size = new System.Drawing.Size(52, 13);
+            this.labelSelected.TabIndex = 17;
+            this.labelSelected.Text = "Selected:";
+            // 
+            // labelMatched
+            // 
+            this.labelMatched.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.labelMatched.AutoSize = true;
+            this.labelMatched.Location = new System.Drawing.Point(3, 6);
+            this.labelMatched.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
+            this.labelMatched.Name = "labelMatched";
+            this.labelMatched.Size = new System.Drawing.Size(52, 13);
+            this.labelMatched.TabIndex = 16;
+            this.labelMatched.Text = "Matched:";
+            // 
+            // progressBarApp
+            // 
+            this.progressBarApp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.progressBarApp.Location = new System.Drawing.Point(340, 3);
+            this.progressBarApp.Name = "progressBarApp";
+            this.progressBarApp.Size = new System.Drawing.Size(98, 17);
+            this.progressBarApp.TabIndex = 0;
+            // 
+            // labelProgress
+            // 
+            this.labelProgress.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.labelProgress.AutoSize = true;
+            this.labelProgress.Location = new System.Drawing.Point(291, 6);
+            this.labelProgress.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
+            this.labelProgress.Name = "labelProgress";
+            this.labelProgress.Size = new System.Drawing.Size(38, 13);
+            this.labelProgress.TabIndex = 15;
+            this.labelProgress.Text = "Ready";
             // 
             // collabsibleGroupBoxFiles
             // 
@@ -343,100 +437,6 @@
             this.labelChanged.TabIndex = 8;
             this.labelChanged.Text = "Changed filenames";
             // 
-            // inputFunction
-            // 
-            this.inputFunction.Location = new System.Drawing.Point(235, 115);
-            this.inputFunction.Name = "inputFunction";
-            this.inputFunction.Size = new System.Drawing.Size(215, 20);
-            this.inputFunction.TabIndex = 10;
-            this.inputFunction.TextChanged += new System.EventHandler(this.TextBoxFunction_TextChanged);
-            // 
-            // tableLayoutPanelBottom
-            // 
-            this.tableLayoutPanelBottom.ColumnCount = 4;
-            this.tableLayoutPanelBottom.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 49.09091F));
-            this.tableLayoutPanelBottom.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.90909F));
-            this.tableLayoutPanelBottom.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 116F));
-            this.tableLayoutPanelBottom.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 106F));
-            this.tableLayoutPanelBottom.Controls.Add(this.labelSelected, 0, 0);
-            this.tableLayoutPanelBottom.Controls.Add(this.labelMatched, 0, 0);
-            this.tableLayoutPanelBottom.Controls.Add(this.progressBarApp, 3, 0);
-            this.tableLayoutPanelBottom.Controls.Add(this.labelProgress, 2, 0);
-            this.tableLayoutPanelBottom.Location = new System.Drawing.Point(12, 462);
-            this.tableLayoutPanelBottom.Name = "tableLayoutPanelBottom";
-            this.tableLayoutPanelBottom.RowCount = 1;
-            this.tableLayoutPanelBottom.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanelBottom.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanelBottom.Size = new System.Drawing.Size(441, 23);
-            this.tableLayoutPanelBottom.TabIndex = 14;
-            // 
-            // labelSelected
-            // 
-            this.labelSelected.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.labelSelected.AutoSize = true;
-            this.labelSelected.Location = new System.Drawing.Point(110, 6);
-            this.labelSelected.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
-            this.labelSelected.Name = "labelSelected";
-            this.labelSelected.Size = new System.Drawing.Size(52, 13);
-            this.labelSelected.TabIndex = 17;
-            this.labelSelected.Text = "Selected:";
-            // 
-            // labelMatched
-            // 
-            this.labelMatched.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.labelMatched.AutoSize = true;
-            this.labelMatched.Location = new System.Drawing.Point(3, 6);
-            this.labelMatched.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
-            this.labelMatched.Name = "labelMatched";
-            this.labelMatched.Size = new System.Drawing.Size(52, 13);
-            this.labelMatched.TabIndex = 16;
-            this.labelMatched.Text = "Matched:";
-            // 
-            // progressBarApp
-            // 
-            this.progressBarApp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.progressBarApp.Location = new System.Drawing.Point(340, 3);
-            this.progressBarApp.Name = "progressBarApp";
-            this.progressBarApp.Size = new System.Drawing.Size(98, 17);
-            this.progressBarApp.TabIndex = 0;
-            // 
-            // labelProgress
-            // 
-            this.labelProgress.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.labelProgress.AutoSize = true;
-            this.labelProgress.Location = new System.Drawing.Point(293, 6);
-            this.labelProgress.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
-            this.labelProgress.Name = "labelProgress";
-            this.labelProgress.Size = new System.Drawing.Size(38, 13);
-            this.labelProgress.TabIndex = 15;
-            this.labelProgress.Text = "Ready";
-            // 
-            // InputSortFilter
-            // 
-            this.InputSortFilter.Location = new System.Drawing.Point(15, 115);
-            this.InputSortFilter.Name = "InputSortFilter";
-            this.InputSortFilter.Size = new System.Drawing.Size(214, 20);
-            this.InputSortFilter.TabIndex = 12;
-            this.InputSortFilter.TextChanged += new System.EventHandler(this.InputSortFilter_TextChanged);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(235, 99);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(48, 13);
-            this.label1.TabIndex = 13;
-            this.label1.Text = "Function";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(15, 99);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(51, 13);
-            this.label2.TabIndex = 14;
-            this.label2.Text = "Sort Filter";
-            // 
             // MainWindow
             // 
             this.AllowDrop = true;
@@ -462,11 +462,11 @@
             this.contextMenu.ResumeLayout(false);
             this.panelSearchandReplace.ResumeLayout(false);
             this.panelSearchandReplace.PerformLayout();
+            this.tableLayoutPanelBottom.ResumeLayout(false);
+            this.tableLayoutPanelBottom.PerformLayout();
             this.collabsibleGroupBoxFiles.ResumeLayout(false);
             this.tableLayoutPanelListBoxes.ResumeLayout(false);
             this.tableLayoutPanelListBoxes.PerformLayout();
-            this.tableLayoutPanelBottom.ResumeLayout(false);
-            this.tableLayoutPanelBottom.PerformLayout();
             this.ResumeLayout(false);
 
         }

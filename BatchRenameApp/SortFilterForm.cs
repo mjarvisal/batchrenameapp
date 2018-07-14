@@ -15,12 +15,12 @@ namespace BatchRenameApp
         public SortFilterForm()
         {
             InitializeComponent();
-            textBox1.Text = Program.mainWindowForm.SortFilter;
+            textBoxFilter.Text = Program.mainWindowForm.SortFilter;
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            Program.mainWindowForm.SortFilter = textBox1.Text;
+            Program.mainWindowForm.SortFilter = textBoxFilter.Text;
             Program.mainWindowForm.UpdatePreview();
             Program.mainWindowForm.listBoxFilelist.Refresh();
         }
@@ -37,8 +37,35 @@ namespace BatchRenameApp
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            DropdownSelect.SelectedIndex = 0;
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
 
         }
 
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void DropdownBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            switch (DropdownSelect.Text)
+            {
+                case "All":
+                    Program.mainWindowForm.SortSelection = false;
+                    break;
+                default:
+                    Program.mainWindowForm.SortSelection = true;
+                    break;
+            }
+        }
+
+        private void buttonSelectFiltered_Click(object sender, EventArgs e)
+        {
+            Program.mainWindowForm.SelectFiltered();
+        }
     }
 }

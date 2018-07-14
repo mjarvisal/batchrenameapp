@@ -8,8 +8,8 @@ using System.Drawing;
 namespace BatchRenameApp
 {
 
-    enum SortMode { None, Asc, Desc };
-    enum Copying { from, to };
+    public enum SortMode { None, Asc, Desc };
+    public enum Copying { from, to };
 
     public class ListBoxSort
     {
@@ -39,40 +39,72 @@ namespace BatchRenameApp
             }
         }
 
-        public static void SortAsc(ListBox itemsListBox, String Text)
+        public static void FilterSelection(ListBox listBox, String filter)
         {
-            IComparer Asc = new myAscSortClass();
-            ArrayList sortedList = new ArrayList();
-            foreach (object item in itemsListBox.Items)
+            listBox.ClearSelected();
+            for (int x = 0; x < listBox.Items.Count; x++)
             {
-                sortedList.Add(item);
+                if (!RegexFilter(filter, ((FileInfo)listBox.Items[x]).Name).Equals(""))
+                {
+                    listBox.SetSelected(x, true);
+                }
             }
-            SortFilter = Text;
-            sortedList.Sort(Asc);
-            itemsListBox.Items.Clear();
-
-            foreach (object item in sortedList)
-            {
-                itemsListBox.Items.Add(item);
-            }
-
         }
 
-        public static void SortDesc(ListBox itemsListBox, String Text)
+
+        public static void SortList(SortMode mode, ListBox itemsListBox, String Filter, bool isSelection)
         {
-            IComparer Desc = new myDescSortClass();
-            ArrayList sortedList = new ArrayList();
-            foreach (FileInfo item in itemsListBox.Items)
+            itemsListBox.BeginUpdate();
+            IComparer comparer = new myAscSortClass();
+
+            switch (mode)
             {
-                sortedList.Add(item);
+                case SortMode.Desc:
+                    comparer = new myDescSortClass();
+                    break;
             }
-            SortFilter = Text;
-            sortedList.Sort(Desc);
+
+            ArrayList sortedList = new ArrayList();
+            ArrayList notSortedList = new ArrayList();
+            int x = 0;
+            foreach (object item in itemsListBox.Items)
+            {
+                if (isSelection)
+                {
+                    if (itemsListBox.GetSelected(x))
+                    {
+                        sortedList.Add(item);
+                    }
+                    else
+                    {
+                        notSortedList.Add(item);
+                    }
+                }
+                else
+                {
+                    sortedList.Add(item);
+                }
+                x++;
+            }
+            SortFilter = Filter;
+            sortedList.Sort(comparer);
             itemsListBox.Items.Clear();
+
+            int i = 0;
             foreach (object item in sortedList)
             {
                 itemsListBox.Items.Add(item);
+                if (isSelection)
+                {
+                    itemsListBox.SetSelected(i++, true);
+                }
             }
+
+            foreach (object item in notSortedList)
+            {
+                itemsListBox.Items.Add(item);
+            }
+            itemsListBox.EndUpdate();
         }
 
         public static void Swap(ListBox itemsListBox, int from, int to)
@@ -109,13 +141,13 @@ namespace BatchRenameApp
                 if (regex.IsMatch(Text))
                 {
                     MatchCollection collection = regex.Matches(Text);
-                    int i = collection.Count-1;
+                    int i = collection.Count - 1;
                     if (collection.Count > 0)
                         return collection[i].Value;
                 }
-                return Text;
+                return "";
             }
-            return Text;
+            return "";
         }
 
 

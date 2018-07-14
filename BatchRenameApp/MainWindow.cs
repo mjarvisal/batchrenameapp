@@ -35,6 +35,7 @@ namespace BatchRenameApp
         private SortFilterForm sortFilterForm;
 
         public String SortFilter = "";
+        public bool SortSelection = false;
 
         // MAIN WINDOW EVENTS
         #region Main Window events
@@ -382,14 +383,15 @@ namespace BatchRenameApp
         public void SortFilesAsc()
         {
             History.Push(listBoxFilelist.Items);
-            ListBoxSort.SortAsc(listBoxFilelist, SortFilter);
+            ListBoxSort.SortList(SortMode.Asc, listBoxFilelist, SortFilter, SortSelection);
             UpdatePreview();
         }
+
 
         public void SortFilesDesc()
         {
             History.Push(listBoxFilelist.Items);
-            ListBoxSort.SortDesc(listBoxFilelist, SortFilter);
+            ListBoxSort.SortList(SortMode.Desc, listBoxFilelist, SortFilter, SortSelection);
             UpdatePreview();
         }
 
@@ -466,6 +468,12 @@ namespace BatchRenameApp
             listBoxFilelist.SelectedIndex = index;
             listBoxFilelist.EndUpdate();
         }
+
+        public void SelectFiltered()
+        {
+            ListBoxSort.FilterSelection(listBoxFilelist, SortFilter);
+        }
+
 
         public void UpdatePreview()
         {
@@ -995,10 +1003,9 @@ namespace BatchRenameApp
 
             sortFilterForm.Show();
             sortFilterForm.Focus();
-
-
-
         }
     }
+
+
 
 }
