@@ -55,10 +55,12 @@ namespace BatchRenameApp
             float FirstColumnSize = 0.33f; 
             foreach (Tag tag in tags)
             {
-                LinkLabel link = new LinkLabel();
-                link.Text = tag.TagName;
+                LinkLabel link = new LinkLabel
+                {
+                    Text = tag.TagName
+                };
                 link.Size = new Size((int)(FirstColumnSize * panel.Size.Width), link.Size.Height);
-                link.Click += onClick;
+                link.Click += OnClick;
 
                 Label description = new Label();
                 //description.Size = TextRenderer.MeasureText(tag.TagDescription, description.Font);
@@ -73,7 +75,7 @@ namespace BatchRenameApp
 
         }
 
-        public void onClick(object sender, EventArgs e)
+        public void OnClick(object sender, EventArgs e)
         {
             InsertText(((LinkLabel)sender).Text);
         }
@@ -85,7 +87,7 @@ namespace BatchRenameApp
             inputReplace.SelectionStart = Cursorlocation + text.Length;
         }
 
-        private void buttonOK_Click(object sender, EventArgs e)
+        private void ButtonOK_Click(object sender, EventArgs e)
         {
             Close();
         }
@@ -98,7 +100,6 @@ namespace BatchRenameApp
         public String TagDescription;
 
         public Tag(string Name, string Desc)
-        private void ButtonOK_Click(object sender, EventArgs e)
         {
             TagName = Name;
             TagDescription = Desc;
