@@ -46,7 +46,6 @@
             this.textBoxDateFormat.Name = "textBoxDateFormat";
             this.textBoxDateFormat.Size = new System.Drawing.Size(100, 20);
             this.textBoxDateFormat.TabIndex = 0;
-            this.textBoxDateFormat.Text = "yyyy-MM-dd";
             // 
             // labeldateFormat
             // 
@@ -72,7 +71,6 @@
             this.textBoxtimeFormat.Name = "textBoxtimeFormat";
             this.textBoxtimeFormat.Size = new System.Drawing.Size(100, 20);
             this.textBoxtimeFormat.TabIndex = 2;
-            this.textBoxtimeFormat.Text = "HH.mm.ss";
             // 
             // buttonOK
             // 
@@ -109,7 +107,6 @@
             this.textBoxNumberformat.Name = "textBoxNumberformat";
             this.textBoxNumberformat.Size = new System.Drawing.Size(100, 20);
             this.textBoxNumberformat.TabIndex = 6;
-            this.textBoxNumberformat.Text = "D2";
             // 
             // labelNumberHelp
             // 

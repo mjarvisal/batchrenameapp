@@ -8,13 +8,13 @@ namespace BatchRenameApp
 {
     public partial class Settings : Form
     {
-        public string dateformat = "yyyy-MM-dd";
-        public string timeformat = "HH.mm.ss";
-        public string numberformat = "D2";
 
         public Settings()
         { 
             InitializeComponent();
+            textBoxNumberformat.Text = Properties.Settings.Default.NumberFormat;
+            textBoxDateFormat.Text = Properties.Settings.Default.DateFormat;
+            textBoxtimeFormat.Text = Properties.Settings.Default.TimeFormat;
         }
 
         private void Settings_FormClosed(object sender, FormClosedEventArgs e)
@@ -24,9 +24,7 @@ namespace BatchRenameApp
 
         private void ButtonOK_Click(object sender, EventArgs e)
         {
-            dateformat = textBoxDateFormat.Text;
-            timeformat = textBoxtimeFormat.Text;
-            numberformat = textBoxNumberformat.Text;
+            SaveSettings();
             this.Close();
         }
 
@@ -40,9 +38,7 @@ namespace BatchRenameApp
             switch (e.KeyCode)
             {
                 case (Keys.Enter):
-                    dateformat = textBoxDateFormat.Text;
-                    timeformat = textBoxtimeFormat.Text;
-                    numberformat = textBoxNumberformat.Text;
+                    SaveSettings();
                     this.Close();
                     break;
                 case (Keys.Escape):
@@ -65,5 +61,14 @@ namespace BatchRenameApp
         {
             labelNumberHelp.Font = new Font(labelNumberHelp.Font, FontStyle.Regular);
         }
+
+        private void SaveSettings()
+        {
+            Properties.Settings.Default.DateFormat = textBoxDateFormat.Text;
+            Properties.Settings.Default.TimeFormat = textBoxtimeFormat.Text;
+            Properties.Settings.Default.NumberFormat = textBoxNumberformat.Text;
+            Properties.Settings.Default.Save();
+        }
+
     }
 }

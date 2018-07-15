@@ -32,6 +32,10 @@ namespace BatchRenameApp
         private BackgroundWorker processPreviews;
         private LocationServices savedLocations = new LocationServices();
         private TagsLegend legend;
+        private SortFilterForm sortFilterForm;
+
+        public String SortFilter = "";
+        public bool SortSelection = false;
 
         // MAIN WINDOW EVENTS
         #region Main Window events
@@ -105,6 +109,20 @@ namespace BatchRenameApp
             }
         }
 
+        private void MainWindow_Load(object sender, EventArgs e)
+        {
+            listBoxFilelist.Items.Clear();
+            History.Push(listBoxFilelist);
+            int x = 0;
+            foreach (FileInfo file in filestorage.GetFileInfos())
+            {
+                listBoxFilelist.Items.Add(file);
+                listBoxFilelist.SetSelected(x, true);
+                x++;
+            }
+            labelSelected.Text = String.Format("Selected: {0}", listBoxFilelist.SelectedIndices.Count);
+            UpdatePreview();
+        }
         #endregion
 
         // UI ELEMENT CALLBACKS
@@ -112,8 +130,6 @@ namespace BatchRenameApp
 
         private void ListBoxFilelist_DrawItem(object sender, DrawItemEventArgs e)
         {
-
-            bool bValidregex = false;
 
             e.DrawBackground();
             if (e.Index > -1)
@@ -131,23 +147,10 @@ namespace BatchRenameApp
                     }
                 }
 
-                string SearchText = "^";
-                Regex regex = new Regex(SearchText);
+                CheckRegex checkRegex = new CheckRegex(inputSearch.Text);
+                Regex regex = checkRegex.Eval();
 
-                if (inputSearch.Text.Length > 0)
-                {
-                    SearchText = inputSearch.Text;
-                }
-                try
-                {
-                    regex = new Regex(SearchText);
-                    bValidregex = true;
-                }
-                catch (ArgumentException)
-                {
-
-                }
-                if (bValidregex)
+                if (checkRegex.bIsValidRegex)
                 {
                     if (regex.IsMatch(itemText))
                     {
@@ -185,6 +188,21 @@ namespace BatchRenameApp
                     }
 
                 }
+
+                // if sortfilter form is shown.
+                if (sortFilterForm != null && !sortFilterForm.IsDisposed)
+                {
+                    StringFormat stringFormat2 = new StringFormat
+                    {
+                        Alignment = StringAlignment.Near
+                    };
+                    CharacterRange[] characterRanges2 = { ListBoxSort.GetFilterRange(SortFilter, itemText) };
+                    stringFormat2.SetMeasurableCharacterRanges(characterRanges2);
+                    Region[] regions2 = e.Graphics.MeasureCharacterRanges(itemText, e.Font, e.Bounds, stringFormat2);
+                    RectangleF rect2 = regions2[0].GetBounds(e.Graphics);
+                    e.Graphics.DrawRectangle(Pens.DarkOrange, Rectangle.Round(rect2));
+                }
+
                 e.Graphics.DrawString(itemText, e.Font, new SolidBrush(e.ForeColor), e.Bounds);
                 ItemsCountPrev = listBoxFilelist.Items.Count;
             }
@@ -356,22 +374,67 @@ namespace BatchRenameApp
             listBoxFilelist.ClearSelected();
         }
 
+        private void LinkLabelRegex_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start("https://docs.microsoft.com/en-us/dotnet/standard/base-types/regular-expression-language-quick-reference");
+        }
+
+        private void LinkLabelTags_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+
+            if (legend == null || legend.IsDisposed)
+            {
+                legend = new TagsLegend
+                {
+                    StartPosition = FormStartPosition.Manual
+                };
+            }
+
+            Point newLocation = new Point(Location.X + Bounds.Width + 3, Location.Y + 30);
+
+            if ((newLocation.X + legend.Width) > Screen.GetWorkingArea(this).Right)
+            {
+                newLocation.X = Bounds.Left - legend.Width + 3;
+            }
+
+            legend.Location = newLocation;
+            legend.Show();
+            legend.Focus();
+        }
+
+        private void InputSortFilter_TextChanged(object sender, EventArgs e)
+        {
+            UpdatePreview();
+        }
+
+        private void sortContextMenuItem_Click(object sender, EventArgs e)
+        {
+            if (sortFilterForm == null || sortFilterForm.IsDisposed)
+            {
+                sortFilterForm = new SortFilterForm();
+            }
+
+            sortFilterForm.Show();
+            sortFilterForm.Focus();
+        }
+
         #endregion
 
         // MENU EVENTS
         #region Menu Events 
 
-        private void AscendingContextMenuItem_Click(object sender, EventArgs e)
+        public void SortFilesAsc()
         {
             History.Push(listBoxFilelist.Items);
-            ListBoxSort.SortAsc(listBoxFilelist);
+            ListBoxSort.SortList(SortMode.Asc, listBoxFilelist, SortFilter, SortSelection);
             UpdatePreview();
         }
 
-        private void DescendingContextMenuItem_Click(object sender, EventArgs e)
+
+        public void SortFilesDesc()
         {
             History.Push(listBoxFilelist.Items);
-            ListBoxSort.SortDesc(listBoxFilelist);
+            ListBoxSort.SortList(SortMode.Desc, listBoxFilelist, SortFilter, SortSelection);
             UpdatePreview();
         }
 
@@ -448,6 +511,12 @@ namespace BatchRenameApp
             listBoxFilelist.SelectedIndex = index;
             listBoxFilelist.EndUpdate();
         }
+
+        public void SelectFiltered()
+        {
+            ListBoxSort.FilterSelection(listBoxFilelist, SortFilter);
+        }
+
 
         public void UpdatePreview()
         {
@@ -594,7 +663,6 @@ namespace BatchRenameApp
         #region
 
         private static string Replacement { get; set; }
-
         private static Regex r = new Regex(":");
         private bool bSearchStringEmpty;
 
@@ -658,8 +726,8 @@ namespace BatchRenameApp
             string fileext = string.Empty;
             string output = replacetext;
 
-            string dateformat = settingsForm.dateformat;
-            string timeformat = settingsForm.timeformat;
+            string dateformat = Properties.Settings.Default.DateFormat;
+            string timeformat = Properties.Settings.Default.TimeFormat;
             string date = file.CreationTime.ToString(dateformat);
             string time = file.CreationTime.ToString(timeformat);
             String[] imagedatetime = { "%datetaken", "%timetaken" };
@@ -802,7 +870,7 @@ namespace BatchRenameApp
             string expression = "x";
             string lastvalidexpression = "x";
             Regex allowedRegex = new Regex(@"[^x0-9()*/+-\^]");
-            string numberformat = settingsForm.numberformat.ToLower();
+            string numberformat = Properties.Settings.Default.NumberFormat.ToLower();
 
             MSScriptControl.ScriptControl sc = new MSScriptControl.ScriptControl { Language = "VBScript" };
             if (sFunction.Length > 0)
@@ -884,86 +952,5 @@ namespace BatchRenameApp
 
 
         #endregion
-
-        private void MainWindow_Load(object sender, EventArgs e)
-        {
-            listBoxFilelist.Items.Clear();
-            History.Push(listBoxFilelist);
-            int x = 0;
-            foreach (FileInfo file in filestorage.GetFileInfos())
-            {
-                listBoxFilelist.Items.Add(file);
-                listBoxFilelist.SetSelected(x, true);
-                x++;
-            }
-            labelSelected.Text = String.Format("Selected: {0}", listBoxFilelist.SelectedIndices.Count);
-            UpdatePreview();
-        }
-
-        private class Exifcache
-        {
-
-            internal static Dictionary<string, double[]> SavedExifData = new Dictionary<string, double[]>();
-
-            internal static void SaveGPS(double[] Coordinates, string path)
-            {
-                try
-                {
-                    SavedExifData.Add(path, Coordinates);
-                }
-                catch (ArgumentException)
-                {
-                    Debug.Print("exifcache, Key already exists");
-                }
-            }
-
-            internal static double[] GetSavedGPS(string path)
-            {
-                if (SavedExifData.TryGetValue(path, out double[] output))
-                {
-                    return output;
-                }
-                else
-                {
-                    return new double[] { -360.0, -360.0 };
-                }
-
-            }
-
-            internal static bool IsGPSsaved(string path)
-            {
-                return SavedExifData.ContainsKey(path);
-            }
-        }
-
-        private void LinkLabelRegex_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            Process.Start("https://docs.microsoft.com/en-us/dotnet/standard/base-types/regular-expression-language-quick-reference");
-        }
-
-        private void LinkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-
-            if (legend == null || legend.IsDisposed)
-            {
-                legend = new TagsLegend
-                {
-                    StartPosition = FormStartPosition.Manual
-                };
-            }
-
-            Point newLocation = new Point(Location.X + Bounds.Width + 3, Location.Y + 30);
-           
-            if ((newLocation.X + legend.Width ) > Screen.GetWorkingArea(this).Right)
-            {
-                newLocation.X = Bounds.Left - legend.Width + 3;
-            }
-
-            legend.Location = newLocation;
-            legend.Show();
-            legend.Focus();
-        }
-
     }
-
 }

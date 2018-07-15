@@ -29,28 +29,28 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TagsLegend));
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.panelTop = new System.Windows.Forms.Panel();
             this.labelHelp = new System.Windows.Forms.Label();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.groupBoxGenerig = new System.Windows.Forms.GroupBox();
             this.flowLayoutPanelGeneric = new System.Windows.Forms.FlowLayoutPanel();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.groupBoxExif = new System.Windows.Forms.GroupBox();
             this.flowLayoutPanelExif = new System.Windows.Forms.FlowLayoutPanel();
             this.flowLayoutPanelFileAttributes = new System.Windows.Forms.FlowLayoutPanel();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.panel1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
-            this.groupBox3.SuspendLayout();
-            this.groupBox1.SuspendLayout();
+            this.groupBoxFileAttributes = new System.Windows.Forms.GroupBox();
+            this.panelTop.SuspendLayout();
+            this.groupBoxGenerig.SuspendLayout();
+            this.groupBoxExif.SuspendLayout();
+            this.groupBoxFileAttributes.SuspendLayout();
             this.SuspendLayout();
             // 
-            // panel1
+            // panelTop
             // 
-            this.panel1.Controls.Add(this.labelHelp);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(301, 37);
-            this.panel1.TabIndex = 1;
+            this.panelTop.Controls.Add(this.labelHelp);
+            this.panelTop.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelTop.Location = new System.Drawing.Point(0, 0);
+            this.panelTop.Name = "panelTop";
+            this.panelTop.Size = new System.Drawing.Size(719, 37);
+            this.panelTop.TabIndex = 1;
             // 
             // labelHelp
             // 
@@ -61,17 +61,17 @@
             this.labelHelp.TabIndex = 2;
             this.labelHelp.Text = "Click the tag to insert it to the Replace textBox";
             // 
-            // groupBox2
+            // groupBoxGenerig
             // 
-            this.groupBox2.Controls.Add(this.flowLayoutPanelGeneric);
-            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupBox2.Location = new System.Drawing.Point(0, 37);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(10, 3, 3, 3);
-            this.groupBox2.Size = new System.Drawing.Size(301, 109);
-            this.groupBox2.TabIndex = 14;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Generic Tags";
+            this.groupBoxGenerig.Controls.Add(this.flowLayoutPanelGeneric);
+            this.groupBoxGenerig.Dock = System.Windows.Forms.DockStyle.Top;
+            this.groupBoxGenerig.Location = new System.Drawing.Point(0, 37);
+            this.groupBoxGenerig.Name = "groupBoxGenerig";
+            this.groupBoxGenerig.Padding = new System.Windows.Forms.Padding(10, 3, 3, 3);
+            this.groupBoxGenerig.Size = new System.Drawing.Size(719, 109);
+            this.groupBoxGenerig.TabIndex = 14;
+            this.groupBoxGenerig.TabStop = false;
+            this.groupBoxGenerig.Text = "Generic Tags";
             // 
             // flowLayoutPanelGeneric
             // 
@@ -80,20 +80,20 @@
             this.flowLayoutPanelGeneric.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanelGeneric.Location = new System.Drawing.Point(10, 16);
             this.flowLayoutPanelGeneric.Name = "flowLayoutPanelGeneric";
-            this.flowLayoutPanelGeneric.Size = new System.Drawing.Size(288, 90);
+            this.flowLayoutPanelGeneric.Size = new System.Drawing.Size(706, 90);
             this.flowLayoutPanelGeneric.TabIndex = 12;
             // 
-            // groupBox3
+            // groupBoxExif
             // 
-            this.groupBox3.Controls.Add(this.flowLayoutPanelExif);
-            this.groupBox3.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupBox3.Location = new System.Drawing.Point(0, 255);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Padding = new System.Windows.Forms.Padding(10, 3, 3, 3);
-            this.groupBox3.Size = new System.Drawing.Size(301, 109);
-            this.groupBox3.TabIndex = 15;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Exif Tags";
+            this.groupBoxExif.Controls.Add(this.flowLayoutPanelExif);
+            this.groupBoxExif.Dock = System.Windows.Forms.DockStyle.Top;
+            this.groupBoxExif.Location = new System.Drawing.Point(0, 255);
+            this.groupBoxExif.Name = "groupBoxExif";
+            this.groupBoxExif.Padding = new System.Windows.Forms.Padding(10, 3, 3, 3);
+            this.groupBoxExif.Size = new System.Drawing.Size(719, 109);
+            this.groupBoxExif.TabIndex = 15;
+            this.groupBoxExif.TabStop = false;
+            this.groupBoxExif.Text = "Exif Tags";
             // 
             // flowLayoutPanelExif
             // 
@@ -102,7 +102,7 @@
             this.flowLayoutPanelExif.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanelExif.Location = new System.Drawing.Point(10, 16);
             this.flowLayoutPanelExif.Name = "flowLayoutPanelExif";
-            this.flowLayoutPanelExif.Size = new System.Drawing.Size(288, 90);
+            this.flowLayoutPanelExif.Size = new System.Drawing.Size(706, 90);
             this.flowLayoutPanelExif.TabIndex = 12;
             // 
             // flowLayoutPanelFileAttributes
@@ -112,57 +112,57 @@
             this.flowLayoutPanelFileAttributes.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanelFileAttributes.Location = new System.Drawing.Point(10, 16);
             this.flowLayoutPanelFileAttributes.Name = "flowLayoutPanelFileAttributes";
-            this.flowLayoutPanelFileAttributes.Size = new System.Drawing.Size(288, 90);
+            this.flowLayoutPanelFileAttributes.Size = new System.Drawing.Size(706, 90);
             this.flowLayoutPanelFileAttributes.TabIndex = 12;
             // 
-            // groupBox1
+            // groupBoxFileAttributes
             // 
-            this.groupBox1.Controls.Add(this.flowLayoutPanelFileAttributes);
-            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupBox1.Location = new System.Drawing.Point(0, 146);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(10, 3, 3, 3);
-            this.groupBox1.Size = new System.Drawing.Size(301, 109);
-            this.groupBox1.TabIndex = 13;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "File Attribute Tags";
+            this.groupBoxFileAttributes.Controls.Add(this.flowLayoutPanelFileAttributes);
+            this.groupBoxFileAttributes.Dock = System.Windows.Forms.DockStyle.Top;
+            this.groupBoxFileAttributes.Location = new System.Drawing.Point(0, 146);
+            this.groupBoxFileAttributes.Name = "groupBoxFileAttributes";
+            this.groupBoxFileAttributes.Padding = new System.Windows.Forms.Padding(10, 3, 3, 3);
+            this.groupBoxFileAttributes.Size = new System.Drawing.Size(719, 109);
+            this.groupBoxFileAttributes.TabIndex = 13;
+            this.groupBoxFileAttributes.TabStop = false;
+            this.groupBoxFileAttributes.Text = "File Attribute Tags";
             // 
             // TagsLegend
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(301, 364);
-            this.Controls.Add(this.groupBox3);
-            this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.groupBox2);
-            this.Controls.Add(this.panel1);
+            this.ClientSize = new System.Drawing.Size(719, 674);
+            this.Controls.Add(this.groupBoxExif);
+            this.Controls.Add(this.groupBoxFileAttributes);
+            this.Controls.Add(this.groupBoxGenerig);
+            this.Controls.Add(this.panelTop);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(317, 403);
             this.Name = "TagsLegend";
             this.ShowInTaskbar = false;
             this.Text = "Tags legend";
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            this.panelTop.ResumeLayout(false);
+            this.panelTop.PerformLayout();
+            this.groupBoxGenerig.ResumeLayout(false);
+            this.groupBoxGenerig.PerformLayout();
+            this.groupBoxExif.ResumeLayout(false);
+            this.groupBoxExif.PerformLayout();
+            this.groupBoxFileAttributes.ResumeLayout(false);
+            this.groupBoxFileAttributes.PerformLayout();
             this.ResumeLayout(false);
 
         }
 
         #endregion
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Panel panelTop;
+        private System.Windows.Forms.GroupBox groupBoxGenerig;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelGeneric;
-        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.GroupBox groupBoxExif;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelExif;
         private System.Windows.Forms.Label labelHelp;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelFileAttributes;
-        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox groupBoxFileAttributes;
     }
 }

@@ -40,8 +40,6 @@
             this.redoContextMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparatorMainSort = new System.Windows.Forms.ToolStripSeparator();
             this.sortContextMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ascendingContextMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.descendingContextMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparatorMainSelection = new System.Windows.Forms.ToolStripSeparator();
             this.invertSelectionContextMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clearSelectionContextMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -52,27 +50,26 @@
             this.regularExpressionsContextMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparatorTags = new System.Windows.Forms.ToolStripSeparator();
             this.panelSearchandReplace = new System.Windows.Forms.Panel();
+            this.labelFunction = new System.Windows.Forms.Label();
+            this.inputFunction = new System.Windows.Forms.TextBox();
             this.linkLabelTags = new System.Windows.Forms.LinkLabel();
             this.linkLabelRegex = new System.Windows.Forms.LinkLabel();
+            this.tableLayoutPanelBottom = new System.Windows.Forms.TableLayoutPanel();
+            this.labelSelected = new System.Windows.Forms.Label();
+            this.labelMatched = new System.Windows.Forms.Label();
+            this.progressBarApp = new System.Windows.Forms.ProgressBar();
+            this.labelProgress = new System.Windows.Forms.Label();
             this.collabsibleGroupBoxFiles = new Indigo.CollapsibleGroupBox();
             this.tableLayoutPanelListBoxes = new System.Windows.Forms.TableLayoutPanel();
             this.listBoxPreview = new System.Windows.Forms.ListBox();
             this.listBoxFilelist = new Oli.Controls.DragDropListBox();
             this.labelFileList = new System.Windows.Forms.Label();
             this.labelChanged = new System.Windows.Forms.Label();
-            this.collapsibleGroupBoxFunction = new Indigo.CollapsibleGroupBox();
-            this.inputFunction = new System.Windows.Forms.TextBox();
-            this.tableLayoutPanelBottom = new System.Windows.Forms.TableLayoutPanel();
-            this.labelSelected = new System.Windows.Forms.Label();
-            this.labelMatched = new System.Windows.Forms.Label();
-            this.progressBarApp = new System.Windows.Forms.ProgressBar();
-            this.labelProgress = new System.Windows.Forms.Label();
             this.contextMenu.SuspendLayout();
             this.panelSearchandReplace.SuspendLayout();
+            this.tableLayoutPanelBottom.SuspendLayout();
             this.collabsibleGroupBoxFiles.SuspendLayout();
             this.tableLayoutPanelListBoxes.SuspendLayout();
-            this.collapsibleGroupBoxFunction.SuspendLayout();
-            this.tableLayoutPanelBottom.SuspendLayout();
             this.SuspendLayout();
             // 
             // inputSearch
@@ -138,7 +135,8 @@
             this.contextMenu.Name = "contextMenu";
             this.contextMenu.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
             this.contextMenu.ShowImageMargin = false;
-            this.contextMenu.Size = new System.Drawing.Size(171, 220);
+            this.contextMenu.Size = new System.Drawing.Size(171, 198);
+            this.contextMenu.Text = "^";
             // 
             // undoContextMenuItem
             // 
@@ -161,26 +159,10 @@
             // 
             // sortContextMenuItem
             // 
-            this.sortContextMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ascendingContextMenuItem,
-            this.descendingContextMenuItem});
             this.sortContextMenuItem.Name = "sortContextMenuItem";
             this.sortContextMenuItem.Size = new System.Drawing.Size(170, 22);
             this.sortContextMenuItem.Text = "Sort";
-            // 
-            // ascendingContextMenuItem
-            // 
-            this.ascendingContextMenuItem.Name = "ascendingContextMenuItem";
-            this.ascendingContextMenuItem.Size = new System.Drawing.Size(136, 22);
-            this.ascendingContextMenuItem.Text = "Ascending";
-            this.ascendingContextMenuItem.Click += new System.EventHandler(this.AscendingContextMenuItem_Click);
-            // 
-            // descendingContextMenuItem
-            // 
-            this.descendingContextMenuItem.Name = "descendingContextMenuItem";
-            this.descendingContextMenuItem.Size = new System.Drawing.Size(136, 22);
-            this.descendingContextMenuItem.Text = "Descending";
-            this.descendingContextMenuItem.Click += new System.EventHandler(this.DescendingContextMenuItem_Click);
+            this.sortContextMenuItem.Click += new System.EventHandler(this.sortContextMenuItem_Click);
             // 
             // toolStripSeparatorMainSelection
             // 
@@ -242,6 +224,8 @@
             // 
             // panelSearchandReplace
             // 
+            this.panelSearchandReplace.Controls.Add(this.labelFunction);
+            this.panelSearchandReplace.Controls.Add(this.inputFunction);
             this.panelSearchandReplace.Controls.Add(this.linkLabelTags);
             this.panelSearchandReplace.Controls.Add(this.linkLabelRegex);
             this.panelSearchandReplace.Controls.Add(this.inputSearch);
@@ -252,8 +236,25 @@
             this.panelSearchandReplace.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelSearchandReplace.Location = new System.Drawing.Point(0, 0);
             this.panelSearchandReplace.Name = "panelSearchandReplace";
-            this.panelSearchandReplace.Size = new System.Drawing.Size(467, 103);
+            this.panelSearchandReplace.Size = new System.Drawing.Size(467, 151);
             this.panelSearchandReplace.TabIndex = 10;
+            // 
+            // labelFunction
+            // 
+            this.labelFunction.AutoSize = true;
+            this.labelFunction.Location = new System.Drawing.Point(12, 94);
+            this.labelFunction.Name = "labelFunction";
+            this.labelFunction.Size = new System.Drawing.Size(48, 13);
+            this.labelFunction.TabIndex = 13;
+            this.labelFunction.Text = "Function";
+            // 
+            // inputFunction
+            // 
+            this.inputFunction.Location = new System.Drawing.Point(12, 110);
+            this.inputFunction.Name = "inputFunction";
+            this.inputFunction.Size = new System.Drawing.Size(338, 20);
+            this.inputFunction.TabIndex = 10;
+            this.inputFunction.TextChanged += new System.EventHandler(this.TextBoxFunction_TextChanged);
             // 
             // linkLabelTags
             // 
@@ -265,7 +266,7 @@
             this.linkLabelTags.TabStop = true;
             this.linkLabelTags.Text = "Tags";
             this.linkLabelTags.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.linkLabelTags.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkLabel1_LinkClicked);
+            this.linkLabelTags.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkLabelTags_LinkClicked);
             // 
             // linkLabelRegex
             // 
@@ -278,11 +279,71 @@
             this.linkLabelRegex.Text = "How to use Regular Expressions";
             this.linkLabelRegex.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkLabelRegex_LinkClicked);
             // 
+            // tableLayoutPanelBottom
+            // 
+            this.tableLayoutPanelBottom.ColumnCount = 4;
+            this.tableLayoutPanelBottom.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 49.09091F));
+            this.tableLayoutPanelBottom.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.90909F));
+            this.tableLayoutPanelBottom.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 116F));
+            this.tableLayoutPanelBottom.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 110F));
+            this.tableLayoutPanelBottom.Controls.Add(this.labelSelected, 0, 0);
+            this.tableLayoutPanelBottom.Controls.Add(this.labelMatched, 0, 0);
+            this.tableLayoutPanelBottom.Controls.Add(this.progressBarApp, 3, 0);
+            this.tableLayoutPanelBottom.Controls.Add(this.labelProgress, 2, 0);
+            this.tableLayoutPanelBottom.Location = new System.Drawing.Point(12, 462);
+            this.tableLayoutPanelBottom.Name = "tableLayoutPanelBottom";
+            this.tableLayoutPanelBottom.RowCount = 1;
+            this.tableLayoutPanelBottom.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanelBottom.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanelBottom.Size = new System.Drawing.Size(441, 23);
+            this.tableLayoutPanelBottom.TabIndex = 14;
+            // 
+            // labelSelected
+            // 
+            this.labelSelected.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.labelSelected.AutoSize = true;
+            this.labelSelected.Location = new System.Drawing.Point(108, 6);
+            this.labelSelected.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
+            this.labelSelected.Name = "labelSelected";
+            this.labelSelected.Size = new System.Drawing.Size(52, 13);
+            this.labelSelected.TabIndex = 17;
+            this.labelSelected.Text = "Selected:";
+            // 
+            // labelMatched
+            // 
+            this.labelMatched.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.labelMatched.AutoSize = true;
+            this.labelMatched.Location = new System.Drawing.Point(3, 6);
+            this.labelMatched.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
+            this.labelMatched.Name = "labelMatched";
+            this.labelMatched.Size = new System.Drawing.Size(52, 13);
+            this.labelMatched.TabIndex = 16;
+            this.labelMatched.Text = "Matched:";
+            // 
+            // progressBarApp
+            // 
+            this.progressBarApp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.progressBarApp.Location = new System.Drawing.Point(340, 3);
+            this.progressBarApp.Name = "progressBarApp";
+            this.progressBarApp.Size = new System.Drawing.Size(98, 17);
+            this.progressBarApp.TabIndex = 0;
+            // 
+            // labelProgress
+            // 
+            this.labelProgress.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.labelProgress.AutoSize = true;
+            this.labelProgress.Location = new System.Drawing.Point(289, 6);
+            this.labelProgress.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
+            this.labelProgress.Name = "labelProgress";
+            this.labelProgress.Size = new System.Drawing.Size(38, 13);
+            this.labelProgress.TabIndex = 15;
+            this.labelProgress.Text = "Ready";
+            // 
             // collabsibleGroupBoxFiles
             // 
             this.collabsibleGroupBoxFiles.Controls.Add(this.tableLayoutPanelListBoxes);
             this.collabsibleGroupBoxFiles.Dock = System.Windows.Forms.DockStyle.Top;
-            this.collabsibleGroupBoxFiles.Location = new System.Drawing.Point(0, 156);
+            this.collabsibleGroupBoxFiles.Location = new System.Drawing.Point(0, 151);
             this.collabsibleGroupBoxFiles.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
             this.collabsibleGroupBoxFiles.Name = "collabsibleGroupBoxFiles";
             this.collabsibleGroupBoxFiles.Padding = new System.Windows.Forms.Padding(3, 3, 3, 0);
@@ -314,6 +375,8 @@
             this.listBoxPreview.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.listBoxPreview.FormattingEnabled = true;
             this.listBoxPreview.HorizontalScrollbar = true;
+            this.listBoxPreview.Items.AddRange(new object[] {
+            ""});
             this.listBoxPreview.Location = new System.Drawing.Point(223, 19);
             this.listBoxPreview.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
             this.listBoxPreview.Name = "listBoxPreview";
@@ -353,85 +416,6 @@
             this.labelChanged.TabIndex = 8;
             this.labelChanged.Text = "Changed filenames";
             // 
-            // collapsibleGroupBoxFunction
-            // 
-            this.collapsibleGroupBoxFunction.Controls.Add(this.inputFunction);
-            this.collapsibleGroupBoxFunction.Dock = System.Windows.Forms.DockStyle.Top;
-            this.collapsibleGroupBoxFunction.Location = new System.Drawing.Point(0, 103);
-            this.collapsibleGroupBoxFunction.Name = "collapsibleGroupBoxFunction";
-            this.collapsibleGroupBoxFunction.Size = new System.Drawing.Size(467, 53);
-            this.collapsibleGroupBoxFunction.TabIndex = 13;
-            this.collapsibleGroupBoxFunction.TabStop = false;
-            this.collapsibleGroupBoxFunction.Text = "Function";
-            // 
-            // inputFunction
-            // 
-            this.inputFunction.Location = new System.Drawing.Point(13, 19);
-            this.inputFunction.Name = "inputFunction";
-            this.inputFunction.Size = new System.Drawing.Size(337, 20);
-            this.inputFunction.TabIndex = 10;
-            this.inputFunction.TextChanged += new System.EventHandler(this.TextBoxFunction_TextChanged);
-            // 
-            // tableLayoutPanelBottom
-            // 
-            this.tableLayoutPanelBottom.ColumnCount = 4;
-            this.tableLayoutPanelBottom.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 49.09091F));
-            this.tableLayoutPanelBottom.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.90909F));
-            this.tableLayoutPanelBottom.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 116F));
-            this.tableLayoutPanelBottom.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 105F));
-            this.tableLayoutPanelBottom.Controls.Add(this.labelSelected, 0, 0);
-            this.tableLayoutPanelBottom.Controls.Add(this.labelMatched, 0, 0);
-            this.tableLayoutPanelBottom.Controls.Add(this.progressBarApp, 3, 0);
-            this.tableLayoutPanelBottom.Controls.Add(this.labelProgress, 2, 0);
-            this.tableLayoutPanelBottom.Location = new System.Drawing.Point(12, 462);
-            this.tableLayoutPanelBottom.Name = "tableLayoutPanelBottom";
-            this.tableLayoutPanelBottom.RowCount = 1;
-            this.tableLayoutPanelBottom.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanelBottom.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanelBottom.Size = new System.Drawing.Size(441, 23);
-            this.tableLayoutPanelBottom.TabIndex = 14;
-            // 
-            // labelSelected
-            // 
-            this.labelSelected.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.labelSelected.AutoSize = true;
-            this.labelSelected.Location = new System.Drawing.Point(111, 6);
-            this.labelSelected.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
-            this.labelSelected.Name = "labelSelected";
-            this.labelSelected.Size = new System.Drawing.Size(52, 13);
-            this.labelSelected.TabIndex = 17;
-            this.labelSelected.Text = "Selected:";
-            // 
-            // labelMatched
-            // 
-            this.labelMatched.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.labelMatched.AutoSize = true;
-            this.labelMatched.Location = new System.Drawing.Point(3, 6);
-            this.labelMatched.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
-            this.labelMatched.Name = "labelMatched";
-            this.labelMatched.Size = new System.Drawing.Size(52, 13);
-            this.labelMatched.TabIndex = 16;
-            this.labelMatched.Text = "Matched:";
-            // 
-            // progressBarApp
-            // 
-            this.progressBarApp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.progressBarApp.Location = new System.Drawing.Point(340, 3);
-            this.progressBarApp.Name = "progressBarApp";
-            this.progressBarApp.Size = new System.Drawing.Size(98, 17);
-            this.progressBarApp.TabIndex = 0;
-            // 
-            // labelProgress
-            // 
-            this.labelProgress.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.labelProgress.AutoSize = true;
-            this.labelProgress.Location = new System.Drawing.Point(294, 6);
-            this.labelProgress.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
-            this.labelProgress.Name = "labelProgress";
-            this.labelProgress.Size = new System.Drawing.Size(38, 13);
-            this.labelProgress.TabIndex = 15;
-            this.labelProgress.Text = "Ready";
-            // 
             // MainWindow
             // 
             this.AllowDrop = true;
@@ -443,7 +427,6 @@
             this.ContextMenuStrip = this.contextMenu;
             this.Controls.Add(this.tableLayoutPanelBottom);
             this.Controls.Add(this.collabsibleGroupBoxFiles);
-            this.Controls.Add(this.collapsibleGroupBoxFunction);
             this.Controls.Add(this.panelSearchandReplace);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -458,13 +441,11 @@
             this.contextMenu.ResumeLayout(false);
             this.panelSearchandReplace.ResumeLayout(false);
             this.panelSearchandReplace.PerformLayout();
+            this.tableLayoutPanelBottom.ResumeLayout(false);
+            this.tableLayoutPanelBottom.PerformLayout();
             this.collabsibleGroupBoxFiles.ResumeLayout(false);
             this.tableLayoutPanelListBoxes.ResumeLayout(false);
             this.tableLayoutPanelListBoxes.PerformLayout();
-            this.collapsibleGroupBoxFunction.ResumeLayout(false);
-            this.collapsibleGroupBoxFunction.PerformLayout();
-            this.tableLayoutPanelBottom.ResumeLayout(false);
-            this.tableLayoutPanelBottom.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -479,8 +460,6 @@
         private System.Windows.Forms.Button buttonRename;
         private System.Windows.Forms.ContextMenuStrip contextMenu;
         private System.Windows.Forms.ToolStripMenuItem sortContextMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem ascendingContextMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem descendingContextMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparatorMainSettings;
         private System.Windows.Forms.ToolStripMenuItem helpContextMenuItem;
         private System.Windows.Forms.ToolStripMenuItem regularExpressionsContextMenuItem;
@@ -493,7 +472,6 @@
         private System.Windows.Forms.ToolStripMenuItem redoContextMenuItem;
         private System.Windows.Forms.TextBox inputFunction;
         private Indigo.CollapsibleGroupBox collabsibleGroupBoxFiles;
-        private Indigo.CollapsibleGroupBox collapsibleGroupBoxFunction;
         private System.Windows.Forms.Panel panelSearchandReplace;
         public Oli.Controls.DragDropListBox listBoxFilelist;
         private System.Windows.Forms.ToolStripMenuItem settingsContextMenuItem;
@@ -507,6 +485,7 @@
         private System.Windows.Forms.Label labelSelected;
         private System.Windows.Forms.Label labelMatched;
         private System.Windows.Forms.LinkLabel linkLabelTags;
+        private System.Windows.Forms.Label labelFunction;
     }
 }
 
