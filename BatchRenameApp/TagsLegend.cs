@@ -42,6 +42,14 @@ namespace BatchRenameApp
               new Tag("%loc%","Finds city and country"),
             };
 
+            foreach (string tag in Program.mainWindowForm.exifEnumTypes)
+            {
+                if (!tag.Contains("GPS"))
+                {
+                    exifTags.Add(new Tag("%" + tag + "%", "exif tag"));
+                }
+            }
+
             GenerateTagLines(flowLayoutPanelGeneric, GenericTags);
             GenerateTagLines(flowLayoutPanelFileAttributes, fileAttributeTags);
             GenerateTagLines(flowLayoutPanelExif, exifTags);
@@ -64,14 +72,14 @@ namespace BatchRenameApp
 
                 Label description = new Label();
                 //description.Size = TextRenderer.MeasureText(tag.TagDescription, description.Font);
-                description.Size = new Size(panel.Size.Width - link.Size.Width - 20, description.Size.Height);
+                description.Size = new Size(panel.Size.Width - link.Size.Width - 40, description.Size.Height);
                 description.Text = tag.TagDescription;
 
                 panel.Controls.Add(link);
                 panel.Controls.Add(description);
                 ControllerHeight += link.Height;
             }
-            panel.Parent.Size = new Size(panel.Size.Width, ControllerHeight+20);
+          //  panel.Parent.Size = new Size(panel.Size.Width, ControllerHeight+20);
 
         }
 
@@ -92,6 +100,10 @@ namespace BatchRenameApp
             Close();
         }
 
+        private void TagsLegend_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 
     public class Tag
