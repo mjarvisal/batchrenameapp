@@ -1,13 +1,14 @@
-﻿using System.Text.RegularExpressions;
+﻿using System.Collections;
+using System.Text.RegularExpressions;
 
 namespace BatchRenameApp
 {
-    public class CheckRegex
+    public class RegexHelper
     {
         private Regex regex;
         public bool bIsValidRegex = false;
 
-        public CheckRegex(string Filter)
+        public RegexHelper(string Filter)
         {
             try
             {
@@ -21,9 +22,16 @@ namespace BatchRenameApp
             }
         }
 
-        public Regex Eval()
+        public Regex GetRegex()
         {
             return regex;
         }
+
+
+        public MatchCollection getMatches(string Text)
+        {
+            return regex.Matches(Text);
+        }
+
     }
 }

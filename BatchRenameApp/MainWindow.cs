@@ -147,8 +147,8 @@ namespace BatchRenameApp
                     }
                 }
 
-                CheckRegex checkRegex = new CheckRegex(inputSearch.Text);
-                Regex regex = checkRegex.Eval();
+                RegexHelper checkRegex = new RegexHelper(inputSearch.Text);
+                Regex regex = checkRegex.GetRegex();
 
                 if (checkRegex.bIsValidRegex)
                 {
@@ -952,5 +952,10 @@ namespace BatchRenameApp
 
 
         #endregion
+
+        private void filterSelectionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ListBoxSort.FilterSelection(listBoxFilelist, inputSearch.Text);
+        }
     }
 }

@@ -42,19 +42,20 @@ namespace BatchRenameApp
         public static void FilterSelection(ListBox listBox, String filter)
         {
             listBox.ClearSelected();
+            listBox.BeginUpdate();
             for (int x = 0; x < listBox.Items.Count; x++)
             {
-                if (RegexFilter(filter, ((FileInfo)listBox.Items[x]).Name) != ((FileInfo)listBox.Items[x]).Name)
+                if (IsMatch(filter, ((FileInfo)listBox.Items[x]).Name) )
                 {
                     listBox.SetSelected(x, true);
                 }
             }
+            listBox.EndUpdate();
         }
-
 
         public static void SortList(SortMode mode, ListBox itemsListBox, String Filter, bool isSelection)
         {
-         
+
             IComparer comparer = new MyAscSortClass();
 
             switch (mode)
@@ -122,23 +123,14 @@ namespace BatchRenameApp
         private static String RegexFilter(String Filter, String Text)
         {
             if (Filter == "")
-            {
                 Filter = "^.+";
-            }
 
-            CheckRegex checkRegex = new CheckRegex(Filter);
-            Regex regex = checkRegex.Eval();
-
-            if (checkRegex.bIsValidRegex)
+            RegexHelper regex = new RegexHelper(Filter);
+            if (regex.bIsValidRegex)
             {
-                if (regex.IsMatch(Text))
-                {
-                    MatchCollection collection = regex.Matches(Text);
-                    int i = collection.Count - 1;
-                    if (collection.Count > 0)
-                        return collection[i].Value;
-                }
-                return Text;
+                MatchCollection collection = regex.getMatches(Text);
+                if (collection.Count > 0)
+                    return collection[collection.Count - 1].Value;
             }
             return Text;
         }
@@ -147,22 +139,34 @@ namespace BatchRenameApp
         public static CharacterRange GetFilterRange(String Filter, String Text)
         {
 
-            CheckRegex checkRegex = new CheckRegex(Filter);
-            Regex regex = checkRegex.Eval();
+            RegexHelper regex = new RegexHelper(Filter);
+            if (regex.bIsValidRegex)
+            {
+                MatchCollection collection = regex.getMatches(Text);
+                if (collection.Count > 0)
+                {
+                    int i = collection.Count - 1;
+                    return new CharacterRange(collection[i].Index, collection[i].Length);
+                }
+            }
+            return new CharacterRange(0, 0);
+        }
+
+        private static bool IsMatch(String Filter, String Text)
+        {
+            RegexHelper checkRegex = new RegexHelper(Filter);
+            Regex regex = checkRegex.GetRegex();
 
             if (checkRegex.bIsValidRegex)
             {
                 if (regex.IsMatch(Text))
                 {
-                    MatchCollection collection = regex.Matches(Text);
-                    int i = collection.Count - 1;
-                    if (collection.Count > 0)
-                        return new CharacterRange(collection[i].Index, collection[i].Length);
+                    return true;
                 }
-                return new CharacterRange(0, 0);
             }
-            return new CharacterRange(0, 0);
+            return false;
         }
 
     }
+
 }

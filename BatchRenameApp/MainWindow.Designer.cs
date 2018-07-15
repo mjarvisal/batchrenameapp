@@ -65,6 +65,7 @@
             this.listBoxFilelist = new Oli.Controls.DragDropListBox();
             this.labelFileList = new System.Windows.Forms.Label();
             this.labelChanged = new System.Windows.Forms.Label();
+            this.filterSelectionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenu.SuspendLayout();
             this.panelSearchandReplace.SuspendLayout();
             this.tableLayoutPanelBottom.SuspendLayout();
@@ -126,6 +127,7 @@
             this.toolStripSeparatorMainSort,
             this.sortContextMenuItem,
             this.toolStripSeparatorMainSelection,
+            this.filterSelectionToolStripMenuItem,
             this.invertSelectionContextMenuItem,
             this.clearSelectionContextMenuItem,
             this.removeSelectionContextMenuItem,
@@ -135,7 +137,7 @@
             this.contextMenu.Name = "contextMenu";
             this.contextMenu.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
             this.contextMenu.ShowImageMargin = false;
-            this.contextMenu.Size = new System.Drawing.Size(171, 198);
+            this.contextMenu.Size = new System.Drawing.Size(171, 242);
             this.contextMenu.Text = "^";
             // 
             // undoContextMenuItem
@@ -285,7 +287,7 @@
             this.tableLayoutPanelBottom.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 49.09091F));
             this.tableLayoutPanelBottom.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.90909F));
             this.tableLayoutPanelBottom.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 116F));
-            this.tableLayoutPanelBottom.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 110F));
+            this.tableLayoutPanelBottom.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 114F));
             this.tableLayoutPanelBottom.Controls.Add(this.labelSelected, 0, 0);
             this.tableLayoutPanelBottom.Controls.Add(this.labelMatched, 0, 0);
             this.tableLayoutPanelBottom.Controls.Add(this.progressBarApp, 3, 0);
@@ -302,7 +304,7 @@
             // 
             this.labelSelected.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.labelSelected.AutoSize = true;
-            this.labelSelected.Location = new System.Drawing.Point(108, 6);
+            this.labelSelected.Location = new System.Drawing.Point(106, 6);
             this.labelSelected.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
             this.labelSelected.Name = "labelSelected";
             this.labelSelected.Size = new System.Drawing.Size(52, 13);
@@ -332,7 +334,7 @@
             // 
             this.labelProgress.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.labelProgress.AutoSize = true;
-            this.labelProgress.Location = new System.Drawing.Point(289, 6);
+            this.labelProgress.Location = new System.Drawing.Point(285, 6);
             this.labelProgress.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
             this.labelProgress.Name = "labelProgress";
             this.labelProgress.Size = new System.Drawing.Size(38, 13);
@@ -416,6 +418,13 @@
             this.labelChanged.TabIndex = 8;
             this.labelChanged.Text = "Changed filenames";
             // 
+            // filterSelectionToolStripMenuItem
+            // 
+            this.filterSelectionToolStripMenuItem.Name = "filterSelectionToolStripMenuItem";
+            this.filterSelectionToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
+            this.filterSelectionToolStripMenuItem.Text = "Select matched";
+            this.filterSelectionToolStripMenuItem.Click += new System.EventHandler(this.filterSelectionToolStripMenuItem_Click);
+            // 
             // MainWindow
             // 
             this.AllowDrop = true;
@@ -486,6 +495,7 @@
         private System.Windows.Forms.Label labelMatched;
         private System.Windows.Forms.LinkLabel linkLabelTags;
         private System.Windows.Forms.Label labelFunction;
+        private System.Windows.Forms.ToolStripMenuItem filterSelectionToolStripMenuItem;
     }
 }
 
