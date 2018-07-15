@@ -44,7 +44,7 @@ namespace BatchRenameApp
             listBox.ClearSelected();
             for (int x = 0; x < listBox.Items.Count; x++)
             {
-                if (!RegexFilter(filter, ((FileInfo)listBox.Items[x]).Name).Equals(""))
+                if (RegexFilter(filter, ((FileInfo)listBox.Items[x]).Name) != ((FileInfo)listBox.Items[x]).Name)
                 {
                     listBox.SetSelected(x, true);
                 }
@@ -54,7 +54,7 @@ namespace BatchRenameApp
 
         public static void SortList(SortMode mode, ListBox itemsListBox, String Filter, bool isSelection)
         {
-            itemsListBox.BeginUpdate();
+         
             IComparer comparer = new MyAscSortClass();
 
             switch (mode)
@@ -90,6 +90,7 @@ namespace BatchRenameApp
             sortedList.Sort(comparer);
             itemsListBox.Items.Clear();
 
+            itemsListBox.BeginUpdate();
             int i = 0;
             foreach (object item in sortedList)
             {
@@ -104,6 +105,7 @@ namespace BatchRenameApp
             {
                 itemsListBox.Items.Add(item);
             }
+
             itemsListBox.EndUpdate();
         }
 
@@ -119,6 +121,11 @@ namespace BatchRenameApp
 
         private static String RegexFilter(String Filter, String Text)
         {
+            if (Filter == "")
+            {
+                Filter = "^.+";
+            }
+
             CheckRegex checkRegex = new CheckRegex(Filter);
             Regex regex = checkRegex.Eval();
 
@@ -131,9 +138,9 @@ namespace BatchRenameApp
                     if (collection.Count > 0)
                         return collection[i].Value;
                 }
-                return "";
+                return Text;
             }
-            return "";
+            return Text;
         }
 
 
