@@ -50,6 +50,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CheckRegex.cs" />
+    <Compile Include="Exifcache.cs" />
     <Compile Include="SortFilterForm.cs">
       <SubType>Form</SubType>
     </Compile>

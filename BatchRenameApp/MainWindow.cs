@@ -109,6 +109,20 @@ namespace BatchRenameApp
             }
         }
 
+        private void MainWindow_Load(object sender, EventArgs e)
+        {
+            listBoxFilelist.Items.Clear();
+            History.Push(listBoxFilelist);
+            int x = 0;
+            foreach (FileInfo file in filestorage.GetFileInfos())
+            {
+                listBoxFilelist.Items.Add(file);
+                listBoxFilelist.SetSelected(x, true);
+                x++;
+            }
+            labelSelected.Text = String.Format("Selected: {0}", listBoxFilelist.SelectedIndices.Count);
+            UpdatePreview();
+        }
         #endregion
 
         // UI ELEMENT CALLBACKS
@@ -116,8 +130,6 @@ namespace BatchRenameApp
 
         private void ListBoxFilelist_DrawItem(object sender, DrawItemEventArgs e)
         {
-
-            bool bValidregex = false;
 
             e.DrawBackground();
             if (e.Index > -1)
@@ -135,23 +147,10 @@ namespace BatchRenameApp
                     }
                 }
 
-                string SearchText = "^";
-                Regex regex = new Regex(SearchText);
+                CheckRegex checkRegex = new CheckRegex(inputSearch.Text);
+                Regex regex = checkRegex.Eval();
 
-                if (inputSearch.Text.Length > 0)
-                {
-                    SearchText = inputSearch.Text;
-                }
-                try
-                {
-                    regex = new Regex(SearchText);
-                    bValidregex = true;
-                }
-                catch (ArgumentException)
-                {
-
-                }
-                if (bValidregex)
+                if (checkRegex.bIsValidRegex)
                 {
                     if (regex.IsMatch(itemText))
                     {
@@ -373,6 +372,50 @@ namespace BatchRenameApp
         private void CollabsibleGroupBoxFiles_Click(object sender, EventArgs e)
         {
             listBoxFilelist.ClearSelected();
+        }
+
+        private void LinkLabelRegex_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start("https://docs.microsoft.com/en-us/dotnet/standard/base-types/regular-expression-language-quick-reference");
+        }
+
+        private void LinkLabelTags_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+
+            if (legend == null || legend.IsDisposed)
+            {
+                legend = new TagsLegend
+                {
+                    StartPosition = FormStartPosition.Manual
+                };
+            }
+
+            Point newLocation = new Point(Location.X + Bounds.Width + 3, Location.Y + 30);
+
+            if ((newLocation.X + legend.Width) > Screen.GetWorkingArea(this).Right)
+            {
+                newLocation.X = Bounds.Left - legend.Width + 3;
+            }
+
+            legend.Location = newLocation;
+            legend.Show();
+            legend.Focus();
+        }
+
+        private void InputSortFilter_TextChanged(object sender, EventArgs e)
+        {
+            UpdatePreview();
+        }
+
+        private void sortContextMenuItem_Click(object sender, EventArgs e)
+        {
+            if (sortFilterForm == null || sortFilterForm.IsDisposed)
+            {
+                sortFilterForm = new SortFilterForm();
+            }
+
+            sortFilterForm.Show();
+            sortFilterForm.Focus();
         }
 
         #endregion
@@ -909,103 +952,5 @@ namespace BatchRenameApp
 
 
         #endregion
-
-        private void MainWindow_Load(object sender, EventArgs e)
-        {
-            listBoxFilelist.Items.Clear();
-            History.Push(listBoxFilelist);
-            int x = 0;
-            foreach (FileInfo file in filestorage.GetFileInfos())
-            {
-                listBoxFilelist.Items.Add(file);
-                listBoxFilelist.SetSelected(x, true);
-                x++;
-            }
-            labelSelected.Text = String.Format("Selected: {0}", listBoxFilelist.SelectedIndices.Count);
-            UpdatePreview();
-        }
-
-        private class Exifcache
-        {
-
-            internal static Dictionary<string, double[]> SavedExifData = new Dictionary<string, double[]>();
-
-            internal static void SaveGPS(double[] Coordinates, string path)
-            {
-                try
-                {
-                    SavedExifData.Add(path, Coordinates);
-                }
-                catch (ArgumentException)
-                {
-                    Debug.Print("exifcache, Key already exists");
-                }
-            }
-
-            internal static double[] GetSavedGPS(string path)
-            {
-                if (SavedExifData.TryGetValue(path, out double[] output))
-                {
-                    return output;
-                }
-                else
-                {
-                    return new double[] { -360.0, -360.0 };
-                }
-
-            }
-
-            internal static bool IsGPSsaved(string path)
-            {
-                return SavedExifData.ContainsKey(path);
-            }
-        }
-
-        private void LinkLabelRegex_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            Process.Start("https://docs.microsoft.com/en-us/dotnet/standard/base-types/regular-expression-language-quick-reference");
-        }
-
-        private void LinkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-
-            if (legend == null || legend.IsDisposed)
-            {
-                legend = new TagsLegend
-                {
-                    StartPosition = FormStartPosition.Manual
-                };
-            }
-
-            Point newLocation = new Point(Location.X + Bounds.Width + 3, Location.Y + 30);
-
-            if ((newLocation.X + legend.Width) > Screen.GetWorkingArea(this).Right)
-            {
-                newLocation.X = Bounds.Left - legend.Width + 3;
-            }
-
-            legend.Location = newLocation;
-            legend.Show();
-            legend.Focus();
-        }
-
-        private void InputSortFilter_TextChanged(object sender, EventArgs e)
-        {
-            UpdatePreview();
-        }
-
-        private void sortContextMenuItem_Click(object sender, EventArgs e)
-        {
-            if (sortFilterForm == null || sortFilterForm.IsDisposed)
-            {
-                sortFilterForm = new SortFilterForm();
-            }
-
-            sortFilterForm.Show();
-            sortFilterForm.Focus();
-        }
     }
-
-
-
 }

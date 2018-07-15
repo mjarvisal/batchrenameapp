@@ -15,7 +15,7 @@ namespace BatchRenameApp
     {
         private static String SortFilter = "^";
 
-        private class myDescSortClass : IComparer
+        private class MyDescSortClass : IComparer
         {
 
             // Calls CaseInsensitiveComparer.Compare with the parameters reversed.
@@ -27,7 +27,7 @@ namespace BatchRenameApp
                 return ((new CaseInsensitiveComparer()).Compare(RegexFilter(SortFilter, File2.Name), RegexFilter(SortFilter, File1.Name)));
             }
         }
-        private class myAscSortClass : IComparer
+        private class MyAscSortClass : IComparer
         {
 
             // Calls CaseInsensitiveComparer.Compare with the parameters reversed.
@@ -55,12 +55,12 @@ namespace BatchRenameApp
         public static void SortList(SortMode mode, ListBox itemsListBox, String Filter, bool isSelection)
         {
             itemsListBox.BeginUpdate();
-            IComparer comparer = new myAscSortClass();
+            IComparer comparer = new MyAscSortClass();
 
             switch (mode)
             {
                 case SortMode.Desc:
-                    comparer = new myDescSortClass();
+                    comparer = new MyDescSortClass();
                     break;
             }
 
@@ -119,24 +119,10 @@ namespace BatchRenameApp
 
         private static String RegexFilter(String Filter, String Text)
         {
-            bool bValidregex = false;
+            CheckRegex checkRegex = new CheckRegex(Filter);
+            Regex regex = checkRegex.Eval();
 
-            Regex regex = new Regex("^");
-
-            if (Filter.Length > 0)
-            {
-                try
-                {
-                    regex = new Regex(Filter);
-                    bValidregex = true;
-                }
-                catch (ArgumentException)
-                {
-
-                }
-            }
-
-            if (bValidregex)
+            if (checkRegex.bIsValidRegex)
             {
                 if (regex.IsMatch(Text))
                 {
@@ -153,24 +139,11 @@ namespace BatchRenameApp
 
         public static CharacterRange GetFilterRange(String Filter, String Text)
         {
-            bool bValidregex = false;
 
-            Regex regex = new Regex("^");
+            CheckRegex checkRegex = new CheckRegex(Filter);
+            Regex regex = checkRegex.Eval();
 
-            if (Filter.Length > 0)
-            {
-                try
-                {
-                    regex = new Regex(Filter);
-                    bValidregex = true;
-                }
-                catch (ArgumentException)
-                {
-
-                }
-            }
-
-            if (bValidregex)
+            if (checkRegex.bIsValidRegex)
             {
                 if (regex.IsMatch(Text))
                 {

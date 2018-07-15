@@ -50,9 +50,7 @@
             this.regularExpressionsContextMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparatorTags = new System.Windows.Forms.ToolStripSeparator();
             this.panelSearchandReplace = new System.Windows.Forms.Panel();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.InputSortFilter = new System.Windows.Forms.TextBox();
+            this.labelFunction = new System.Windows.Forms.Label();
             this.inputFunction = new System.Windows.Forms.TextBox();
             this.linkLabelTags = new System.Windows.Forms.LinkLabel();
             this.linkLabelRegex = new System.Windows.Forms.LinkLabel();
@@ -226,9 +224,7 @@
             // 
             // panelSearchandReplace
             // 
-            this.panelSearchandReplace.Controls.Add(this.label2);
-            this.panelSearchandReplace.Controls.Add(this.label1);
-            this.panelSearchandReplace.Controls.Add(this.InputSortFilter);
+            this.panelSearchandReplace.Controls.Add(this.labelFunction);
             this.panelSearchandReplace.Controls.Add(this.inputFunction);
             this.panelSearchandReplace.Controls.Add(this.linkLabelTags);
             this.panelSearchandReplace.Controls.Add(this.linkLabelRegex);
@@ -243,37 +239,20 @@
             this.panelSearchandReplace.Size = new System.Drawing.Size(467, 151);
             this.panelSearchandReplace.TabIndex = 10;
             // 
-            // label2
+            // labelFunction
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(15, 99);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(51, 13);
-            this.label2.TabIndex = 14;
-            this.label2.Text = "Sort Filter";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(235, 99);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(48, 13);
-            this.label1.TabIndex = 13;
-            this.label1.Text = "Function";
-            // 
-            // InputSortFilter
-            // 
-            this.InputSortFilter.Location = new System.Drawing.Point(15, 115);
-            this.InputSortFilter.Name = "InputSortFilter";
-            this.InputSortFilter.Size = new System.Drawing.Size(214, 20);
-            this.InputSortFilter.TabIndex = 12;
-            this.InputSortFilter.TextChanged += new System.EventHandler(this.InputSortFilter_TextChanged);
+            this.labelFunction.AutoSize = true;
+            this.labelFunction.Location = new System.Drawing.Point(12, 94);
+            this.labelFunction.Name = "labelFunction";
+            this.labelFunction.Size = new System.Drawing.Size(48, 13);
+            this.labelFunction.TabIndex = 13;
+            this.labelFunction.Text = "Function";
             // 
             // inputFunction
             // 
-            this.inputFunction.Location = new System.Drawing.Point(235, 115);
+            this.inputFunction.Location = new System.Drawing.Point(12, 110);
             this.inputFunction.Name = "inputFunction";
-            this.inputFunction.Size = new System.Drawing.Size(215, 20);
+            this.inputFunction.Size = new System.Drawing.Size(338, 20);
             this.inputFunction.TabIndex = 10;
             this.inputFunction.TextChanged += new System.EventHandler(this.TextBoxFunction_TextChanged);
             // 
@@ -287,7 +266,7 @@
             this.linkLabelTags.TabStop = true;
             this.linkLabelTags.Text = "Tags";
             this.linkLabelTags.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.linkLabelTags.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkLabel1_LinkClicked);
+            this.linkLabelTags.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkLabelTags_LinkClicked);
             // 
             // linkLabelRegex
             // 
@@ -306,7 +285,7 @@
             this.tableLayoutPanelBottom.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 49.09091F));
             this.tableLayoutPanelBottom.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.90909F));
             this.tableLayoutPanelBottom.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 116F));
-            this.tableLayoutPanelBottom.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 108F));
+            this.tableLayoutPanelBottom.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 110F));
             this.tableLayoutPanelBottom.Controls.Add(this.labelSelected, 0, 0);
             this.tableLayoutPanelBottom.Controls.Add(this.labelMatched, 0, 0);
             this.tableLayoutPanelBottom.Controls.Add(this.progressBarApp, 3, 0);
@@ -323,7 +302,7 @@
             // 
             this.labelSelected.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.labelSelected.AutoSize = true;
-            this.labelSelected.Location = new System.Drawing.Point(109, 6);
+            this.labelSelected.Location = new System.Drawing.Point(108, 6);
             this.labelSelected.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
             this.labelSelected.Name = "labelSelected";
             this.labelSelected.Size = new System.Drawing.Size(52, 13);
@@ -353,7 +332,7 @@
             // 
             this.labelProgress.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.labelProgress.AutoSize = true;
-            this.labelProgress.Location = new System.Drawing.Point(291, 6);
+            this.labelProgress.Location = new System.Drawing.Point(289, 6);
             this.labelProgress.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
             this.labelProgress.Name = "labelProgress";
             this.labelProgress.Size = new System.Drawing.Size(38, 13);
@@ -506,9 +485,7 @@
         private System.Windows.Forms.Label labelSelected;
         private System.Windows.Forms.Label labelMatched;
         private System.Windows.Forms.LinkLabel linkLabelTags;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox InputSortFilter;
+        private System.Windows.Forms.Label labelFunction;
     }
 }
 

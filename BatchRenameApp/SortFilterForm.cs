@@ -18,36 +18,26 @@ namespace BatchRenameApp
             textBoxFilter.Text = Program.mainWindowForm.SortFilter;
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
+        private void TextBoxFilter_TextChanged(object sender, EventArgs e)
         {
             Program.mainWindowForm.SortFilter = textBoxFilter.Text;
             Program.mainWindowForm.UpdatePreview();
             Program.mainWindowForm.listBoxFilelist.Refresh();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void ButtonSortAsc_Click(object sender, EventArgs e)
         {
             Program.mainWindowForm.SortFilesAsc();
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void ButtonSortDesc_Click(object sender, EventArgs e)
         {
             Program.mainWindowForm.SortFilesDesc();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void FormSortFilter_Load(object sender, EventArgs e)
         {
             DropdownSelect.SelectedIndex = 0;
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
-        {
-
         }
 
         private void DropdownBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -63,14 +53,20 @@ namespace BatchRenameApp
             }
         }
 
-        private void buttonSelectFiltered_Click(object sender, EventArgs e)
+        private void ButtonSelectFiltered_Click(object sender, EventArgs e)
         {
             Program.mainWindowForm.SelectFiltered();
         }
 
-        private void buttonClearSelection_Click(object sender, EventArgs e)
+        private void ButtonClearSelection_Click(object sender, EventArgs e)
         {
             Program.mainWindowForm.listBoxFilelist.ClearSelected();
-        } 
+        }
+
+        private void SortFilterForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Program.mainWindowForm.UpdatePreview();
+            Program.mainWindowForm.listBoxFilelist.Refresh();
+        }
     }
 }
