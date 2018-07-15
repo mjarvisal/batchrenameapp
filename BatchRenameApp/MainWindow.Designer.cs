@@ -41,6 +41,7 @@
             this.toolStripSeparatorMainSort = new System.Windows.Forms.ToolStripSeparator();
             this.sortContextMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparatorMainSelection = new System.Windows.Forms.ToolStripSeparator();
+            this.filterSelectionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.invertSelectionContextMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clearSelectionContextMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.removeSelectionContextMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -65,7 +66,6 @@
             this.listBoxFilelist = new Oli.Controls.DragDropListBox();
             this.labelFileList = new System.Windows.Forms.Label();
             this.labelChanged = new System.Windows.Forms.Label();
-            this.filterSelectionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenu.SuspendLayout();
             this.panelSearchandReplace.SuspendLayout();
             this.tableLayoutPanelBottom.SuspendLayout();
@@ -137,7 +137,7 @@
             this.contextMenu.Name = "contextMenu";
             this.contextMenu.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
             this.contextMenu.ShowImageMargin = false;
-            this.contextMenu.Size = new System.Drawing.Size(171, 242);
+            this.contextMenu.Size = new System.Drawing.Size(171, 220);
             this.contextMenu.Text = "^";
             // 
             // undoContextMenuItem
@@ -164,12 +164,19 @@
             this.sortContextMenuItem.Name = "sortContextMenuItem";
             this.sortContextMenuItem.Size = new System.Drawing.Size(170, 22);
             this.sortContextMenuItem.Text = "Sort";
-            this.sortContextMenuItem.Click += new System.EventHandler(this.sortContextMenuItem_Click);
+            this.sortContextMenuItem.Click += new System.EventHandler(this.SortContextMenuItem_Click);
             // 
             // toolStripSeparatorMainSelection
             // 
             this.toolStripSeparatorMainSelection.Name = "toolStripSeparatorMainSelection";
             this.toolStripSeparatorMainSelection.Size = new System.Drawing.Size(167, 6);
+            // 
+            // filterSelectionToolStripMenuItem
+            // 
+            this.filterSelectionToolStripMenuItem.Name = "filterSelectionToolStripMenuItem";
+            this.filterSelectionToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
+            this.filterSelectionToolStripMenuItem.Text = "Select matched";
+            this.filterSelectionToolStripMenuItem.Click += new System.EventHandler(this.FilterSelectionToolStripMenuItem_Click);
             // 
             // invertSelectionContextMenuItem
             // 
@@ -287,7 +294,7 @@
             this.tableLayoutPanelBottom.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 49.09091F));
             this.tableLayoutPanelBottom.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.90909F));
             this.tableLayoutPanelBottom.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 116F));
-            this.tableLayoutPanelBottom.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 114F));
+            this.tableLayoutPanelBottom.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 124F));
             this.tableLayoutPanelBottom.Controls.Add(this.labelSelected, 0, 0);
             this.tableLayoutPanelBottom.Controls.Add(this.labelMatched, 0, 0);
             this.tableLayoutPanelBottom.Controls.Add(this.progressBarApp, 3, 0);
@@ -304,7 +311,7 @@
             // 
             this.labelSelected.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.labelSelected.AutoSize = true;
-            this.labelSelected.Location = new System.Drawing.Point(106, 6);
+            this.labelSelected.Location = new System.Drawing.Point(101, 6);
             this.labelSelected.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
             this.labelSelected.Name = "labelSelected";
             this.labelSelected.Size = new System.Drawing.Size(52, 13);
@@ -334,7 +341,7 @@
             // 
             this.labelProgress.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.labelProgress.AutoSize = true;
-            this.labelProgress.Location = new System.Drawing.Point(285, 6);
+            this.labelProgress.Location = new System.Drawing.Point(275, 6);
             this.labelProgress.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
             this.labelProgress.Name = "labelProgress";
             this.labelProgress.Size = new System.Drawing.Size(38, 13);
@@ -417,13 +424,6 @@
             this.labelChanged.Size = new System.Drawing.Size(97, 13);
             this.labelChanged.TabIndex = 8;
             this.labelChanged.Text = "Changed filenames";
-            // 
-            // filterSelectionToolStripMenuItem
-            // 
-            this.filterSelectionToolStripMenuItem.Name = "filterSelectionToolStripMenuItem";
-            this.filterSelectionToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
-            this.filterSelectionToolStripMenuItem.Text = "Select matched";
-            this.filterSelectionToolStripMenuItem.Click += new System.EventHandler(this.filterSelectionToolStripMenuItem_Click);
             // 
             // MainWindow
             // 

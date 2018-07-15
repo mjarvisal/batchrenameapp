@@ -128,7 +128,7 @@ namespace BatchRenameApp
             RegexHelper regex = new RegexHelper(Filter);
             if (regex.bIsValidRegex)
             {
-                MatchCollection collection = regex.getMatches(Text);
+                MatchCollection collection = regex.GetMatches(Text);
                 if (collection.Count > 0)
                     return collection[collection.Count - 1].Value;
             }
@@ -142,7 +142,7 @@ namespace BatchRenameApp
             RegexHelper regex = new RegexHelper(Filter);
             if (regex.bIsValidRegex)
             {
-                MatchCollection collection = regex.getMatches(Text);
+                MatchCollection collection = regex.GetMatches(Text);
                 if (collection.Count > 0)
                 {
                     int i = collection.Count - 1;
