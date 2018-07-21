@@ -850,13 +850,6 @@ namespace BatchRenameApp
             return output;
         }
 
-        private string ConvertToRegex(string normalsearch)
-        {
-            Regex test = new Regex(".*");
-            // @todo implement this feature
-            return "test";
-        }
-
         private string ProcessRegex(int number, String[] inputs, FileInfo file)
         {
             string find = inputs[0];
@@ -867,11 +860,23 @@ namespace BatchRenameApp
             try
             {
                 Regex regex = new Regex(find);
-                MatchEvaluator myEvaluator = new MatchEvaluator(EvaluateMatch);
                 if (regex.IsMatch(file.Name))
                 {
-                    string renamed = regex.Replace(file.Name, myEvaluator);
-                    result = ProcessPatterns(number, renamed, function, file);
+                    MatchCollection collection = regex.Matches(file.Name);
+                    int substringstartIndex = 0;
+                    foreach (Match match in collection)
+                    {
+                        string subresult = string.Empty;
+                        string substring = file.Name.Substring(substringstartIndex, match.Index - substringstartIndex + match.Length);
+                        string renamed = regex.Replace(substring, replace);
+                        substringstartIndex += match.Index - substringstartIndex + match.Length;
+                        subresult = ProcessPatterns(number, renamed, function, file);
+                        result += subresult;
+                    }
+                    if (substringstartIndex < file.Name.Length)
+                    {
+                        result += file.Name.Substring(substringstartIndex);
+                    }
                 }
                 if (result == file.Name)
                     return "";
@@ -883,18 +888,6 @@ namespace BatchRenameApp
             {
                 return null;
             }
-        }
-
-        public string EvaluateMatch(Match match)
-        {
-            string replace = Replacement;
-            return replace;
-            /*
-            if (match.Length > 0)
-                return replace;
-            else
-                return "";
-                */
         }
 
         private string EvaluateFunctionString(string sFunction, int number)
