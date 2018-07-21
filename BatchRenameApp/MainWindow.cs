@@ -662,7 +662,6 @@ namespace BatchRenameApp
         // PROCESS STRINGS
         #region
 
-        private static string Replacement { get; set; }
         private static Regex r = new Regex(":");
         private bool bSearchStringEmpty;
 
@@ -856,22 +855,93 @@ namespace BatchRenameApp
             string replace = inputs[1];
             string function = inputs[2];
             string result = "";
-            Replacement = replace;
             try
             {
                 Regex regex = new Regex(find);
                 if (regex.IsMatch(file.Name))
                 {
+                    Dictionary<int, string> groupreplacedict = new Dictionary<int, string> { };                   
+                    Regex groupregex = new Regex(@"(?<single>\{[0-9][0-9]{0,1}\})|(?<indexes>\{[0-9]+,[0-9]+\})|(?<range>\{[0-9]+-[0-9]+\})");
+                    MatchCollection matchcollection = groupregex.Matches(replace);
+                    if (matchcollection.Count > 0)
+                    {
+                        foreach (Match groupmatch in matchcollection)
+                        {
+                            Regex numberRegex = new Regex("[0-9]");
+                            Match nextMatch = groupmatch.NextMatch();
+                            GroupCollection groupcollection = groupmatch.Groups;
+                            try
+                            {
+                                string groupreplace = string.Empty;
+                                if (groupcollection["single"].Success)
+                                {
+                                    int replacestartIndex = groupmatch.Index + groupmatch.Length;
+                                    int replaceLength = (replace.Length - replacestartIndex);
+                                    if (nextMatch.Success)
+                                    {
+                                        replaceLength = (nextMatch.Index - replacestartIndex);
+                                    }
+                                    Match groupnumberMatch = numberRegex.Match(groupmatch.Value);
+                                    groupreplacedict.Add(Convert.ToInt32(groupnumberMatch.Value), replace.Substring(replacestartIndex, replaceLength));
+                                }
+                                if (groupcollection["indexes"].Success)
+                                {
+                                    int replacestartIndex = groupmatch.Index + groupmatch.Length;
+                                    int replaceLength = (replace.Length - replacestartIndex);
+                                    if (nextMatch.Success)
+                                    {
+                                        replaceLength = (nextMatch.Index - replacestartIndex);
+                                    }
+                                    MatchCollection indexescollection = numberRegex.Matches(groupmatch.Value);
+                                    foreach (Match indexMatch in indexescollection)
+                                    {
+                                        groupreplacedict.Add(Convert.ToInt32(indexMatch.Value), replace.Substring(replacestartIndex, replaceLength));
+                                    }
+                                }
+                                if (groupcollection["range"].Success)
+                                {
+                                    int replacestartIndex = groupmatch.Index + groupmatch.Length;
+                                    int replaceLength = (replace.Length - replacestartIndex);
+                                    if (nextMatch.Success)
+                                    {
+                                        replaceLength = (nextMatch.Index - replacestartIndex);
+                                    }
+                                    Match firstgroupnumberMatch = numberRegex.Match(groupmatch.Value);
+                                    Match lastgroupnumberMatch = firstgroupnumberMatch.NextMatch();
+                                    for (int i = Convert.ToInt32(firstgroupnumberMatch.Value); i <= Convert.ToInt32(lastgroupnumberMatch.Value); i++)
+                                    {
+                                        groupreplacedict.Add(i, replace.Substring(replacestartIndex, replaceLength));
+                                    }
+                                }
+                            }
+                            catch { }
+                        }
+                    }
+
                     MatchCollection collection = regex.Matches(file.Name);
                     int substringstartIndex = 0;
+                    int collectionIndex = 0;
                     foreach (Match match in collection)
                     {
+                        string groupreplace = replace;
+                        if(groupreplacedict.Count > 0 )
+                        {
+                            try
+                            {
+                                groupreplace = groupreplacedict[collectionIndex];
+                            }
+                            catch
+                            {
+                                groupreplace = "";
+                            }
+                        }
                         string subresult = string.Empty;
                         string substring = file.Name.Substring(substringstartIndex, match.Index - substringstartIndex + match.Length);
-                        string renamed = regex.Replace(substring, replace);
+                        string renamed = regex.Replace(substring, groupreplace);
                         substringstartIndex += match.Index - substringstartIndex + match.Length;
                         subresult = ProcessPatterns(number, renamed, function, file);
                         result += subresult;
+                        collectionIndex++;
                     }
                     if (substringstartIndex < file.Name.Length)
                     {
