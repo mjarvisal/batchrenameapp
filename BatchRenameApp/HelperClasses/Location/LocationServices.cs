@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Xml;
 using System.IO.Compression;
+using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -36,44 +37,54 @@ namespace BatchRenameApp
                 {
                     NumberDecimalSeparator = "."
                 };
-                String url = String.Format("https://nominatim.openstreetmap.org/reverse?format=xml&lat={0}&lon={1}&zoom={2}&addressdetails=1", Coordinates[0].ToString(nfi), Coordinates[1].ToString(nfi), zoom.ToString());
+                String url = String.Format("http://nominatim.openstreetmap.org/reverse?format=xml&lat={0}&lon={1}&zoom={2}&addressdetails=1", Coordinates[0].ToString(nfi), Coordinates[1].ToString(nfi), zoom.ToString());
+
                 Uri address = new Uri(url);
 
                 WebClient client = new WebClient();
-                client.Headers["User-Agent"] = "Mozilla/5.0 (Windows; U; Windows NT 6.0; en-US; rv:1.9.2.6) Gecko/20100625 Firefox/3.6.6 (.NET CLR 3.5.30729)";
+                client.Headers["User-Agent"] = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:61.0) Gecko/20100101 Firefox/61.0";
                 client.Headers["Accept"] = "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8";
                 client.Headers["Accept-Language"] = "en-us,en;q=0.5";
-                client.Headers["Accept-Encoding"] = "gzip";
+                client.Headers["Accept-Encoding"] = "gzip, deflate, br";
                 client.Headers["Accept-Charset"] = "ISO-8859-1,utf-8;q=0.7,*;q=0.7";
                 XmlReader xmlreader;
 
-                var responseStream = new GZipStream(client.OpenRead(address), CompressionMode.Decompress);
+                byte[] response = client.DownloadData(address);
 
-                xmlreader = XmlReader.Create(responseStream);
+                MemoryStream responseStream = new MemoryStream(response);
 
-                while (xmlreader.Read())
+                try
                 {
-                    switch (xmlreader.Name.ToString().ToLower())
+                    xmlreader = XmlReader.Create(responseStream);
+                    while (xmlreader.Read())
                     {
-                        case "result":
-                            string Attribute = xmlreader.GetAttribute("boundingbox");
-                            if (Attribute != null)
-                            {
-                                geoLocationboundingbox = Attribute;
-                            }
-                            break;
-                        case "country":
-                            geoLocationCountry = xmlreader.ReadElementContentAsString();
-                            break;
-                        case "city":
-                            geoLocationCity = xmlreader.ReadElementContentAsString();
-                            break;
-                        case "town":
-                            geoLocationCity = xmlreader.ReadElementContentAsString();
-                            break;
+                        switch (xmlreader.Name.ToString().ToLower())
+                        {
+                            case "result":
+                                string Attribute = xmlreader.GetAttribute("boundingbox");
+                                if (Attribute != null)
+                                {
+                                    geoLocationboundingbox = Attribute;
+                                }
+                                break;
+                            case "country":
+                                geoLocationCountry = xmlreader.ReadElementContentAsString();
+                                break;
+                            case "city":
+                                geoLocationCity = xmlreader.ReadElementContentAsString();
+                                break;
+                            case "town":
+                                geoLocationCity = xmlreader.ReadElementContentAsString();
+                                break;
+                        }
                     }
+                    zoom--;
                 }
-                zoom--;
+                catch (Exception)
+                {
+
+                }
+
             } while (geoLocationCity == "");
             SaveLocation(geoLocationboundingbox, geoLocationCountry, geoLocationCity);
         }
@@ -83,11 +94,6 @@ namespace BatchRenameApp
             string[] names = { country, city };
             LocationStorage SavedLocation = new LocationStorage();
             string[] Coordinates = boundingbox.Split(',');
-
-            for (int i = 0; i < 4; i++)
-            {
-                Coordinates[i] = Coordinates[i].Replace(".", ",");
-            }
 
             SavedLocation.TopLat = Convert.ToDouble(Coordinates[1]);
             SavedLocation.TopLon = Convert.ToDouble(Coordinates[2]);
