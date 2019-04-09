@@ -28,7 +28,7 @@ namespace BatchRenameApp
         }
 
 
-        public MatchCollection GetMatches(string Text)
+        public MatchCollection getMatches(string Text)
         {
             return regex.Matches(Text);
         }

@@ -33,7 +33,7 @@ namespace BatchRenameApp
         private LocationServices savedLocations = new LocationServices();
         private TagsLegend legend;
         private SortFilterForm sortFilterForm;
-        internal string[] exifEnumTypes = Enum.GetNames(typeof(ExifLib.ExifTags));
+
         public String SortFilter = "";
         public bool SortSelection = false;
 
@@ -407,7 +407,7 @@ namespace BatchRenameApp
             UpdatePreview();
         }
 
-        private void SortContextMenuItem_Click(object sender, EventArgs e)
+        private void sortContextMenuItem_Click(object sender, EventArgs e)
         {
             if (sortFilterForm == null || sortFilterForm.IsDisposed)
             {
@@ -731,6 +731,7 @@ namespace BatchRenameApp
             string time = file.CreationTime.ToString(timeformat);
             String[] imagedatetime = { "%datetaken", "%timetaken" };
             String[] fileparts = { "%file%", "%ext%" };
+
             if (fileparts.Any(output.Contains))
             {
                 Regex extension = new Regex("[.](.){3,4}$");
@@ -746,39 +747,6 @@ namespace BatchRenameApp
                 output = output.Replace("%ext%", fileext);
                 output = output.Replace("%file%", filense);
             }
-            List<string> foundTags = new List<string>();
-
-            foreach (string enumType in exifEnumTypes)
-            {
-
-                if (output.Contains("%" + enumType + "%"))
-                {
-                    foundTags.Add(enumType);
-                }
-            }
-
-            using (FileStream fs = new FileStream(file.FullName, FileMode.Open, FileAccess.Read))
-            {
-                try
-                {
-                    ExifLib.ExifReader exifReader = new ExifLib.ExifReader(fs);
-
-                    foreach (string enumType in foundTags)
-                    {
-                        try
-                        {
-                            Enum.TryParse(enumType, out ExifLib.ExifTags tag);
-                            exifReader.GetTagValue(tag, out object result);
-                            output = output.Replace("%" + enumType + "%", ""+result.ToString());
-                        }
-                        catch (Exception ex) {
-                            Debug.WriteLine(ex.Message);
-                        }
-                    }
-                }
-                catch { }
-            }
-
 
             output = output.Replace("%folder%", file.Directory.Name);
             output = output.Replace("%datecreated%", date);
@@ -1048,7 +1016,7 @@ namespace BatchRenameApp
 
         #endregion
 
-        private void FilterSelectionToolStripMenuItem_Click(object sender, EventArgs e)
+        private void filterSelectionToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ListBoxSort.FilterSelection(listBoxFilelist, inputSearch.Text);
         }
