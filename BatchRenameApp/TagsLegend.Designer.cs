@@ -49,7 +49,7 @@
             this.panelTop.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelTop.Location = new System.Drawing.Point(0, 0);
             this.panelTop.Name = "panelTop";
-            this.panelTop.Size = new System.Drawing.Size(719, 37);
+            this.panelTop.Size = new System.Drawing.Size(468, 37);
             this.panelTop.TabIndex = 1;
             // 
             // labelHelp
@@ -68,7 +68,7 @@
             this.groupBoxGenerig.Location = new System.Drawing.Point(0, 37);
             this.groupBoxGenerig.Name = "groupBoxGenerig";
             this.groupBoxGenerig.Padding = new System.Windows.Forms.Padding(10, 3, 3, 3);
-            this.groupBoxGenerig.Size = new System.Drawing.Size(719, 109);
+            this.groupBoxGenerig.Size = new System.Drawing.Size(468, 109);
             this.groupBoxGenerig.TabIndex = 14;
             this.groupBoxGenerig.TabStop = false;
             this.groupBoxGenerig.Text = "Generic Tags";
@@ -80,7 +80,7 @@
             this.flowLayoutPanelGeneric.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanelGeneric.Location = new System.Drawing.Point(10, 16);
             this.flowLayoutPanelGeneric.Name = "flowLayoutPanelGeneric";
-            this.flowLayoutPanelGeneric.Size = new System.Drawing.Size(706, 90);
+            this.flowLayoutPanelGeneric.Size = new System.Drawing.Size(455, 90);
             this.flowLayoutPanelGeneric.TabIndex = 12;
             // 
             // groupBoxExif
@@ -90,19 +90,18 @@
             this.groupBoxExif.Location = new System.Drawing.Point(0, 255);
             this.groupBoxExif.Name = "groupBoxExif";
             this.groupBoxExif.Padding = new System.Windows.Forms.Padding(10, 3, 3, 3);
-            this.groupBoxExif.Size = new System.Drawing.Size(719, 109);
+            this.groupBoxExif.Size = new System.Drawing.Size(468, 419);
             this.groupBoxExif.TabIndex = 15;
             this.groupBoxExif.TabStop = false;
             this.groupBoxExif.Text = "Exif Tags";
             // 
             // flowLayoutPanelExif
             // 
-            this.flowLayoutPanelExif.AutoSize = true;
-            this.flowLayoutPanelExif.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.flowLayoutPanelExif.AutoScroll = true;
             this.flowLayoutPanelExif.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanelExif.Location = new System.Drawing.Point(10, 16);
             this.flowLayoutPanelExif.Name = "flowLayoutPanelExif";
-            this.flowLayoutPanelExif.Size = new System.Drawing.Size(706, 90);
+            this.flowLayoutPanelExif.Size = new System.Drawing.Size(455, 400);
             this.flowLayoutPanelExif.TabIndex = 12;
             // 
             // flowLayoutPanelFileAttributes
@@ -112,7 +111,7 @@
             this.flowLayoutPanelFileAttributes.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanelFileAttributes.Location = new System.Drawing.Point(10, 16);
             this.flowLayoutPanelFileAttributes.Name = "flowLayoutPanelFileAttributes";
-            this.flowLayoutPanelFileAttributes.Size = new System.Drawing.Size(706, 90);
+            this.flowLayoutPanelFileAttributes.Size = new System.Drawing.Size(455, 90);
             this.flowLayoutPanelFileAttributes.TabIndex = 12;
             // 
             // groupBoxFileAttributes
@@ -122,7 +121,7 @@
             this.groupBoxFileAttributes.Location = new System.Drawing.Point(0, 146);
             this.groupBoxFileAttributes.Name = "groupBoxFileAttributes";
             this.groupBoxFileAttributes.Padding = new System.Windows.Forms.Padding(10, 3, 3, 3);
-            this.groupBoxFileAttributes.Size = new System.Drawing.Size(719, 109);
+            this.groupBoxFileAttributes.Size = new System.Drawing.Size(468, 109);
             this.groupBoxFileAttributes.TabIndex = 13;
             this.groupBoxFileAttributes.TabStop = false;
             this.groupBoxFileAttributes.Text = "File Attribute Tags";
@@ -132,7 +131,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(719, 674);
+            this.ClientSize = new System.Drawing.Size(468, 674);
             this.Controls.Add(this.groupBoxExif);
             this.Controls.Add(this.groupBoxFileAttributes);
             this.Controls.Add(this.groupBoxGenerig);
@@ -143,12 +142,12 @@
             this.Name = "TagsLegend";
             this.ShowInTaskbar = false;
             this.Text = "Tags legend";
+            this.Load += new System.EventHandler(this.TagsLegend_Load);
             this.panelTop.ResumeLayout(false);
             this.panelTop.PerformLayout();
             this.groupBoxGenerig.ResumeLayout(false);
             this.groupBoxGenerig.PerformLayout();
             this.groupBoxExif.ResumeLayout(false);
-            this.groupBoxExif.PerformLayout();
             this.groupBoxFileAttributes.ResumeLayout(false);
             this.groupBoxFileAttributes.PerformLayout();
             this.ResumeLayout(false);
