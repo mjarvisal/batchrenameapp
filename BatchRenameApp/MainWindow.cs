@@ -769,7 +769,17 @@ namespace BatchRenameApp
                         {
                             Enum.TryParse(enumType, out ExifLib.ExifTags tag);
                             exifReader.GetTagValue(tag, out object result);
-                            output = output.Replace("%" + enumType + "%", ""+result.ToString());
+                            switch (enumType)
+                            {
+                                case "DateTimeOriginal":
+                                    DateTime origDate = DateTime.Parse(result.ToString());
+                                    output = output.Replace("%" + enumType + "%", "" + origDate.ToString(dateformat + " " + timeformat));
+                                     break;
+                                default:
+                                    output = output.Replace("%" + enumType + "%", ""+result.ToString());
+                                    break;
+                            }
+                           
                         }
                         catch (Exception ex) {
                             Debug.WriteLine(ex.Message);
