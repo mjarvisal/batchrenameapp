@@ -754,7 +754,8 @@ namespace BatchRenameApp
                         string substring = file.Name.Substring(substringstartIndex, match.Index - substringstartIndex + match.Length);
                         string renamed = regex.Replace(substring, groupreplace);
                         substringstartIndex += match.Index - substringstartIndex + match.Length;
-                        subresult = ProcessString.ProcessPatterns(number, renamed, function, file);
+                        ProcessString.ProcessPatterns(number, renamed, function, file);
+                        subresult = ProcessString.output;
                         result += subresult;
                         collectionIndex++;
                     }

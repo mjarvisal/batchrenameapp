@@ -13,10 +13,11 @@ namespace BatchRenameApp
 {
     class ProcessStrings
     {
+        public volatile string output;
+
         private static Regex r = new Regex(":");
         private string filense = string.Empty;
         private string fileext = string.Empty;
-
         private LocationServices savedLocations = new LocationServices();
         private static string lastvalidFunction = "x";
 
@@ -137,9 +138,9 @@ namespace BatchRenameApp
                 return "0";
         }
 
-        public string ProcessPatterns(int number, string replacetext, string function, FileInfo file)
+        public void ProcessPatterns(int number, string replacetext, string function, FileInfo file)
         {
-            string output = replacetext;
+            output = replacetext;
             string dateformat = Properties.Settings.Default.DateFormat;
             string timeformat = Properties.Settings.Default.TimeFormat;
             string date = file.CreationTime.ToString(dateformat);
@@ -159,7 +160,7 @@ namespace BatchRenameApp
                 }
                 catch
                 {
-                    return null;
+                    output = null;
                 }
                 output = output.Replace("%ext%", fileext);
                 output = output.Replace("%file%", filense);
@@ -202,7 +203,7 @@ namespace BatchRenameApp
                         catch (Exception ex)
                         {
                             Debug.WriteLine(ex.Message);
-                            return null;
+                            output =  null;
                         }
                     }
                 }
@@ -273,12 +274,11 @@ namespace BatchRenameApp
                     output = output.Replace("%timetaken%", "%timetaken%");
                 }
 
-                return output;
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
-                return null;
+                output =  null;
             }
         }
     }
