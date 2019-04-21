@@ -742,7 +742,9 @@ namespace BatchRenameApp
                     filense = file.Name.Remove(index, lenght);
                     fileext = fileextregex.Value;
                 }
-                catch { }
+                catch {
+                    return null;
+                }
                 output = output.Replace("%ext%", fileext);
                 output = output.Replace("%file%", filense);
             }
@@ -783,80 +785,84 @@ namespace BatchRenameApp
                         }
                         catch (Exception ex) {
                             Debug.WriteLine(ex.Message);
+                            return null;
                         }
                     }
                 }
                 catch { }
             }
 
-
-            output = output.Replace("%folder%", file.Directory.Name);
-            output = output.Replace("%datecreated%", date);
-            output = output.Replace("%timecreated%", time);
-            output = output.Replace("%datenow%", DateTime.Now.ToString(dateformat));
-            output = output.Replace("%timenow%", DateTime.Now.ToString(timeformat));
-
-            if (output.Contains("%fnc%"))
+            try
             {
+                output = output.Replace("%folder%", file.Directory.Name);
+                output = output.Replace("%datecreated%", date);
+                output = output.Replace("%timecreated%", time);
+                output = output.Replace("%datenow%", DateTime.Now.ToString(dateformat));
+                output = output.Replace("%timenow%", DateTime.Now.ToString(timeformat));
                 output = output.Replace("%fnc%", EvaluateFunctionString(function, number));
-            }
 
-            if (output.Contains("%loc%"))
-            {
-                double[] location = GetGPSLocationFromImage(file.FullName);
-
-                if (location[0] > -360.0 && location[1] > -360.0)
+                if (output.Contains("%loc%"))
                 {
-                    string[] LocationNames = new string[] { "", "" };
-                    int savedLocationindex = savedLocations.GetSavedLocationIndex(location);
-                    if (savedLocationindex == int.MaxValue)
+                    double[] location = GetGPSLocationFromImage(file.FullName);
+
+                    if (location[0] > -360.0 && location[1] > -360.0)
                     {
-                        savedLocations.SearchforLocation(location, 14);
-                        savedLocationindex = savedLocations.GetSavedLocationIndex(location);
+                        string[] LocationNames = new string[] { "", "" };
+                        int savedLocationindex = savedLocations.GetSavedLocationIndex(location);
                         if (savedLocationindex == int.MaxValue)
                         {
-                            savedLocations.SearchforLocation(location, 10);
+                            savedLocations.SearchforLocation(location, 14);
                             savedLocationindex = savedLocations.GetSavedLocationIndex(location);
+                            if (savedLocationindex == int.MaxValue)
+                            {
+                                savedLocations.SearchforLocation(location, 10);
+                                savedLocationindex = savedLocations.GetSavedLocationIndex(location);
+                            }
+                            LocationNames = savedLocations.GetLocationNames(savedLocationindex);
                         }
-                        LocationNames = savedLocations.GetLocationNames(savedLocationindex);
+                        else
+                        {
+                            LocationNames = savedLocations.GetLocationNames(savedLocationindex);
+                        }
+                        string geoLocationCountry = LocationNames[0];
+                        string geoLocationCity = LocationNames[1];
+                        string geoLocation = string.Format("{0},{1}", geoLocationCity, geoLocationCountry);
+                        output = output.Replace("%loc%", geoLocation);
                     }
                     else
                     {
-                        LocationNames = savedLocations.GetLocationNames(savedLocationindex);
+                        output = output.Replace("%loc%", "");
                     }
-                    string geoLocationCountry = LocationNames[0];
-                    string geoLocationCity = LocationNames[1];
-                    string geoLocation = string.Format("{0},{1}", geoLocationCity, geoLocationCountry);
-                    output = output.Replace("%loc%", geoLocation);
+                }
+
+                if (imagedatetime.Any(replacetext.Contains))
+                {
+                    DateTime dateTime = GetDateTakenFromImage(file.FullName);
+                    if (dateTime == DateTime.MaxValue)
+                    {
+                        output = output.Replace("%datetaken%", "%datetaken%");
+                        output = output.Replace("%timetaken%", "%timetaken%");
+                    }
+                    else
+                    {
+                        output = output.Replace("%datetaken%", dateTime.ToString(dateformat));
+                        output = output.Replace("%timetaken%", dateTime.ToString(timeformat));
+                    }
+
                 }
                 else
-                {
-                    output = output.Replace("%loc%", "");
-                }
-            }
-
-            if (imagedatetime.Any(replacetext.Contains))
-            {
-                DateTime dateTime = GetDateTakenFromImage(file.FullName);
-                if (dateTime == DateTime.MaxValue)
                 {
                     output = output.Replace("%datetaken%", "%datetaken%");
                     output = output.Replace("%timetaken%", "%timetaken%");
                 }
-                else
-                {
-                    output = output.Replace("%datetaken%", dateTime.ToString(dateformat));
-                    output = output.Replace("%timetaken%", dateTime.ToString(timeformat));
-                }
 
+                return output;
             }
-            else
+            catch (Exception ex)
             {
-                output = output.Replace("%datetaken%", "%datetaken%");
-                output = output.Replace("%timetaken%", "%timetaken%");
+                Debug.WriteLine(ex.Message);
+                return null;
             }
-
-            return output;
         }
 
         private string ProcessRegex(int number, String[] inputs, FileInfo file)
