@@ -294,7 +294,7 @@
             this.tableLayoutPanelBottom.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 49.09091F));
             this.tableLayoutPanelBottom.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.90909F));
             this.tableLayoutPanelBottom.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 116F));
-            this.tableLayoutPanelBottom.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 124F));
+            this.tableLayoutPanelBottom.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 126F));
             this.tableLayoutPanelBottom.Controls.Add(this.labelSelected, 0, 0);
             this.tableLayoutPanelBottom.Controls.Add(this.labelMatched, 0, 0);
             this.tableLayoutPanelBottom.Controls.Add(this.progressBarApp, 3, 0);
@@ -311,7 +311,7 @@
             // 
             this.labelSelected.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.labelSelected.AutoSize = true;
-            this.labelSelected.Location = new System.Drawing.Point(101, 6);
+            this.labelSelected.Location = new System.Drawing.Point(100, 6);
             this.labelSelected.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
             this.labelSelected.Name = "labelSelected";
             this.labelSelected.Size = new System.Drawing.Size(52, 13);
@@ -341,7 +341,7 @@
             // 
             this.labelProgress.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.labelProgress.AutoSize = true;
-            this.labelProgress.Location = new System.Drawing.Point(275, 6);
+            this.labelProgress.Location = new System.Drawing.Point(273, 6);
             this.labelProgress.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
             this.labelProgress.Name = "labelProgress";
             this.labelProgress.Size = new System.Drawing.Size(38, 13);
