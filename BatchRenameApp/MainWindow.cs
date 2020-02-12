@@ -1047,8 +1047,11 @@ namespace BatchRenameApp
                     FileInfo originalfileInfo = (FileInfo)listBoxFilelist.Items[index];
                     string directory = originalfileInfo.DirectoryName;
                     string renamedFullname = directory + @"\" + renameditem;
-                    originalfileInfo.MoveTo(renamedFullname);
-                    renamed++;
+                    if (!File.Exists(renamedFullname))
+                    {
+                        originalfileInfo.MoveTo(renamedFullname);
+                        renamed++;
+                    }                    
                 }
                 index++;
             }
