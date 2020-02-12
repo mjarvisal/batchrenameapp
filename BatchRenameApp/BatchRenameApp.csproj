@@ -25,7 +25,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
+    <Optimize>false</Optimize>
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>
     </DefineConstants>
@@ -52,6 +52,7 @@
   <ItemGroup>
     <Compile Include="HelperClasses\RegexHelper.cs" />
     <Compile Include="Exifcache.cs" />
+    <Compile Include="ProcessStrings.cs" />
     <Compile Include="SortFilterForm.cs">
       <SubType>Form</SubType>
     </Compile>
