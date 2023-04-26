@@ -1,4 +1,4 @@
-# batchrenameapp
+# BatchRenameApp
 Windows application for renaming multiple files at once using regexp
 
 Highlights match in file list.  
