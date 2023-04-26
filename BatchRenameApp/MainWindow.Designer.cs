@@ -56,18 +56,14 @@
             this.tableLayoutPanelBottom = new System.Windows.Forms.TableLayoutPanel();
             this.labelSelected = new System.Windows.Forms.Label();
             this.labelMatched = new System.Windows.Forms.Label();
-            this.progressBarApp = new System.Windows.Forms.ProgressBar();
-            this.labelProgress = new System.Windows.Forms.Label();
-            this.collabsibleGroupBoxFiles = new Indigo.CollapsibleGroupBox();
             this.tableLayoutPanelListBoxes = new System.Windows.Forms.TableLayoutPanel();
             this.listBoxPreview = new System.Windows.Forms.ListBox();
-            this.listBoxFilelist = new Oli.Controls.DragDropListBox();
             this.labelFileList = new System.Windows.Forms.Label();
             this.labelChanged = new System.Windows.Forms.Label();
+            this.listBoxFilelist = new Oli.Controls.DragDropListBox();
             this.contextMenu.SuspendLayout();
             this.panelSearchandReplace.SuspendLayout();
             this.tableLayoutPanelBottom.SuspendLayout();
-            this.collabsibleGroupBoxFiles.SuspendLayout();
             this.tableLayoutPanelListBoxes.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -276,17 +272,16 @@
             this.tableLayoutPanelBottom.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 49.09091F));
             this.tableLayoutPanelBottom.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.90909F));
             this.tableLayoutPanelBottom.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 116F));
-            this.tableLayoutPanelBottom.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 127F));
+            this.tableLayoutPanelBottom.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 153F));
             this.tableLayoutPanelBottom.Controls.Add(this.labelSelected, 0, 0);
             this.tableLayoutPanelBottom.Controls.Add(this.labelMatched, 0, 0);
-            this.tableLayoutPanelBottom.Controls.Add(this.progressBarApp, 3, 0);
-            this.tableLayoutPanelBottom.Controls.Add(this.labelProgress, 2, 0);
-            this.tableLayoutPanelBottom.Location = new System.Drawing.Point(12, 462);
+            this.tableLayoutPanelBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.tableLayoutPanelBottom.Location = new System.Drawing.Point(0, 468);
             this.tableLayoutPanelBottom.Name = "tableLayoutPanelBottom";
             this.tableLayoutPanelBottom.RowCount = 1;
             this.tableLayoutPanelBottom.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanelBottom.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanelBottom.Size = new System.Drawing.Size(441, 23);
+            this.tableLayoutPanelBottom.Size = new System.Drawing.Size(467, 23);
             this.tableLayoutPanelBottom.TabIndex = 14;
             // 
             // labelSelected
@@ -311,40 +306,9 @@
             this.labelMatched.TabIndex = 16;
             this.labelMatched.Text = "Matched:";
             // 
-            // progressBarApp
-            // 
-            this.progressBarApp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.progressBarApp.Location = new System.Drawing.Point(340, 3);
-            this.progressBarApp.Name = "progressBarApp";
-            this.progressBarApp.Size = new System.Drawing.Size(98, 17);
-            this.progressBarApp.TabIndex = 0;
-            // 
-            // labelProgress
-            // 
-            this.labelProgress.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.labelProgress.AutoSize = true;
-            this.labelProgress.Location = new System.Drawing.Point(272, 6);
-            this.labelProgress.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
-            this.labelProgress.Name = "labelProgress";
-            this.labelProgress.Size = new System.Drawing.Size(38, 13);
-            this.labelProgress.TabIndex = 15;
-            this.labelProgress.Text = "Ready";
-            // 
-            // collabsibleGroupBoxFiles
-            // 
-            this.collabsibleGroupBoxFiles.Controls.Add(this.tableLayoutPanelListBoxes);
-            this.collabsibleGroupBoxFiles.Dock = System.Windows.Forms.DockStyle.Top;
-            this.collabsibleGroupBoxFiles.Location = new System.Drawing.Point(0, 151);
-            this.collabsibleGroupBoxFiles.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
-            this.collabsibleGroupBoxFiles.Name = "collabsibleGroupBoxFiles";
-            this.collabsibleGroupBoxFiles.Padding = new System.Windows.Forms.Padding(3, 3, 3, 0);
-            this.collabsibleGroupBoxFiles.Size = new System.Drawing.Size(467, 303);
-            this.collabsibleGroupBoxFiles.TabIndex = 12;
-            this.collabsibleGroupBoxFiles.TabStop = false;
-            this.collabsibleGroupBoxFiles.Text = "Files";
-            // 
             // tableLayoutPanelListBoxes
             // 
+            this.tableLayoutPanelListBoxes.AutoSize = true;
             this.tableLayoutPanelListBoxes.ColumnCount = 2;
             this.tableLayoutPanelListBoxes.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanelListBoxes.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -352,42 +316,27 @@
             this.tableLayoutPanelListBoxes.Controls.Add(this.listBoxFilelist, 0, 1);
             this.tableLayoutPanelListBoxes.Controls.Add(this.labelFileList, 0, 0);
             this.tableLayoutPanelListBoxes.Controls.Add(this.labelChanged, 1, 0);
-            this.tableLayoutPanelListBoxes.Location = new System.Drawing.Point(12, 19);
-            this.tableLayoutPanelListBoxes.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
+            this.tableLayoutPanelListBoxes.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanelListBoxes.Location = new System.Drawing.Point(0, 151);
+            this.tableLayoutPanelListBoxes.Margin = new System.Windows.Forms.Padding(0, 3, 0, 0);
             this.tableLayoutPanelListBoxes.Name = "tableLayoutPanelListBoxes";
             this.tableLayoutPanelListBoxes.RowCount = 2;
-            this.tableLayoutPanelListBoxes.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 5.782313F));
-            this.tableLayoutPanelListBoxes.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 94.21769F));
-            this.tableLayoutPanelListBoxes.Size = new System.Drawing.Size(441, 284);
-            this.tableLayoutPanelListBoxes.TabIndex = 10;
+            this.tableLayoutPanelListBoxes.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 5.362776F));
+            this.tableLayoutPanelListBoxes.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 94.63722F));
+            this.tableLayoutPanelListBoxes.Size = new System.Drawing.Size(467, 317);
+            this.tableLayoutPanelListBoxes.TabIndex = 15;
             // 
             // listBoxPreview
             // 
-            this.listBoxPreview.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.listBoxPreview.FormattingEnabled = true;
+            this.listBoxPreview.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listBoxPreview.HorizontalScrollbar = true;
             this.listBoxPreview.Items.AddRange(new object[] {
             ""});
-            this.listBoxPreview.Location = new System.Drawing.Point(223, 19);
-            this.listBoxPreview.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
+            this.listBoxPreview.Location = new System.Drawing.Point(236, 19);
             this.listBoxPreview.Name = "listBoxPreview";
             this.listBoxPreview.SelectionMode = System.Windows.Forms.SelectionMode.None;
-            this.listBoxPreview.Size = new System.Drawing.Size(215, 264);
+            this.listBoxPreview.Size = new System.Drawing.Size(228, 295);
             this.listBoxPreview.TabIndex = 7;
-            // 
-            // listBoxFilelist
-            // 
-            this.listBoxFilelist.AllowDrop = true;
-            this.listBoxFilelist.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.listBoxFilelist.FormattingEnabled = true;
-            this.listBoxFilelist.HorizontalScrollbar = true;
-            this.listBoxFilelist.Location = new System.Drawing.Point(3, 19);
-            this.listBoxFilelist.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
-            this.listBoxFilelist.Name = "listBoxFilelist";
-            this.listBoxFilelist.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.listBoxFilelist.Size = new System.Drawing.Size(214, 264);
-            this.listBoxFilelist.TabIndex = 0;
-            this.listBoxFilelist.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.ListBoxFilelist_DrawItem);
             // 
             // labelFileList
             // 
@@ -401,29 +350,42 @@
             // labelChanged
             // 
             this.labelChanged.AutoSize = true;
-            this.labelChanged.Location = new System.Drawing.Point(223, 0);
+            this.labelChanged.Location = new System.Drawing.Point(236, 0);
             this.labelChanged.Name = "labelChanged";
             this.labelChanged.Size = new System.Drawing.Size(97, 13);
             this.labelChanged.TabIndex = 8;
             this.labelChanged.Text = "Changed filenames";
+            // 
+            // listBoxFilelist
+            // 
+            this.listBoxFilelist.AllowDrop = true;
+            this.listBoxFilelist.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listBoxFilelist.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.listBoxFilelist.FormattingEnabled = true;
+            this.listBoxFilelist.HorizontalScrollbar = true;
+            this.listBoxFilelist.Location = new System.Drawing.Point(3, 19);
+            this.listBoxFilelist.Name = "listBoxFilelist";
+            this.listBoxFilelist.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
+            this.listBoxFilelist.Size = new System.Drawing.Size(227, 295);
+            this.listBoxFilelist.TabIndex = 0;
+            this.listBoxFilelist.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.ListBoxFilelist_DrawItem);
             // 
             // MainWindow
             // 
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(467, 586);
+            this.ClientSize = new System.Drawing.Size(467, 491);
             this.ContextMenuStrip = this.contextMenu;
+            this.Controls.Add(this.tableLayoutPanelListBoxes);
             this.Controls.Add(this.tableLayoutPanelBottom);
-            this.Controls.Add(this.collabsibleGroupBoxFiles);
             this.Controls.Add(this.panelSearchandReplace);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
-            this.MinimumSize = new System.Drawing.Size(483, 140);
+            this.MinimumSize = new System.Drawing.Size(483, 530);
             this.Name = "MainWindow";
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.Text = "BatchRenameApp";
             this.Load += new System.EventHandler(this.MainWindow_Load);
             this.DragDrop += new System.Windows.Forms.DragEventHandler(this.MainWindow_DragDrop);
@@ -434,10 +396,10 @@
             this.panelSearchandReplace.PerformLayout();
             this.tableLayoutPanelBottom.ResumeLayout(false);
             this.tableLayoutPanelBottom.PerformLayout();
-            this.collabsibleGroupBoxFiles.ResumeLayout(false);
             this.tableLayoutPanelListBoxes.ResumeLayout(false);
             this.tableLayoutPanelListBoxes.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -445,9 +407,6 @@
         private System.Windows.Forms.TextBox inputSearch;
         private System.Windows.Forms.Label labelRegExp;
         private System.Windows.Forms.Label labelReplace;
-        public System.Windows.Forms.ListBox listBoxPreview;
-        private System.Windows.Forms.Label labelFileList;
-        private System.Windows.Forms.Label labelChanged;
         private System.Windows.Forms.Button buttonRename;
         private System.Windows.Forms.ContextMenuStrip contextMenu;
         private System.Windows.Forms.ToolStripMenuItem sortContextMenuItem;
@@ -460,22 +419,22 @@
         private System.Windows.Forms.ToolStripMenuItem removeSelectionContextMenuItem;
         private System.Windows.Forms.ToolStripMenuItem redoContextMenuItem;
         private System.Windows.Forms.TextBox inputFunction;
-        private Indigo.CollapsibleGroupBox collabsibleGroupBoxFiles;
         private System.Windows.Forms.Panel panelSearchandReplace;
-        public Oli.Controls.DragDropListBox listBoxFilelist;
         private System.Windows.Forms.ToolStripMenuItem settingsContextMenuItem;
         public System.Windows.Forms.TextBox inputReplace;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparatorTags;
         private System.Windows.Forms.LinkLabel linkLabelRegex;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanelListBoxes;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanelBottom;
-        private System.Windows.Forms.ProgressBar progressBarApp;
-        private System.Windows.Forms.Label labelProgress;
         private System.Windows.Forms.Label labelSelected;
         private System.Windows.Forms.Label labelMatched;
         private System.Windows.Forms.LinkLabel linkLabelTags;
         private System.Windows.Forms.Label labelFunction;
         private System.Windows.Forms.ToolStripMenuItem filterSelectionToolStripMenuItem;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanelListBoxes;
+        public System.Windows.Forms.ListBox listBoxPreview;
+        public Oli.Controls.DragDropListBox listBoxFilelist;
+        private System.Windows.Forms.Label labelFileList;
+        private System.Windows.Forms.Label labelChanged;
     }
 }
 
