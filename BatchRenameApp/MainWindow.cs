@@ -466,11 +466,6 @@ namespace BatchRenameApp
             UpdatePreview();
         }
 
-        private void RegularExpressionsContextMenuItem_Click(object sender, EventArgs e)
-        {
-            Process.Start("https://www.google.com/#sclient=psy-ab&q=regular+expression+cheat+sheet");
-        }
-
         private void RedoContextMenuItem_Click(object sender, EventArgs e)
         {
             History.Redo(listBoxFilelist);

@@ -47,8 +47,6 @@
             this.removeSelectionContextMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparatorMainSettings = new System.Windows.Forms.ToolStripSeparator();
             this.settingsContextMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.helpContextMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.regularExpressionsContextMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparatorTags = new System.Windows.Forms.ToolStripSeparator();
             this.panelSearchandReplace = new System.Windows.Forms.Panel();
             this.labelFunction = new System.Windows.Forms.Label();
@@ -132,12 +130,11 @@
             this.clearSelectionContextMenuItem,
             this.removeSelectionContextMenuItem,
             this.toolStripSeparatorMainSettings,
-            this.settingsContextMenuItem,
-            this.helpContextMenuItem});
+            this.settingsContextMenuItem});
             this.contextMenu.Name = "contextMenu";
             this.contextMenu.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
             this.contextMenu.ShowImageMargin = false;
-            this.contextMenu.Size = new System.Drawing.Size(171, 220);
+            this.contextMenu.Size = new System.Drawing.Size(171, 198);
             this.contextMenu.Text = "^";
             // 
             // undoContextMenuItem
@@ -211,21 +208,6 @@
             this.settingsContextMenuItem.Text = "Settings";
             this.settingsContextMenuItem.Click += new System.EventHandler(this.SettingsContextMenuItem_Click);
             // 
-            // helpContextMenuItem
-            // 
-            this.helpContextMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.regularExpressionsContextMenuItem});
-            this.helpContextMenuItem.Name = "helpContextMenuItem";
-            this.helpContextMenuItem.Size = new System.Drawing.Size(170, 22);
-            this.helpContextMenuItem.Text = "Help";
-            // 
-            // regularExpressionsContextMenuItem
-            // 
-            this.regularExpressionsContextMenuItem.Name = "regularExpressionsContextMenuItem";
-            this.regularExpressionsContextMenuItem.Size = new System.Drawing.Size(177, 22);
-            this.regularExpressionsContextMenuItem.Text = "Regular expressions";
-            this.regularExpressionsContextMenuItem.Click += new System.EventHandler(this.RegularExpressionsContextMenuItem_Click);
-            // 
             // toolStripSeparatorTags
             // 
             this.toolStripSeparatorTags.Name = "toolStripSeparatorTags";
@@ -294,7 +276,7 @@
             this.tableLayoutPanelBottom.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 49.09091F));
             this.tableLayoutPanelBottom.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.90909F));
             this.tableLayoutPanelBottom.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 116F));
-            this.tableLayoutPanelBottom.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 126F));
+            this.tableLayoutPanelBottom.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 127F));
             this.tableLayoutPanelBottom.Controls.Add(this.labelSelected, 0, 0);
             this.tableLayoutPanelBottom.Controls.Add(this.labelMatched, 0, 0);
             this.tableLayoutPanelBottom.Controls.Add(this.progressBarApp, 3, 0);
@@ -341,7 +323,7 @@
             // 
             this.labelProgress.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.labelProgress.AutoSize = true;
-            this.labelProgress.Location = new System.Drawing.Point(273, 6);
+            this.labelProgress.Location = new System.Drawing.Point(272, 6);
             this.labelProgress.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
             this.labelProgress.Name = "labelProgress";
             this.labelProgress.Size = new System.Drawing.Size(38, 13);
@@ -470,8 +452,6 @@
         private System.Windows.Forms.ContextMenuStrip contextMenu;
         private System.Windows.Forms.ToolStripMenuItem sortContextMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparatorMainSettings;
-        private System.Windows.Forms.ToolStripMenuItem helpContextMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem regularExpressionsContextMenuItem;
         private System.Windows.Forms.ToolStripMenuItem undoContextMenuItem;
         private System.Windows.Forms.ToolStripMenuItem invertSelectionContextMenuItem;
         private System.Windows.Forms.ToolStripMenuItem clearSelectionContextMenuItem;
