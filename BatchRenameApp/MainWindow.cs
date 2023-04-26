@@ -367,11 +367,6 @@ namespace BatchRenameApp
             UpdatePreview();
         }
 
-        private void CollabsibleGroupBoxFiles_Click(object sender, EventArgs e)
-        {
-            listBoxFilelist.ClearSelected();
-        }
-
         private void LinkLabelRegex_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Process.Start("https://docs.microsoft.com/en-us/dotnet/standard/base-types/regular-expression-language-quick-reference");
@@ -464,11 +459,6 @@ namespace BatchRenameApp
             History.Push(listBoxFilelist);
             RemoveSelection();
             UpdatePreview();
-        }
-
-        private void RegularExpressionsContextMenuItem_Click(object sender, EventArgs e)
-        {
-            Process.Start("https://www.google.com/#sclient=psy-ab&q=regular+expression+cheat+sheet");
         }
 
         private void RedoContextMenuItem_Click(object sender, EventArgs e)
@@ -639,8 +629,9 @@ namespace BatchRenameApp
                 {
                     result = (PreviewResult)e.Result;
                 }
-                catch
+                catch(Exception ex)
                 {
+                    Console.WriteLine(ex.Message);
                 }
 
                 listBoxPreview.Items.Clear();
@@ -648,8 +639,9 @@ namespace BatchRenameApp
                 {
                     listBoxPreview.Items.AddRange(result.PreviewList);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
+                    Console.WriteLine(ex.Message);
                 }
                 listBoxPreview.EndUpdate();
                 labelMatched.Text = String.Format("Matched: {0}", result.MatchedCount);

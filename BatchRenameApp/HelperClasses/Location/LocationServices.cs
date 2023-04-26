@@ -43,11 +43,10 @@ namespace BatchRenameApp
                 client.Headers["User-Agent"] = "Mozilla/5.0 (Windows; U; Windows NT 6.0; en-US; rv:1.9.2.6) Gecko/20100625 Firefox/3.6.6 (.NET CLR 3.5.30729)";
                 client.Headers["Accept"] = "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8";
                 client.Headers["Accept-Language"] = "en-us,en;q=0.5";
-                client.Headers["Accept-Encoding"] = "gzip";
                 client.Headers["Accept-Charset"] = "ISO-8859-1,utf-8;q=0.7,*;q=0.7";
                 XmlReader xmlreader;
 
-                var responseStream = new GZipStream(client.OpenRead(address), CompressionMode.Decompress);
+                var responseStream = client.OpenRead(address);
 
                 xmlreader = XmlReader.Create(responseStream);
 
