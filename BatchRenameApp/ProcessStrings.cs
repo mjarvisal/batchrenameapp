@@ -219,7 +219,7 @@ namespace BatchRenameApp
                 output = output.Replace("%timenow%", DateTime.Now.ToString(timeformat));
                 output = output.Replace("%fnc%", EvaluateFunctionString(function, number));
 
-                if (output.Contains("%loc%"))
+                if (output.Contains("%loc%") || output.Contains("%city%") || output.Contains("%country%"))
                 {
                     double[] location = GetGPSLocationFromImage(file.FullName);
 
@@ -246,6 +246,8 @@ namespace BatchRenameApp
                         string geoLocationCity = LocationNames[1];
                         string geoLocation = string.Format("{0},{1}", geoLocationCity, geoLocationCountry);
                         output = output.Replace("%loc%", geoLocation);
+                        output = output.Replace("%city%", geoLocationCity);
+                        output = output.Replace("%country%", geoLocationCountry);
                     }
                     else
                     {
