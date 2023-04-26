@@ -9,6 +9,14 @@ Use regex groups to delete parts of the name or reorder parts.
 Right click context menu for sorting, selecting and undo&redo.  
 Support for various number and date/time formats in settings.  
 
+![Main view](Screenshots/BatchRenameApp1.png)
+
+![Renaming files](Screenshots/BatchRenameApp2.png)
+
+![Context menu and tags](Screenshots/BatchRenameApp3.png)
+
+![Settings](Screenshots/BatchRenameApp4.png)
+
 #Features  
 * Rename using Regular Expression search strings
 * Tags for generic, file attributes and Exif information
