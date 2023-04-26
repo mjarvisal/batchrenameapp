@@ -38,6 +38,8 @@ namespace BatchRenameApp
             List<Tag> exifTags = new List<Tag>
             {
               new Tag("%loc%","Finds city and country"),
+              new Tag("%datetaken%","Date when photo was taken"),
+              new Tag("%timetaken%","Time when photo was taken"),
             };
 
             foreach (string tag in Program.mainWindowForm.exifEnumTypes)
